@@ -7,16 +7,9 @@
         <title>Web Monitoring SPPD</title>
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
         <link rel="stylesheet" href="/css/style.css">
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap.min.css">
 
     </head>
     <body>
@@ -105,13 +98,18 @@
                                 </td>
                                 <td>
                                     <table class="table table-borderless">
-                                        <tr><td>IPA dibuat</td></tr>
+                                        <tr><td class="table-status-1">IPA dibuat</td></tr>
                                         <tr><td>IPA selesai</td></tr>
-                                        <tr><td>PP dibuat</td></tr>
+                                        <tr><td class="table-status-2">PP dibuat</td></tr>
                                         <tr><td>PP selesai</td></tr>
                                     </table>
                                 </td>
-                                <td></td>
+                                <td>
+                                    <table class="table table-borderless">
+                                        <tr><td class="table-hari-1">5</td></tr>
+                                        <tr><td class="table-hari-2">11</td></tr>
+                                    </table>
+                                </td>
                                 <td align="center"><a href=" {{ route('sppd.edit', ['id' => $sppd->id]) }}" class="badge bg-info">Perbarui Status</a></td>
                             </tr>
                         </tbody>
@@ -123,45 +121,21 @@
         <!--Footer-->
         <div class="footer footer-index">
             <p class="text-center">©2021 PT Jasamarga Tollroad Maintenance</p>
-        </div>
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#table-sppd').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{url('kliping')}}',
-                columns: [
-                    {
-                    render: function (data, type, row, meta) {
-                        return meta.row + meta.settings._iDisplayStart + 1;
-                    },
-                    },
-                    {
-                    data: 'sppd_no'
-                    },
-                    {
-                    data: 'sppd_alasan'
-                    },
-                    {
-                    data: 'sppd_status'
-                    },
-                    {
-                    data: 'tgl_berita'
-                    },
-                    {
-                    "render": function ( data, type, row ) {
-                        return '<button class="badge bg-info" onclick="terima('+row.id')">Perbarui Status</button>'
-                    }
-                    }
-                ],
-                });
-            });
-            </script>      
+        </div>   
     </body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $('.table-hari-1').each(function(i, n) {
+            if($(n).text() < 5) $('.table-status-1').css('background-color', 'lightgreen');
+            if(4 < $(n).text() && $(n).text() < 10) $('.table-status-1').css('background-color', 'lightgoldenrodyellow');
+            if($(n).text() > 9) $('.table-status-1').css('background-color', 'lightred');
+         });
+         $('.table-hari-2').each(function(i, n) {
+            if($(n).text() < 5) $('.table-status-2').css('background-color', 'lightgreen');
+            if(4 < $(n).text() && $(n).text() < 10) $('.table-status-2').css('background-color', 'lightyellow');
+            if($(n).text() > 9) $('.table-status-2').css('background-color', 'lightpink');
+         });
+    </script>
 </html>
