@@ -7,9 +7,11 @@
         <title>Web Monitoring SPPD</title>
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/style.css">
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/css/style.css">
 
     </head>
     <body>
@@ -30,7 +32,7 @@
                     <div class="col-7 mt-4 table-responsive">
                         <table class="table table-striped table-bordered">
                             <thead>
-                                <tr class="text-center">
+                                <tr>
                                     <th class="table-danger">Lebih dari 10 hari</th>
                                     <th class="table-warning">4 - 10 hari</th>
                                     <th class="table-success">< 4 hari</th>
@@ -54,16 +56,15 @@
                 </div>
 
                 <!--Tabel Data-->
-                <div class="tabel-list mt-4 table-responsive">
-                    <table id="table-sppd" class="table table-striped table-bordered">
-                        <thead>
-                            <tr class="text-center">
+                <div class="tabel-list mt-5 table-responsive">
+                    <table id="tableId" class="table table-striped table-bordered align-middle text-center">
+                        <thead class="text-center">
+                            <tr>
                                 <th>Nomor</th>
                                 <th>Nomor SPPD <br> Nomor IPA <br> Nomor PP</th>
                                 <th>Perihal</th>
                                 <th>Status Sekarang</th>
                                 <th>Keterangan Status</th>
-                                <th>Jumlah Hari dari Ajuan Dimulai</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -97,17 +98,21 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <table class="table table-borderless">
-                                        <tr><td class="table-status-1">IPA dibuat</td></tr>
-                                        <tr><td>IPA selesai</td></tr>
-                                        <tr><td class="table-status-2">PP dibuat</td></tr>
-                                        <tr><td>PP selesai</td></tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table class="table table-borderless">
-                                        <tr><td class="table-hari-1">5</td></tr>
-                                        <tr><td class="table-hari-2">11</td></tr>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <td class="table-status-1">IPA dibuat</td>
+                                            <td rowspan="2" class="table-hari-1 align-middle">5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>IPA selesai</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-status-2">PP dibuat</td>
+                                            <td rowspan="2" class="table-hari-2 align-middle">11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PP selesai</td>
+                                        </tr>
                                     </table>
                                 </td>
                                 <td align="center"><a href=" {{ route('sppd.edit', ['id' => $sppd->id]) }}" class="badge bg-info">Perbarui Status</a></td>
@@ -119,21 +124,23 @@
         </div>
 
         <!--Footer-->
-        <div class="footer footer-index">
+        <div class="footer mt-5">
             <p class="text-center">©2021 PT Jasamarga Tollroad Maintenance</p>
         </div>   
     </body>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
         $('.table-hari-1').each(function(i, n) {
-            if($(n).text() < 5) $('.table-status-1').css('background-color', 'lightgreen');
+            if(0 < $(n).text() && $(n).text()  < 5) $('.table-status-1').css('background-color', 'lightgreen');
             if(4 < $(n).text() && $(n).text() < 10) $('.table-status-1').css('background-color', 'lightgoldenrodyellow');
             if($(n).text() > 9) $('.table-status-1').css('background-color', 'lightred');
          });
          $('.table-hari-2').each(function(i, n) {
-            if($(n).text() < 5) $('.table-status-2').css('background-color', 'lightgreen');
+            if(0 < $(n).text() && $(n).text() < 5) $('.table-status-2').css('background-color', 'lightgreen');
             if(4 < $(n).text() && $(n).text() < 10) $('.table-status-2').css('background-color', 'lightyellow');
             if($(n).text() > 9) $('.table-status-2').css('background-color', 'lightpink');
          });

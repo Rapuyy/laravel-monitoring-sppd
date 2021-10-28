@@ -21,7 +21,6 @@
 
 table {
 font-family: arial, sans-serif;
-border-collapse: collapse;
 width: 100%;
 }
 
@@ -37,10 +36,10 @@ span {
     color: red;
 }
 
-.table-borderless{
-    border: 0;
+.table-borderless th,td{
+    border: 0 ;
 }
 
-.table-hari-1 {
-    height: 20px;
+th{
+    text-align: center !important;
 }
