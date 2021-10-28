@@ -1,0 +1,42 @@
+.navbar{
+    background-image: linear-gradient(to right, #000248, #0C4F89, #189ECC);
+}
+.footer{
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    line-height: 50px; 
+    background-image: linear-gradient(to right, #000248, #0C4F89, #189ECC);
+    color: #fff;
+}
+
+.footer-index{
+    width: 100%;
+    height: 50px;
+    padding-left: 10px;
+    line-height: 50px; 
+    background-image: linear-gradient(to right, #000248, #0C4F89, #189ECC);
+    color: #fff;
+}
+
+table {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th {
+border: 1px solid #dddddd;
+}
+
+tr:nth-child(even) {
+background-color: #dddddd;
+}
+
+span {
+    color: red;
+}
+
+.table-borderless{
+    border: 0;
+}
