@@ -80,28 +80,33 @@
                                 <td>{{ $sppd->sppd_alasan }}</td>
                                 <td>
                                     @if ($sppd->status == "0")
-                                        {{ __('IPA Belum dibuat') }}
+                                        {{ __('IPA Belum Dibuat') }}
                                     @elseif ($sppd->status == "1")
-                                        {{ __('IPA Sudah dibuat') }}
+                                        {{ __('IPA Sudah Dibuat') }}
                                     @elseif ($sppd->status == "2")
-                                        {{ __('IPA Sudah diapprove') }}
+                                        {{ __('IPA Sudah Diapprove') }}
                                     @elseif ($sppd->status == "3")
-                                        {{ __('IPA Sudah selesai') }}    
+                                        {{ __('IPA Sudah Selesai') }}    
                                     @elseif ($sppd->status == "10")
-                                        {{ __('PP Belum dibuat') }}   
+                                        {{ __('PP Belum Dibuat') }}   
                                     @elseif ($sppd->status == "11")
-                                        {{ __('PP Sudah dibuat') }}
+                                        {{ __('PP Sudah Dibuat') }}
                                     @elseif ($sppd->status == "12")
-                                        {{ __('PP Sudah diapprove') }}
+                                        {{ __('PP Sudah Diapprove') }}
                                     @elseif ($sppd->status == "13")
-                                        {{ __('PP Sudah selesai') }}     
+                                        {{ __('PP Sudah Selesai') }}     
                                     @endif
                                 </td>
                                 <td>
                                     <table class="table table-striped">
                                         <tr>
                                             <td class="table-status-1">IPA dibuat</td>
-                                            <td rowspan="2" class="table-hari-1 align-middle">5</td>
+                                            <td rowspan="2" class="table-hari-1 align-middle">
+                                                {{-- {{ $sppd->ipa_tgl_dibuat ? ($today->diff($sppd->ipa_tgl_dibuat)->format("%a")) : "-" }} --}}
+                                                {{-- {{ date_diff($today,$sppd->ipa_tgl_dibuat)->format("%a")}} --}}
+                                                {{-- {{ $diff = Carbon\Carbon::parse($today)->diffindays($sppd->ipa_tgl_dibuat) }} --}}
+                                                {{ $today->diffindays($sppd->ipa_tgl_dibuat) }}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>IPA selesai</td>

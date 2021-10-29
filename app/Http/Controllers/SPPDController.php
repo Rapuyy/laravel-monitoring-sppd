@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sppd;
 use Session;
+use Illuminate\Support\Carbon;
 /*
 use DataTables;
 use App\DataTables\sppdDataTable;
@@ -19,7 +20,10 @@ class SppdController extends Controller
     public function index()
     { 
         $sppd_list = Sppd::all();
-        return view('index', compact('sppd_list'));
+        $today = Carbon::now()->format('Y-m-d');
+        $today = Carbon::parse($today);
+        // dd("2021-11-10"->diff($today));
+        return view('index', compact(['sppd_list', 'today']));
     }
 /*
     public function index2(EmployeeDataTable $dataTable){
@@ -52,6 +56,35 @@ class SppdController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function updateStatus($sppd) //dipake store sama update
+    {
+        if ($sppd->sppd_no) { //ipa
+            $sppd->status = 0;
+            if ($sppd->ipa_tgl_dibuat && $sppd->ipa_no) {
+                $sppd->status = 1;
+                if ($sppd->ipa_tgl_approval) {
+                    $sppd->status = 2;
+                    if ($sppd->ipa_tgl_selesai) {
+                        $sppd->status = 3;
+                        if ($sppd->pp_no) {
+                            $sppd->status = 11; //pp
+                            if ($sppd->pp_tgl_dibuat) {
+                                $sppd->status = 11;
+                                if ($sppd->pp_tgl_approval) {
+                                    $sppd->status = 12;
+                                    if ($sppd->pp_tgl_selesai) {
+                                        $sppd->status = 13;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $sppd->status;
+    }
     public function store(Request $request)
     {
         // $rules = [
@@ -170,6 +203,8 @@ class SppdController extends Controller
         $sppd->pp_tgl_dibuat = $request->pp_tgl_dibuat;
         $sppd->pp_tgl_approval = $request->pp_tgl_approval;
         $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
+
+        $sppd->status = $this->updateStatus($sppd);
 
         $simpan = $sppd->update();
 

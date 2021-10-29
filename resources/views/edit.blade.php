@@ -109,7 +109,7 @@
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="buatIPA" class="form-label">Tanggal IPA diajukan</label>
-                          <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA" value="{{ $sppd->ipa_tgl_approval }}">
+                          <input type="date" name="ipa_tgl_approval" class="form-control" id="buatIPA" value="{{ $sppd->ipa_tgl_approval }}">
                         </div>
                         <div class="mb-3">
                            <label for="selesaiIPA" class="form-label">Tanggal IPA selesai</label>
