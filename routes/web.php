@@ -23,5 +23,3 @@ Route::get('/add', [SPPDController::class, 'create'])->name('sppd.add');
 Route::post('/add', [SPPDController::class, 'store'])->name('sppd.store');
 Route::get('/edit/{id}', [SPPDController::class, 'edit'])->name('sppd.edit');
 Route::post('/update', [SPPDController::class, 'update'])->name('sppd.update');
-
-//Route::get('/sppd', [SPPDController::class, 'getKliping']);
