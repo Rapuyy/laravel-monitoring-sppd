@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sppd;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Support\Carbon;
 /*
@@ -19,9 +20,37 @@ class SppdController extends Controller
      */
     public function index()
     { 
-        $sppd_list = Sppd::all();
+        $sppd_list = Sppd::select(DB::raw('DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) as ipa_time, 
+                                    DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) as pp_time,
+                                    id, sppd_no, ipa_no, pp_no, pegawai, sppd_tujuan, sppd_alasan, sppd_kendaraan, keterangan, 
+                                    status, tgl_berangkat, tgl_pulang, ipa_tgl_dibuat, ipa_tgl_selesai,
+                                    pp_tgl_dibuat'))
+                    ->get();
+        
+        // $stat_counter = Sppd::select(DB::raw('DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) as ipa_time, 
+        //                                         DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) as pp_time,
+        //                                         sum(case 
+        //                                         when ipa_time < 4 and pp_time < 4 then 2
+        //                                         when ipa_time < 4 and pp_time >= 4 then 1
+        //                                         when ipa_time >= 4 and pp_time < 4 then 1
+        //                                         when ipa_time >= 4 and pp_time >= 4 then 0
+        //                                         else 0 end) as count_green
+        //                                     '))
+        //             ->get();
+        // DB::select( DB::raw("SELECT DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) as ipa_time, 
+        //                             DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) as pp_time,
+        //                             sum(case 
+        //                                 when ipa_time < 4 and pp_time < 4 then 2
+        //                                 when ipa_time < 4 and pp_time >= 4 then 1
+        //                                 when ipa_time >= 4 and pp_time < 4 then 1
+        //                                 when ipa_time >= 4 and pp_time >= 4 then 0
+        //                                 else 0 end) as count_green
+        //                      FROM sppd") );
+        
+
         $today = Carbon::now()->format('Y-m-d');
         $today = Carbon::parse($today);
+        // $date_diff = DB::select( DB::raw("SELECT DATEDIFF(ipa_tgl_dibuat, ipa_tgl_selesai) as ipa_time, DATEDIFF(pp_tgl_dibuat, pp_tgl_selesai) as pp_time FROM sppd") );
         // dd("2021-11-10"->diff($today));
         return view('index', compact(['sppd_list', 'today']));
     }
@@ -128,6 +157,7 @@ class SppdController extends Controller
 
         $sppd = new Sppd;
         $sppd->sppd_no = $request->sppd_no;
+        $sppd->pegawai = $request->pegawai;
         $sppd->sppd_tujuan = $request->sppd_tujuan;
         $sppd->sppd_kendaraan = $request->sppd_kendaraan;
         $sppd->sppd_alasan = $request->sppd_alasan;
@@ -190,6 +220,7 @@ class SppdController extends Controller
         $sppd = Sppd::find($request->id);
         
         $sppd->sppd_no = $request->sppd_no;
+        $sppd->pegawai = $request->pegawai;
         $sppd->sppd_tujuan = $request->sppd_tujuan;
         $sppd->sppd_kendaraan = $request->sppd_kendaraan;
         $sppd->sppd_alasan = $request->sppd_alasan;
@@ -217,14 +248,9 @@ class SppdController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $deletedUser = Sppd::where('id', $id)->delete();
+        return back()->with('success', 'User successfully deleted');
     }
 }

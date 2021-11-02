@@ -20,7 +20,7 @@
         <!-- Navigation Bar-->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand ms-2" href="#" style="color: aliceblue;">Web Monitoring SPPD</a>
+              <a class="navbar-brand ms-2" href="/" style="color: aliceblue;">Web Monitoring SPPD</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -65,6 +65,14 @@
                         </div>
                 </div>
                 <div class="col-sm-8 mt-2">
+                          <div class="mb-3">
+                            <label for="pegawai" class="form-label">Nama Pegawai</label>
+                            <span>*</span>
+                            <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required>
+                            @error('pegawai')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
                         <div class="mb-3">
                           <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
                           <span>*</span>

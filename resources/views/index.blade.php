@@ -18,7 +18,7 @@
         <!-- Navigation Bar-->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand ms-2" href="#" style="color: aliceblue;">Web Monitoring SPPD</a>
+              <a class="navbar-brand ms-2" href="/" style="color: aliceblue;">Web Monitoring SPPD</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -62,7 +62,7 @@
                             <tr>
                                 <th>Nomor</th>
                                 <th>Nomor SPPD <br> Nomor IPA <br> Nomor PP</th>
-                                <th>Perihal</th>
+                                <th>Perihal <br> Pegawai</th>
                                 <th>Status Sekarang</th>
                                 <th>Keterangan Status</th>
                                 <th>Aksi</th>
@@ -77,7 +77,10 @@
                                     {{ $sppd->ipa_no ? $sppd->ipa_no : "IPA Belum diisi" }} <br><hr>
                                     {{ $sppd->pp_no ? $sppd->pp_no : "PP Belum diisi" }}
                                 </td>
-                                <td>{{ $sppd->sppd_alasan }}</td>
+                                <td>
+                                    {{ $sppd->sppd_alasan }} <br><hr>
+                                    {{ $sppd->pegawai }}
+                                </td>
                                 <td>
                                     @if ($sppd->status == "0")
                                         {{ __('IPA Belum Dibuat') }}
@@ -98,35 +101,79 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <table class="table table-striped">
+                                
+                                    <table class="table table-striped ket-status">
                                         <tr>
-                                            <td class="table-status-1">IPA dibuat</td>
-                                            <td rowspan="2" class="table-hari-1 align-middle">
-                                                {{-- {{ $sppd->ipa_tgl_dibuat ? ($today->diff($sppd->ipa_tgl_dibuat)->format("%a")) : "-" }} --}}
-                                                {{-- {{ date_diff($today,$sppd->ipa_tgl_dibuat)->format("%a")}} --}}
-                                                {{-- {{ $diff = Carbon\Carbon::parse($today)->diffindays($sppd->ipa_tgl_dibuat) }} --}}
-                                                {{ $today->diffindays($sppd->ipa_tgl_dibuat) }}
+                                            <td class="table-status">IPA dibuat</td>
+                                            <td class="table-hari align-middle">
+                                                {{-- //belum dibuat --}}
+                                                @if (($sppd->ipa_tgl_dibuat) == null) 
+                                                {{ "-" }}
+                                                {{-- //lagi proses --}}
+                                                @else 
+                                                    @if (($sppd->ipa_tgl_selesai) == null)
+                                                        @if ($today->diffindays($sppd->ipa_tgl_dibuat) != 0)
+                                                            {{ $today->diffindays($sppd->ipa_tgl_dibuat) }}
+                                                        {{-- //kalo < 1 hari --}}
+                                                        @else 
+                                                            {{ "1" }}
+                                                        @endif
+                                                    {{-- // counter jika sudah selesai --}}
+                                                    @else 
+                                                       {{ $sppd->ipa_time }}
+                                                    @endif
+                                                @endif
+                                                {{__(' hari')}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>IPA selesai</td>
+                                            <td class="table-status">IPA selesai</td>
+                                            <td class="table-hari align middle"></td>
                                         </tr>
                                         <tr>
-                                            <td class="table-status-2">PP dibuat</td>
-                                            <td rowspan="2" class="table-hari-2 align-middle">11</td>
+                                            <td class="table-status">PP dibuat</td>
+                                            <td class="table-hari align-middle">
+                                                {{-- //belum dibuat --}}
+                                                @if (($sppd->ipa_tgl_dibuat) == null) 
+                                                {{ "-" }}
+                                                {{-- //lagi proses --}}
+                                                @else 
+                                                    @if (($sppd->pp_tgl_selesai) == null)
+                                                        @if ($today->diffindays($sppd->pp_tgl_dibuat) != 0)
+                                                            {{ $today->diffindays($sppd->pp_tgl_dibuat) }}
+                                                        {{-- //kalo < 1 hari --}}
+                                                        @else 
+                                                            {{ "1" }}
+                                                        @endif
+                                                    {{-- // counter jika sudah selesai --}}
+                                                    @else 
+                                                        {{ $sppd->pp_time }}
+                                                    @endif
+                                                @endif
+                                                {{__(' hari')}}
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td>PP selesai</td>
+                                            <td class="table-status">PP selesai</td>
+                                            <td class="table-hari align-middle"></td>
                                         </tr>
                                     </table>
                                 </td>
-                                <td align="center"><a href=" {{ route('sppd.edit', ['id' => $sppd->id]) }}" class="badge bg-info">Perbarui Status</a></td>
+                                <td align="center">
+                                    <a href=" {{ route('sppd.edit', ['id' => $sppd->id]) }}" class="btn btn-info">Perbarui Status</a>
+                                    <form action="{{ route('sppd.delete', ['id' => $sppd->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger mb-1">{{ __('Hapus') }}</button>
+                                    </form>
+                                </td>
                             </tr>
                         </tbody>
                         @endforeach
                     </table>
                 </div>
         </div>
+
 
         <!--Footer-->
         <div class="footer mt-5">
@@ -138,16 +185,30 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+    
     <script>
-        $('.table-hari-1').each(function(i, n) {
-            if(0 < $(n).text() && $(n).text()  < 5) $('.table-status-1').css('background-color', 'lightgreen');
-            if(4 < $(n).text() && $(n).text() < 10) $('.table-status-1').css('background-color', 'lightgoldenrodyellow');
-            if($(n).text() > 9) $('.table-status-1').css('background-color', 'lightred');
+        $('.table-hari').each(function () {
+        var hari = parseInt($(this).text());
+        if ((hari >= 0) && (hari <= 4)) {
+          $(this).siblings().css('background-color', 'lightgreen');
+        } else if ((hari > 4) && (hari < 10)) {
+          $(this).siblings().css('background-color', 'lightgoldenrodyellow');
+        } else if (hari >= 10) {
+          $(this).siblings().css('background-color', 'lightpink');
+        } else {
+          $(this).siblings().css('background-color', 'default');
+        }
+      });
+        /*$('.table-hari').each(function(i, n) {
+            if(0 < $(n).text() && $(n).text()  < 5) $('.table-status').css('background-color', 'lightgreen');
+            if(4 < $(n).text() && $(n).text() < 10) $('.table-status').css('background-color', 'lightgoldenrodyellow');
+            if($(n).text() > 9) $('.table-status').css('background-color', 'lightred');
          });
-         $('.table-hari-2').each(function(i, n) {
-            if(0 < $(n).text() && $(n).text() < 5) $('.table-status-2').css('background-color', 'lightgreen');
-            if(4 < $(n).text() && $(n).text() < 10) $('.table-status-2').css('background-color', 'lightyellow');
-            if($(n).text() > 9) $('.table-status-2').css('background-color', 'lightpink');
-         });
+         $('.table-hari').each(function(i, n) {
+            if(0 < $(n).text() && $(n).text() < 5) $('.table-status').css('background-color', 'lightgreen');
+            if(4 < $(n).text() && $(n).text() < 10) $('.table-status').css('background-color', 'lightyellow');
+            if($(n).text() > 9) $('.table-status').css('background-color', 'lightpink');
+         });*/
     </script>
 </html>

@@ -20,7 +20,7 @@
         <!-- Navigation Bar-->
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-              <a class="navbar-brand ms-2" href="#" style="color: aliceblue;">Web Monitoring SPPD</a>
+              <a class="navbar-brand ms-2" href="/" style="color: aliceblue;">Web Monitoring SPPD</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -30,7 +30,7 @@
         <!--Content-->
 
         <div class="container mt-3">
-            <h2>Formulir Input Laporan SPPD</h2>
+            <h2>Formulir Update Laporan SPPD</h2>
 
             <div class="row mt-4">
                 <h4 class="border-bottom">Surat Perintah Perjalanan Dinas (SPPD)</h4>
@@ -39,11 +39,11 @@
                     <form action="{{ route('sppd.update') }}" method="post">
                       @csrf
                       @method('POST')
-                      <input type="hidden" name="id" value="{{ $sppd->id }}">
+                      <input disabled type="hidden" name="id" value="{{ $sppd->id }}">
                         <div class="mb-3">
                           <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
                           <span>*</span>
-                          <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required value="{{ $sppd->sppd_no }}">
+                          <input disabled type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required value="{{ $sppd->sppd_no }}">
                           @error('nomorSPPD')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -51,7 +51,7 @@
                         <div class="mb-3">
                            <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
                            <span>*</span>
-                           <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required value="{{ $sppd->sppd_tujuan }}">
+                           <input disabled type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required value="{{ $sppd->sppd_tujuan }}">
                            @error('tujuan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -59,7 +59,7 @@
                         <div class="mb-3">
                            <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
                            <span>*</span>
-                           <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required value="{{ $sppd->sppd_kendaraan }}">
+                           <input disabled type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required value="{{ $sppd->sppd_kendaraan }}">
                            @error('angkutan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -67,9 +67,17 @@
                 </div>
                 <div class="col-sm-8 mt-2">
                         <div class="mb-3">
+                          <label for="pegawai" class="form-label">Nama Pegawai</label>
+                          <span>*</span>
+                          <input disabled type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required value="{{ $sppd->pegawai }}">
+                          @error('pegawai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </div>
+                        <div class="mb-3">
                           <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
                           <span>*</span>
-                          <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required value="{{ $sppd->sppd_alasan }}">
+                          <input disabled type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required value="{{ $sppd->sppd_alasan }}">
                           @error('maksud')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -78,12 +86,12 @@
                            <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
                            <span>*</span>
                            <div class="input-group">
-                                <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required value="{{ $sppd->tgl_berangkat }}">
+                                <input disabled type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required value="{{ $sppd->tgl_berangkat }}">
                                 <span class="input-group-btn"></span>
                                 @error('waktuawal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required value="{{ $sppd->tgl_pulang }}">
+                                <input disabled type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required value="{{ $sppd->tgl_pulang }}">
                                 <span class="input-group-btn"></span>
                                 @error('waktuakhir')
                                 <div class="invalid-feedback">{{ $message }}</div>

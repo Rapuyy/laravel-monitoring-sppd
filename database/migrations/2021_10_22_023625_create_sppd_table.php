@@ -18,6 +18,7 @@ class CreateSppdTable extends Migration
             $table->string('sppd_no');
             $table->string('ipa_no')->nullable();
             $table->string('pp_no')->nullable();
+            $table->string('pegawai');
             $table->string('sppd_tujuan');
             $table->string('sppd_alasan');
             $table->string('sppd_kendaraan');

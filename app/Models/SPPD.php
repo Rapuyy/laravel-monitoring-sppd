@@ -19,6 +19,7 @@ class Sppd extends Model
         'sppd_no',
         'ipa_no',
         'pp_no',
+        'pegawai',
         'sppd_tujuan',
         'sppd_alasan',
         'sppd_kendaraan',
