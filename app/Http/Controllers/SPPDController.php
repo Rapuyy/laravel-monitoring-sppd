@@ -7,10 +7,8 @@ use App\Models\Sppd;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Support\Carbon;
-/*
 use DataTables;
-use App\DataTables\sppdDataTable;
-*/
+
 class SppdController extends Controller
 {
     /**
@@ -54,11 +52,6 @@ class SppdController extends Controller
         // dd("2021-11-10"->diff($today));
         return view('index', compact(['sppd_list', 'today']));
     }
-/*
-    public function index2(EmployeeDataTable $dataTable){
-        return $dataTable->render('sppd');
-    }
-*/
     
     /**
      * Show the form for creating a new resource.
@@ -69,15 +62,7 @@ class SppdController extends Controller
     {
         return view('create');
     }
-/*
-    public function getKliping()
-    {
-        $data = Sppd::select('*')
-                ->limit(100)
-                ->get();
-        return DataTables::of($data)->make(true);
-    }
-*/
+
     /**
      * Store a newly created resource in storage.
      *
@@ -183,7 +168,20 @@ class SppdController extends Controller
             Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
             return redirect()->route('sppd.add');
         }
+
+        if ($request->ajax()) {
+            $data = SPPD::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
+
 
     /**
      * Display the specified resource.
