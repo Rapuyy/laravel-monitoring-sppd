@@ -25,32 +25,22 @@ class SppdController extends Controller
                                     pp_tgl_dibuat'))
                     ->get();
         
-        // $stat_counter = Sppd::select(DB::raw('DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) as ipa_time, 
-        //                                         DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) as pp_time,
-        //                                         sum(case 
-        //                                         when ipa_time < 4 and pp_time < 4 then 2
-        //                                         when ipa_time < 4 and pp_time >= 4 then 1
-        //                                         when ipa_time >= 4 and pp_time < 4 then 1
-        //                                         when ipa_time >= 4 and pp_time >= 4 then 0
-        //                                         else 0 end) as count_green
-        //                                     '))
-        //             ->get();
-        // DB::select( DB::raw("SELECT DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) as ipa_time, 
-        //                             DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) as pp_time,
-        //                             sum(case 
-        //                                 when ipa_time < 4 and pp_time < 4 then 2
-        //                                 when ipa_time < 4 and pp_time >= 4 then 1
-        //                                 when ipa_time >= 4 and pp_time < 4 then 1
-        //                                 when ipa_time >= 4 and pp_time >= 4 then 0
-        //                                 else 0 end) as count_green
-        //                      FROM sppd") );
+        $day_status = DB::select( DB::raw("
+                                SELECT green1.total as green1, green2.total as green2, yellow1.total as yellow1, yellow2.total as yellow2, red1.total as red1, red2.total as red2 
+                                from 
+                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) < 4) green1, 
+                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) < 4) green2, 
+                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) >= 4 and DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) < 10) yellow1, 
+                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) >= 4 and DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) < 10) yellow2, 
+                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) >= 10) red1, 
+                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) >= 10) red2
+                                "))[0];
         
-
         $today = Carbon::now()->format('Y-m-d');
         $today = Carbon::parse($today);
         // $date_diff = DB::select( DB::raw("SELECT DATEDIFF(ipa_tgl_dibuat, ipa_tgl_selesai) as ipa_time, DATEDIFF(pp_tgl_dibuat, pp_tgl_selesai) as pp_time FROM sppd") );
         // dd("2021-11-10"->diff($today));
-        return view('index', compact(['sppd_list', 'today']));
+        return view('index', compact(['sppd_list', 'today', 'day_status']));
     }
     
     /**
@@ -215,6 +205,7 @@ class SppdController extends Controller
      */
     public function update(Request $request)
     {
+        // dd($request);
         $sppd = Sppd::find($request->id);
         
         $sppd->sppd_no = $request->sppd_no;

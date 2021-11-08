@@ -123,6 +123,12 @@
                            <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
                         </div>
                 </div>
+                <div class="col-sm-4 mt-2">
+                        <div class="mb-3">
+                          <label for="buatIPA" class="form-label">Tanggal IPA di</label>
+                          <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                        </div>
+                </div>
             </div>
 
             <div class="row mt-2">
@@ -140,8 +146,14 @@
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="buatPP" class="form-label">Tanggal IPA dibuat</label>
-                          <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP">
+                          <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
+                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="buatPP">
+                        </div>
+                </div>
+                <div class="col-sm-4 mt-2">
+                        <div class="mb-3">
+                          <label for="buatIPA" class="form-label">Tanggal PP di</label>
+                          <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
                         </div>
                 </div>
             </div>

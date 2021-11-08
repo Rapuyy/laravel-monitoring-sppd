@@ -8,8 +8,12 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         
+        <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/style.css">
 
     </head>
@@ -39,9 +43,9 @@
                             </thead>
                             <tbody>
                                 <tr class="text-center">
-                                    <td>x dokumen</td>
-                                    <td>x dokumen</td>
-                                    <td>x dokumen</td>
+                                    <td>{{ $day_status->red1 + $day_status->red2 }} proses</td>
+                                    <td>{{ $day_status->yellow1 + $day_status->yellow2 }} proses</td>
+                                    <td>{{ $day_status->green1 + $day_status->green2 }} proses</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -56,7 +60,7 @@
 
                 <!--Tabel Data-->
                 <div class="tabel-list mt-5 table-responsive">
-                    <table class="table table-striped table-bordered align-middle text-center yajra-datatable">
+                    <table class="table table-bordered tab align-middle text-center" id="tablesppd">
                         <thead class="text-center">
                             <tr>
                                 <th>Nomor</th>
@@ -67,9 +71,9 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        @foreach ($sppd_list as $sppd)
-                        <tbody>
                         
+                        <tbody>
+                        @foreach ($sppd_list as $sppd)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
@@ -102,7 +106,7 @@
                                 </td>
                                 <td>
                                 
-                                    <table class="table table-striped ket-status">
+                                    <table class="table table-borderless ket-status">
                                         <tr>
                                             <td class="table-status">IPA dibuat</td>
                                             <td class="table-hari align-middle">
@@ -134,7 +138,7 @@
                                             <td class="table-status">PP dibuat</td>
                                             <td class="table-hari align-middle">
                                                 {{-- //belum dibuat --}}
-                                                @if (($sppd->ipa_tgl_dibuat) == null) 
+                                                @if (($sppd->pp_tgl_dibuat) == null) 
                                                 {{ "-" }}
                                                 {{-- //lagi proses --}}
                                                 @else 
@@ -147,7 +151,7 @@
                                                         @endif
                                                     {{-- // counter jika sudah selesai --}}
                                                     @else 
-                                                        {{ $sppd->pp_time }}
+                                                       {{ $sppd->pp_time }}
                                                     @endif
                                                 @endif
                                                 {{__(' hari')}}
@@ -168,8 +172,8 @@
                                     </form>
                                 </td>
                             </tr>
-                        </tbody>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
         </div>
@@ -182,61 +186,24 @@
     </body>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
-        $('.table-hari').each(function () {
-        var hari = parseInt($(this).text());
-        if ((hari >= 0) && (hari <= 4)) {
-          $(this).siblings().css('background-color', 'lightgreen');
-        } else if ((hari > 4) && (hari < 10)) {
-          $(this).siblings().css('background-color', 'lightgoldenrodyellow');
-        } else if (hari >= 10) {
-          $(this).siblings().css('background-color', 'lightpink');
-        } else {
-          $(this).siblings().css('background-color', 'default');
-        }
-      });
-        /*$('.table-hari').each(function(i, n) {
-            if(0 < $(n).text() && $(n).text()  < 5) $('.table-status').css('background-color', 'lightgreen');
-            if(4 < $(n).text() && $(n).text() < 10) $('.table-status').css('background-color', 'lightgoldenrodyellow');
-            if($(n).text() > 9) $('.table-status').css('background-color', 'lightred');
-         });
-         $('.table-hari').each(function(i, n) {
-            if(0 < $(n).text() && $(n).text() < 5) $('.table-status').css('background-color', 'lightgreen');
-            if(4 < $(n).text() && $(n).text() < 10) $('.table-status').css('background-color', 'lightyellow');
-            if($(n).text() > 9) $('.table-status').css('background-color', 'lightpink');
-         });*/
-    </script>
-    <script type="text/javascript">
-        $(function () {
-          
-          var table = $('.yajra-datatable').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('sppd') }}",
-              columns: [
-                  {data: 'id', name: 'id'},
-                  {data: 'sppd_no', name: 'sppd_no'},
-                  {data: 'ipa_no', name: 'ipa_no'},
-                  {data: 'pp_no', name: 'pp_no'},
-                  {data: 'sppd_tujuan', name: 'sppd_tujuan'},
-                  {data: 'sppd_alasan', name: 'sppd_alasan'},
-                  {data: 'sppd_kendaraan', name: 'sppd_kendaraan'},
-                  {data: 'tgl_berangkat', name: 'tgl_berangkat'},
-                  {data: 'tgl_pulang', name: 'tgl_pulang'},
-                  {
-                      data: 'action', 
-                      name: 'action', 
-                      orderable: true, 
-                      searchable: true
-                  },
-              ]
+            $('.table-hari').each(function () {
+            var hari = parseInt($(this).text());
+            if ((hari >= 0) && (hari <= 4)) {
+              $(this).siblings().css('background-color', 'lightgreen');
+            } else if ((hari > 4) && (hari <= 10)) {
+              $(this).siblings().css('background-color', 'lightgoldenrodyellow');
+            } else if (hari > 10) {
+              $(this).siblings().css('background-color', 'lightpink');
+            } else {
+              $(this).siblings().css('background-color', 'default');
+            }
           });
-          
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#tablesppd').DataTable();
         });
-      </script>
+        </script>
     
 </html>

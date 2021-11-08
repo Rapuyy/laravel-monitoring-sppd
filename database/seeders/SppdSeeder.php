@@ -88,8 +88,8 @@ class SppdSeeder extends Seeder
                 'tgl_berangkat' => '2021-10-15',
                 'tgl_pulang' => '2021-10-18',
                 'status' => '10',
-                'ipa_tgl_dibuat' => null,
-                'ipa_tgl_selesai' => null,
+                'ipa_tgl_dibuat' => '2021-10-19',
+                'ipa_tgl_selesai' => '2021-11-01',
             ],
             [
                 'id' => '6',

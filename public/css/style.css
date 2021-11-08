@@ -22,6 +22,7 @@
 table {
 font-family: arial, sans-serif;
 width: 100%;
+border-bottom: 1px;
 }
 
 td, th {
@@ -34,10 +35,6 @@ background-color: #dddddd;
 
 span {
     color: red;
-}
-
-.table-borderless th,td{
-    border: 0 ;
 }
 
 th{

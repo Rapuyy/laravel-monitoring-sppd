@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="sppd_no" content="width=device-width, initial-scale=1">
+        <meta name="" content="width=device-width, initial-scale=1">
 
         <title>Web Monitoring SPPD - Update</title>
 
@@ -38,20 +38,20 @@
                 <div class="col-sm-4 mt-2">
                     <form action="{{ route('sppd.update') }}" method="post">
                       @csrf
-                      @method('POST')
-                      <input disabled type="hidden" name="id" value="{{ $sppd->id }}">
+                      @method('post')
+                      <input  type="hidden" name="id" value="{{ $sppd->id }}">
                         <div class="mb-3">
-                          <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
+                          <label for="sppd_no" class="form-label">Nomor SPPD</label>
                           <span>*</span>
-                          <input disabled type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required value="{{ $sppd->sppd_no }}">
-                          @error('nomorSPPD')
+                          <input type="text" name="sppd_no" class="form-control @error('sppd_no') is-invalid @enderror" id="sppd_no" required value="{{ $sppd->sppd_no }}">
+                          @error('sppd_no')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
                         <div class="mb-3">
                            <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
                            <span>*</span>
-                           <input disabled type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required value="{{ $sppd->sppd_tujuan }}">
+                           <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required value="{{ $sppd->sppd_tujuan }}">
                            @error('tujuan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -59,7 +59,7 @@
                         <div class="mb-3">
                            <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
                            <span>*</span>
-                           <input disabled type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required value="{{ $sppd->sppd_kendaraan }}">
+                           <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required value="{{ $sppd->sppd_kendaraan }}">
                            @error('angkutan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -69,7 +69,7 @@
                         <div class="mb-3">
                           <label for="pegawai" class="form-label">Nama Pegawai</label>
                           <span>*</span>
-                          <input disabled type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required value="{{ $sppd->pegawai }}">
+                          <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required value="{{ $sppd->pegawai }}">
                           @error('pegawai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -77,7 +77,7 @@
                         <div class="mb-3">
                           <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
                           <span>*</span>
-                          <input disabled type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required value="{{ $sppd->sppd_alasan }}">
+                          <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required value="{{ $sppd->sppd_alasan }}">
                           @error('maksud')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -86,12 +86,12 @@
                            <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
                            <span>*</span>
                            <div class="input-group">
-                                <input disabled type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required value="{{ $sppd->tgl_berangkat }}">
+                                <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required value="{{ $sppd->tgl_berangkat }}">
                                 <span class="input-group-btn"></span>
                                 @error('waktuawal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <input disabled type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required value="{{ $sppd->tgl_pulang }}">
+                                <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required value="{{ $sppd->tgl_pulang }}">
                                 <span class="input-group-btn"></span>
                                 @error('waktuakhir')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -142,7 +142,7 @@
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="buatPP" class="form-label">Tanggal IPA diajukan</label>
-                          <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP" value="{{ $sppd->pp_tgl_approval }}">
+                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="buatPP" value="{{ $sppd->pp_tgl_approval }}">
                         </div>
                 </div>
             </div>
