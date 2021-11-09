@@ -29,9 +29,6 @@ td, th {
 border: 1px solid #dddddd;
 }
 
-tr:nth-child(even) {
-background-color: #dddddd;
-}
 
 span {
     color: red;

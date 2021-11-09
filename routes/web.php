@@ -26,8 +26,13 @@ Route::get('/detil/{id}', [SPPDController::class, 'detilSPPD'])->name('sppd.deti
 Route::delete('/delete/{id}', [SPPDController::class, 'delete'])->name('sppd.delete');
 Route::post('/update', [SPPDController::class, 'update'])->name('sppd.update');
 Route::post('/updateStatus', [SPPDController::class, 'updateStatus'])->name('sppd.updateStatus');
-Route::get('/detil/{id}/dibuat',[SPPDController::class, 'dibuat']);
-Route::get('/detil/{id}/diajukan',[SPPDController::class, 'diajukan']);
-Route::get('/detil/{id}/disetujui',[SPPDController::class, 'disetujui']);
-Route::get('/detil/{id}/finance',[SPPDController::class, 'finance']);
-Route::get('/detil/{id}/selesai',[SPPDController::class, 'selesai']);
+Route::get('/detil/{id}/0',[SPPDController::class, 'dibuat']);
+Route::get('/detil/{id}/1',[SPPDController::class, 'diajukan']);
+Route::get('/detil/{id}/2',[SPPDController::class, 'disetujui']);
+Route::get('/detil/{id}/3',[SPPDController::class, 'finance']);
+Route::get('/detil/{id}/4',[SPPDController::class, 'selesai']);
+Route::get('/detil/{id}/10',[SPPDController::class, 'ppdibuat']);
+Route::get('/detil/{id}/11',[SPPDController::class, 'ppdiajukan']);
+Route::get('/detil/{id}/12',[SPPDController::class, 'ppdisetujui']);
+Route::get('/detil/{id}/13',[SPPDController::class, 'ppfinance']);
+Route::get('/detil/{id}/14',[SPPDController::class, 'ppselesai']);

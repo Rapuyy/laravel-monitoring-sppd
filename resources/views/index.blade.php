@@ -100,6 +100,8 @@
                                         {{ __('PP Menunggu Tanda Tangan Approval') }}  
                                     @elseif ($sppd->status == "14")
                                         {{ __('PP Menunggu Tanda Tangan dari Divisi Finansial') }}   
+                                    @elseif ($sppd->status == "100")
+                                        {{ __('PP Selesai') }}  
                                     @endif
                                 </td>
                                 <td align="center">

@@ -13,6 +13,8 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <link rel="stylesheet" href="/css/style.css">
 
     </head>
@@ -115,7 +117,7 @@
                   @elseif($sppd->status == "4")
                   <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">IPA Selesai</a></span>
                   @else
-                  <a href="#" class="btn btn-secondary btn-lg" disabled>IPA Selesai</a></span>
+                  <button class="btn btn-secondary" disabled>IPA Selesai</button></span>
                   @endif
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
@@ -151,7 +153,20 @@
 
             <div class="row mt-2">
                 <h4 class=" border-bottom">Permohonan Pembayaran (PP)</h4>
-                <p class="text-muted">Kosongkan Bila Belum Memiliki PP</p>
+                <span><p class="text-muted">Kosongkan Bila Belum Memiliki PP</p>
+                @if($sppd->status == "10")
+                  <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP dibuat</a></span>
+                  @elseif($sppd->status == "11")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP diajukan</a></span>
+                  @elseif($sppd->status == "12")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP disetujui</a></span>
+                  @elseif($sppd->status == "13")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP masuk Finance</a></span>
+                  @elseif($sppd->status == "14")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP Selesai</a></span>
+                  @else
+                  <button class="btn btn-secondary" disabled>PP Selesai</button></span>
+                  @endif
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="nomorPP" class="form-label">Nomor PP</label>
@@ -184,11 +199,50 @@
                 </div>
             </div>
 
-            <div class="text-center justify-content-center">
+          <div class="text-center justify-content-center">
                 <button class=" btn btn-lg btn-success button mt-3 mb-3" type="submit">Ajukan Laporan SPPD</button>
-            </div>
+            </div><br>
         </div>
         </form>
+
+        <div class="container">
+        <table class="table table-bordered ket-status text-center">
+          <tr>
+            <td colspan="5">IPA</td>
+          </tr>
+          <tr>
+            <td class="table-status">Dibuat</td>
+            <td class="table-status">Diajukan</td>
+            <td class="table-status">Disetujui</td>
+            <td class="table-status">Di Finance</td>
+            <td class="table-status">Selesai</td>
+          </tr>
+          <tr>
+            <td class="table-hari">5</td>
+            <td class="table-hari">7</td>
+            <td class="table-hari">1</td>
+            <td class="table-hari">2</td>
+            <td class="table-hari">14</td>
+          </tr>
+          <tr>
+            <td colspan="5">PP</td>
+          </tr>
+          <tr>
+            <td class="table-status">Dibuat</td>
+            <td class="table-status">Diajukan</td>
+            <td class="table-status">Disetujui</td>
+            <td class="table-status">Di Finance</td>
+            <td class="table-status">Selesai</td>
+          </tr>
+          <tr>
+            <td class="table-hari">3</td>
+            <td class="table-hari">9</td>
+            <td class="table-hari">12</td>
+            <td class="table-hari">2</td>
+            <td class="table-hari">6</td>
+          </tr>
+      </table>
+      </div>
 
         <!--Footer-->
         <div class="footer">
@@ -208,20 +262,25 @@
               </div>
               <div class="modal-footer align-item-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
-                @if($sppd->status == "0")
-                <a href="/detil/{{$sppd->id}}/dibuat" type="button" class="btn btn-primary">Ya</a>
-                  @elseif($sppd->status == "1")
-                  <a href="/detil/{{$sppd->id}}/diajukan" type="button" class="btn btn-primary">Ya</a>
-                  @elseif($sppd->status == "2")
-                  <a href="/detil/{{$sppd->id}}/disetujui" type="button" class="btn btn-primary">Ya</a>
-                  @elseif($sppd->status == "3")
-                  <a href="/detil/{{$sppd->id}}/finance" type="button" class="btn btn-primary">Ya</a>
-                  @else
-                  <a href="/detil/{{$sppd->id}}/selesai" type="button" class="btn btn-primary">Ya</a>
-                @endif
+                <a href="/detil/{{$sppd->id}}/{{$sppd->status}}" type="button" class="btn btn-primary">Ya</a>
               </div>
             </div>
           </div>
         </div>
     </body>
+
+    <script>
+      $('.table-hari').each(function () {
+      var hari = parseInt($(this).text());
+      if ((hari >= 0) && (hari <= 4)) {
+        $(this).siblings().css('background-color', 'lightgreen');
+      } else if ((hari > 4) && (hari <= 10)) {
+        $(this).siblings().css('background-color', 'lightgoldenrodyellow');
+      } else if (hari > 10) {
+        $(this).siblings().css('background-color', 'lightpink');
+      } else {
+        $(this).siblings().css('background-color', 'default');
+      }
+    });
+  </script>
 </html>

@@ -151,6 +151,52 @@ class SppdController extends Controller
         $sppd->save();
         return redirect()->back();
     }
+
+    public function ppdibuat($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "11";
+        $pp_tgl_dibuat=Carbon::today()->toDateString();
+        $sppd->pp_tgl_dibuat=$pp_tgl_dibuat;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function ppdiajukan($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "12";
+        $pp_tgl_diajukan=Carbon::today()->toDateString();
+        $sppd->pp_tgl_diajukan=$pp_tgl_diajukan;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function ppdisetujui($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "13";
+        $pp_tgl_approval=Carbon::today()->toDateString();
+        $sppd->pp_tgl_approval=$pp_tgl_approval;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function ppfinance($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "14";
+        $pp_tgl_msk_finance=Carbon::today()->toDateString();
+        $sppd->pp_tgl_msk_finance=$pp_tgl_msk_finance;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function ppselesai($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "100";
+        $pp_tgl_selesai=Carbon::today()->toDateString();
+        $sppd->pp_tgl_selesai=$pp_tgl_selesai;
+        $sppd->save();
+        return redirect()->back();
+    }
+
     /**
      * Display a listing of the resource.
      *
