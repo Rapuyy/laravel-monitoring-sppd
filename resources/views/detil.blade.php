@@ -103,7 +103,20 @@
 
             <div class="row mt-2">
                 <h4 class=" border-bottom">Izin Penggunaan Anggaran (IPA)</h4> 
-                <span><p class="text-muted">Kosongkan Bila Belum Memiliki IPA</p><button onclick="buttonIPA()" class="btn btn-success">IPA dibuat</button></span>
+                <span><p class="text-muted">Kosongkan Bila Belum Memiliki IPA</p>
+                  @if($sppd->status == "0")
+                  <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">IPA dibuat</a></span>
+                  @elseif($sppd->status == "1")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">IPA diajukan</a></span>
+                  @elseif($sppd->status == "2")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">IPA disetujui</a></span>
+                  @elseif($sppd->status == "3")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">IPA masuk Finance</a></span>
+                  @elseif($sppd->status == "4")
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">IPA Selesai</a></span>
+                  @else
+                  <a href="#" class="btn btn-secondary btn-lg" disabled>IPA Selesai</a></span>
+                  @endif
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="nomorIPA" class="form-label">Nomor IPA</label>
@@ -181,10 +194,34 @@
         <div class="footer">
             <p class="text-center">©2021 PT Jasamarga Tollroad Maintenance</p>
         </div>
+
+        <!--Modal-->
+        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <h4>{{$tanggal}}</h4>
+                <p>Apakah Anda Yakin Akan Mensubmit pada Hari Ini?</p>
+              </div>
+              <div class="modal-footer align-item-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batalkan</button>
+                @if($sppd->status == "0")
+                <a href="/detil/{{$sppd->id}}/dibuat" type="button" class="btn btn-primary">Ya</a>
+                  @elseif($sppd->status == "1")
+                  <a href="/detil/{{$sppd->id}}/diajukan" type="button" class="btn btn-primary">Ya</a>
+                  @elseif($sppd->status == "2")
+                  <a href="/detil/{{$sppd->id}}/disetujui" type="button" class="btn btn-primary">Ya</a>
+                  @elseif($sppd->status == "3")
+                  <a href="/detil/{{$sppd->id}}/finance" type="button" class="btn btn-primary">Ya</a>
+                  @else
+                  <a href="/detil/{{$sppd->id}}/selesai" type="button" class="btn btn-primary">Ya</a>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
     </body>
-    <script>
-    function buttonIPA() {
-      document.getElementById("dateIPA").;
-    }
-</script>
 </html>

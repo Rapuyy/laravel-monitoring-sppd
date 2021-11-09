@@ -106,6 +106,51 @@ class SppdController extends Controller
             return redirect()->route('sppd.add');
         }
     }
+
+    public function dibuat($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "1";
+        $ipa_tgl_dibuat=Carbon::today()->toDateString();
+        $sppd->ipa_tgl_dibuat=$ipa_tgl_dibuat;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function diajukan($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "2";
+        $ipa_tgl_diajukan=Carbon::today()->toDateString();
+        $sppd->ipa_tgl_diajukan=$ipa_tgl_diajukan;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function disetujui($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "3";
+        $ipa_tgl_approval=Carbon::today()->toDateString();
+        $sppd->ipa_tgl_approval=$ipa_tgl_approval;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function finance($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "4";
+        $ipa_tgl_msk_finance=Carbon::today()->toDateString();
+        $sppd->ipa_tgl_msk_finance=$ipa_tgl_msk_finance;
+        $sppd->save();
+        return redirect()->back();
+    }
+
+    public function selesai($id){
+        $sppd=Sppd::find($id);
+        $sppd->status = "10";
+        $ipa_tgl_selesai=Carbon::today()->toDateString();
+        $sppd->ipa_tgl_selesai=$ipa_tgl_selesai;
+        $sppd->save();
+        return redirect()->back();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -141,7 +186,8 @@ class SppdController extends Controller
     public function detilSPPD($id)
     {
         $sppd = Sppd::where('id', $id)->first();
-        return view('detil', compact('sppd'));
+        $tanggal=Carbon::today()->toDateString();
+        return view('detil', compact('sppd','tanggal'));
     }
 
     public function detilIPA($id)
