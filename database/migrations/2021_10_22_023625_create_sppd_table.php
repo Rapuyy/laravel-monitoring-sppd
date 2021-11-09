@@ -27,10 +27,14 @@ class CreateSppdTable extends Migration
             $table->date('tgl_berangkat');
             $table->date('tgl_pulang');
             $table->date('ipa_tgl_dibuat')->nullable();
+            $table->date('ipa_tgl_diajukan')->nullable();
             $table->date('ipa_tgl_approval')->nullable();
+            $table->date('ipa_tgl_msk_finance')->nullable();
             $table->date('ipa_tgl_selesai')->nullable();
             $table->date('pp_tgl_dibuat')->nullable();
+            $table->date('pp_tgl_diajukan')->nullable();
             $table->date('pp_tgl_approval')->nullable();
+            $table->date('pp_tgl_msk_finance')->nullable();
             $table->date('pp_tgl_selesai')->nullable();
             $table->timestamps();
         });

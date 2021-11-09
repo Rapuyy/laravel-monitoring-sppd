@@ -64,10 +64,10 @@
                         <thead class="text-center">
                             <tr>
                                 <th>Nomor</th>
-                                <th>Nomor SPPD <br> Nomor IPA <br> Nomor PP</th>
-                                <th>Perihal <br> Pegawai</th>
+                                <th>Nomor SPPD</th>
+                                <th>PerihalPegawai</th>
+                                <th>Pegawai</th>
                                 <th>Status Sekarang</th>
-                                <th>Keterangan Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -76,100 +76,34 @@
                         @foreach ($sppd_list as $sppd)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    {{ $sppd->sppd_no ? $sppd->sppd_no : "SPPD Belum diisi" }} <br><hr>
-                                    {{ $sppd->ipa_no ? $sppd->ipa_no : "IPA Belum diisi" }} <br><hr>
-                                    {{ $sppd->pp_no ? $sppd->pp_no : "PP Belum diisi" }}
-                                </td>
-                                <td>
-                                    {{ $sppd->sppd_alasan }} <br><hr>
-                                    {{ $sppd->pegawai }}
-                                </td>
+                                <td>{{ $sppd->sppd_no ? $sppd->sppd_no : "SPPD Belum diisi" }}</td>
+                                <td>{{ $sppd->sppd_alasan }}</td>
+                                <td>{{ $sppd->pegawai }}</td>
                                 <td>
                                     @if ($sppd->status == "0")
                                         {{ __('IPA Belum Dibuat') }}
                                     @elseif ($sppd->status == "1")
-                                        {{ __('IPA Sudah Dibuat') }}
+                                        {{ __('IPA Belum Diajukan') }}
                                     @elseif ($sppd->status == "2")
-                                        {{ __('IPA Sudah Diapprove') }}
+                                        {{ __('IPA Menunggu Tanda Tangan Pengajuan') }}
                                     @elseif ($sppd->status == "3")
-                                        {{ __('IPA Sudah Selesai') }}    
+                                        {{ __('IPA Menunggu Tanda Tangan Approval') }}
+                                    @elseif ($sppd->status == "4")
+                                        {{ __('IPA Menunggu Tanda Tangan dari Divisi Finansial') }}    
                                     @elseif ($sppd->status == "10")
                                         {{ __('PP Belum Dibuat') }}   
                                     @elseif ($sppd->status == "11")
-                                        {{ __('PP Sudah Dibuat') }}
+                                        {{ __('PP Belum Diajukan') }}
                                     @elseif ($sppd->status == "12")
-                                        {{ __('PP Sudah Diapprove') }}
+                                        {{ __('PP Menunggu Tanda Tangan Pengajuan') }}
                                     @elseif ($sppd->status == "13")
-                                        {{ __('PP Sudah Selesai') }}     
+                                        {{ __('PP Menunggu Tanda Tangan Approval') }}  
+                                    @elseif ($sppd->status == "14")
+                                        {{ __('PP Menunggu Tanda Tangan dari Divisi Finansial') }}   
                                     @endif
                                 </td>
-                                <td>
-                                
-                                    <table class="table table-borderless ket-status">
-                                        <tr>
-                                            <td class="table-status">IPA dibuat</td>
-                                            <td class="table-hari align-middle">
-                                                {{-- //belum dibuat --}}
-                                                @if (($sppd->ipa_tgl_dibuat) == null) 
-                                                {{ "-" }}
-                                                {{-- //lagi proses --}}
-                                                @else 
-                                                    @if (($sppd->ipa_tgl_selesai) == null)
-                                                        @if ($today->diffindays($sppd->ipa_tgl_dibuat) != 0)
-                                                            {{ $today->diffindays($sppd->ipa_tgl_dibuat) }}
-                                                        {{-- //kalo < 1 hari --}}
-                                                        @else 
-                                                            {{ "1" }}
-                                                        @endif
-                                                    {{-- // counter jika sudah selesai --}}
-                                                    @else 
-                                                       {{ $sppd->ipa_time }}
-                                                    @endif
-                                                @endif
-                                                {{__(' hari')}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-status">IPA selesai</td>
-                                            <td class="table-hari align middle"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-status">PP dibuat</td>
-                                            <td class="table-hari align-middle">
-                                                {{-- //belum dibuat --}}
-                                                @if (($sppd->pp_tgl_dibuat) == null) 
-                                                {{ "-" }}
-                                                {{-- //lagi proses --}}
-                                                @else 
-                                                    @if (($sppd->pp_tgl_selesai) == null)
-                                                        @if ($today->diffindays($sppd->pp_tgl_dibuat) != 0)
-                                                            {{ $today->diffindays($sppd->pp_tgl_dibuat) }}
-                                                        {{-- //kalo < 1 hari --}}
-                                                        @else 
-                                                            {{ "1" }}
-                                                        @endif
-                                                    {{-- // counter jika sudah selesai --}}
-                                                    @else 
-                                                       {{ $sppd->pp_time }}
-                                                    @endif
-                                                @endif
-                                                {{__(' hari')}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="table-status">PP selesai</td>
-                                            <td class="table-hari align-middle"></td>
-                                        </tr>
-                                    </table>
-                                </td>
                                 <td align="center">
-                                    <a href=" {{ route('sppd.edit', ['id' => $sppd->id]) }}" class="btn btn-info">Perbarui Status</a>
-                                    <form action="{{ route('sppd.delete', ['id' => $sppd->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger mb-1">{{ __('Hapus') }}</button>
-                                    </form>
+                                    <a href=" {{ route('sppd.detil', ['id' => $sppd->id]) }}" class="btn btn-info">Detail</a>
                                 </td>
                             </tr>
                         @endforeach

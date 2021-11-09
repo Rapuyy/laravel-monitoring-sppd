@@ -11,6 +11,101 @@ use DataTables;
 
 class SppdController extends Controller
 {
+    public function validateStatus($sppd) //dipake store sama update
+    {
+        //nanti kayanya mesti null nullan disini deh
+        if ($sppd->sppd_no) { //ipa
+            $sppd->status = 0;
+            if ($sppd->ipa_tgl_dibuat && $sppd->ipa_no) {
+                $sppd->status = 1;
+                if ($sppd->ipa_tgl_diajukan) {
+                    $sppd->status = 2;
+                    if ($sppd->ipa_tgl_approval) {
+                        $sppd->status = 3;
+                        if ($sppd->ipa_tgl_selesai) {
+                            $sppd->status = 4;
+                            if ($sppd->pp_no) {
+                                $sppd->status = 11; //pp
+                                if ($sppd->$sppd->pp_tgl_dibuat && $sppd->pp_no) {
+                                    $sppd->status = 11;
+                                    if ($sppd->pp_tgl_diajukan) {
+                                        $sppd->status = 12;
+                                        if ($sppd->pp_tgl_approval) {
+                                            $sppd->status = 13;
+                                            if ($sppd->pp_tgl_selesai) {
+                                                $sppd->status = 14;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $sppd->status;
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $sppd = Sppd::find($request->id);
+
+        if ($sppd->status == $request->status) {
+            if ($sppd->status == 0) {
+                $sppd->ipa_tgl_dibuat = $request->today;
+            }
+            else if ($sppd->status == 1) {
+                $sppd->ipa_tgl_diajukan = $request->today;
+            }
+            else if ($sppd->status == 2) {
+                $sppd->ipa_tgl_approval = $request->today;
+            }
+            else if ($sppd->status == 3) {
+                $sppd->ipa_tgl_msk_finance = $request->today;
+            }
+            else if ($sppd->status == 4) {
+                $sppd->ipa_tgl_selesai = $request->today;
+            }
+            else if ($sppd->status == 10) {
+                $sppd->pp_tgl_dibuat = $request->today;
+            }
+            else if ($sppd->status == 11) {
+                $sppd->pp_tgl_diajukan = $request->today;
+            }
+            else if ($sppd->status == 12) {
+                $sppd->pp_tgl_approval = $request->today;
+            }
+            else if ($sppd->status == 13) {
+                $sppd->pp_tgl_msk_finance = $request->today;
+            }
+            else if ($sppd->status == 14) {
+                $sppd->pp_tgl_selesai = $request->today;
+            }
+        }
+
+        $sppd->ipa_no = $request->ipa_no;
+        $sppd->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
+        $sppd->ipa_tgl_approval = $request->ipa_tgl_approval;
+        $sppd->ipa_tgl_selesai = $request->ipa_tgl_selesai;
+        $sppd->pp_no = $request->pp_no;
+        $sppd->pp_tgl_dibuat = $request->pp_tgl_dibuat;
+        $sppd->pp_tgl_approval = $request->pp_tgl_approval;
+        $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
+
+        $sppd->status = $this->validateStatus($sppd);
+
+        $simpan = $sppd->update();
+
+        if($simpan){
+            Session::flash('success', 'Perubahan data berhasil! Silahkan login untuk mengakses data');
+            return redirect()->route('sppd');
+        } else {
+            Session::flash('errors', ['' => 'Perubahan data gagal! Silahkan ulangi beberapa saat lagi']);
+            return redirect()->route('sppd.add');
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +137,24 @@ class SppdController extends Controller
         // dd("2021-11-10"->diff($today));
         return view('index', compact(['sppd_list', 'today', 'day_status']));
     }
+
+    public function detilSPPD($id)
+    {
+        $sppd = Sppd::where('id', $id)->first();
+        return view('detil', compact('sppd'));
+    }
+
+    public function detilIPA($id)
+    {
+        $sppd = Sppd::where('id', $id)->first();
+        return view('detil', compact('sppd'));
+    }
+
+    public function detilPP($id)
+    {
+        $sppd = Sppd::where('id', $id)->first();
+        return view('detil', compact('sppd'));
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -60,35 +173,6 @@ class SppdController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function updateStatus($sppd) //dipake store sama update
-    {
-        if ($sppd->sppd_no) { //ipa
-            $sppd->status = 0;
-            if ($sppd->ipa_tgl_dibuat && $sppd->ipa_no) {
-                $sppd->status = 1;
-                if ($sppd->ipa_tgl_approval) {
-                    $sppd->status = 2;
-                    if ($sppd->ipa_tgl_selesai) {
-                        $sppd->status = 3;
-                        if ($sppd->pp_no) {
-                            $sppd->status = 11; //pp
-                            if ($sppd->pp_tgl_dibuat) {
-                                $sppd->status = 11;
-                                if ($sppd->pp_tgl_approval) {
-                                    $sppd->status = 12;
-                                    if ($sppd->pp_tgl_selesai) {
-                                        $sppd->status = 13;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return $sppd->status;
-    }
     public function store(Request $request)
     {
         // $rules = [
@@ -224,7 +308,7 @@ class SppdController extends Controller
         $sppd->pp_tgl_approval = $request->pp_tgl_approval;
         $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
 
-        $sppd->status = $this->updateStatus($sppd);
+        $sppd->status = $this->validateStatus($sppd);
 
         $simpan = $sppd->update();
 
