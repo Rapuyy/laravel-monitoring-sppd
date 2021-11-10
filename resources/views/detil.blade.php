@@ -36,16 +36,16 @@
 
             <div class="row mt-4">
                 <h4 class="border-bottom">Surat Perintah Perjalanan Dinas (SPPD)</h4>
-                <p class="text-muted"><span>*</span> ➞ wajib diisi</p>
+                {{-- <p class="text-muted"><span>*</span> ➞ wajib diisi</p> --}}
                 <div class="col-sm-4 mt-2">
                     <form action="{{ route('sppd.update') }}" method="post">
                       @csrf
                       @method('post')
-                      <input  type="hidden" name="id" value="{{ $sppd->id }}">
+                      <input  type="hidden" name="id" readonly value="{{ $sppd->id }}">
                         <div class="mb-3">
                           <label for="sppd_no" class="form-label">Nomor SPPD</label>
                           <span>*</span>
-                          <input type="text" name="sppd_no" class="form-control @error('sppd_no') is-invalid @enderror" id="sppd_no" required value="{{ $sppd->sppd_no }}">
+                          <input type="text" name="sppd_no" class="form-control @error('sppd_no') is-invalid @enderror" id="sppd_no" required readonly value="{{ $sppd->sppd_no }}">
                           @error('sppd_no')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -53,7 +53,7 @@
                         <div class="mb-3">
                            <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
                            <span>*</span>
-                           <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required value="{{ $sppd->sppd_tujuan }}">
+                           <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required readonly value="{{ $sppd->sppd_tujuan }}">
                            @error('tujuan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -61,7 +61,7 @@
                         <div class="mb-3">
                            <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
                            <span>*</span>
-                           <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required value="{{ $sppd->sppd_kendaraan }}">
+                           <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required readonly value="{{ $sppd->sppd_kendaraan }}">
                            @error('angkutan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -71,7 +71,7 @@
                         <div class="mb-3">
                           <label for="pegawai" class="form-label">Nama Pegawai</label>
                           <span>*</span>
-                          <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required value="{{ $sppd->pegawai }}">
+                          <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required readonly value="{{ $sppd->pegawai }}">
                           @error('pegawai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -79,7 +79,7 @@
                         <div class="mb-3">
                           <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
                           <span>*</span>
-                          <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required value="{{ $sppd->sppd_alasan }}">
+                          <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required readonly value="{{ $sppd->sppd_alasan }}">
                           @error('maksud')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -88,12 +88,12 @@
                            <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
                            <span>*</span>
                            <div class="input-group">
-                                <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required value="{{ $sppd->tgl_berangkat }}">
+                                <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required readonly value="{{ $sppd->tgl_berangkat }}">
                                 <span class="input-group-btn"></span>
                                 @error('waktuawal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required value="{{ $sppd->tgl_pulang }}">
+                                <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required readonly value="{{ $sppd->tgl_pulang }}">
                                 <span class="input-group-btn"></span>
                                 @error('waktuakhir')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -126,27 +126,27 @@
                         </div>
                         <div class="mb-3">
                            <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
-                           <input type="date" name="ipa_tgl_dibuat" class="form-control" id="dateIPA" value="{{ $sppd->ipa_tgl_dibuat }}" disabled>
+                           <input type="date" name="ipa_tgl_dibuat" class="form-control" id="dateIPA" value="{{ $sppd->ipa_tgl_dibuat }}" readonly>
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
-                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA" value="{{ $sppd->ipa_tgl_diajukan }}" disabled>
+                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA" value="{{ $sppd->ipa_tgl_diajukan }}" readonly>
                         </div>
                         <div class="mb-3">
                            <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
-                           <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA" value="{{ $sppd->ipa_tgl_approval }}" disabled>
+                           <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA" value="{{ $sppd->ipa_tgl_approval }}" readonly>
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="financeIPA" class="form-label">Tanggal IPA masuk ke Finance</label>
-                          <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA" value="{{ $sppd->ipa_tgl_msk_finance }}" disabled>
+                          <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA" value="{{ $sppd->ipa_tgl_msk_finance }}" readonly>
                         </div>
                         <div class="mb-3">
                            <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
-                           <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA" value="{{ $sppd->ipa_tgl_selesai }}" disabled>
+                           <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA" value="{{ $sppd->ipa_tgl_selesai }}" readonly>
                         </div>
                 </div>
             </div>
@@ -170,76 +170,77 @@
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="nomorPP" class="form-label">Nomor PP</label>
-                          <input type="text" name="pp_no" class="form-control" id="nomorPP" value="{{ $sppd->pp_no }}" >
+                          <input type="text" name="pp_no" class="form-control" id="nomorPP" value="{{ $sppd->pp_no }}">
                         </div>
                         <div class="mb-3">
                            <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
-                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP" value="{{ $sppd->pp_tgl_dibuat }}" disabled>
+                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP" value="{{ $sppd->pp_tgl_dibuat }}" readonly>
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
-                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP" value="{{ $sppd->pp_tgl_diajukan }}" disabled>
+                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP" value="{{ $sppd->pp_tgl_diajukan }}" readonly>
                         </div>
                         <div class="mb-3">
                           <label for="approvePP" class="form-label">Tanggal PP disetujui</label>
-                          <input type="date" name="pp_tgl_approval" class="form-control" id="approvePP" value="{{ $sppd->pp_tgl_approval }}" disabled>
+                          <input type="date" name="pp_tgl_approval" class="form-control" id="approvePP" value="{{ $sppd->pp_tgl_approval }}" readonly>
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
                           <label for="financePP" class="form-label">Tanggal PP masuk ke Finance</label>
-                          <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financePP" value="{{ $sppd->pp_tgl_msk_finance }}" disabled>
+                          <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financePP" value="{{ $sppd->pp_tgl_msk_finance }}" readonly>
                         </div>
                         <div class="mb-3">
                           <label for="selesaiPP" class="form-label">Tanggal PP selesai</label>
-                          <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaiPP" value="{{ $sppd->pp_tgl_selesai }}" disabled>
+                          <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaiPP" value="{{ $sppd->pp_tgl_selesai }}" readonly>
                         </div>
                 </div>
             </div>
 
           <div class="text-center justify-content-center">
-                <button class=" btn btn-lg btn-success button mt-3 mb-3" type="submit">Ajukan Laporan SPPD</button>
+                <button class=" btn btn-lg btn-success button mt-3 mb-3" type="submit">Ajukan Perubahan Laporan SPPD</button>
             </div><br>
         </div>
         </form>
 
         <div class="container">
+        <h3>Status SPPD</h3>
         <table class="table table-bordered ket-status text-center">
           <tr>
             <td colspan="5">IPA</td>
           </tr>
           <tr>
-            <td class="table-status">Dibuat</td>
             <td class="table-status">Diajukan</td>
             <td class="table-status">Disetujui</td>
             <td class="table-status">Di Finance</td>
             <td class="table-status">Selesai</td>
+            <td>Total</td>
           </tr>
           <tr>
-            <td class="table-hari">5</td>
-            <td class="table-hari">7</td>
-            <td class="table-hari">1</td>
-            <td class="table-hari">2</td>
-            <td class="table-hari">14</td>
+            <td class="table-hari">{{ $progres->ipa_1 }} hari</td>
+            <td class="table-hari">{{ $progres->ipa_2 }} hari</td>
+            <td class="table-hari">{{ $progres->ipa_3 }} hari</td>
+            <td class="table-hari">{{ $progres->ipa_4 }} hari</td>
+            <td class="table-hari">{{ $progres->ipa }} hari</td>
           </tr>
           <tr>
             <td colspan="5">PP</td>
           </tr>
           <tr>
-            <td class="table-status">Dibuat</td>
             <td class="table-status">Diajukan</td>
             <td class="table-status">Disetujui</td>
             <td class="table-status">Di Finance</td>
             <td class="table-status">Selesai</td>
+            <td>Total</td>
           </tr>
           <tr>
-            <td class="table-hari">3</td>
-            <td class="table-hari">9</td>
-            <td class="table-hari">12</td>
-            <td class="table-hari">2</td>
-            <td class="table-hari">6</td>
+            <td class="table-hari">{{ $progres->pp_1 }} hari</td>
+            <td class="table-hari">{{ $progres->pp_2 }} hari</td>
+            <td class="table-hari">{{ $progres->pp_3 }} hari</td>
+            <td class="table-hari">{{ $progres->pp_4 }} hari</td>
+            <td class="table-hari">{{ $progres->pp }} hari</td>
           </tr>
       </table>
       </div>
@@ -273,13 +274,13 @@
       $('.table-hari').each(function () {
       var hari = parseInt($(this).text());
       if ((hari >= 0) && (hari <= 4)) {
-        $(this).siblings().css('background-color', 'lightgreen');
+        $(this).css('background-color', 'lightgreen');
       } else if ((hari > 4) && (hari <= 10)) {
-        $(this).siblings().css('background-color', 'lightgoldenrodyellow');
+        $(this).css('background-color', 'lightgoldenrodyellow');
       } else if (hari > 10) {
-        $(this).siblings().css('background-color', 'lightpink');
+        $(this).css('background-color', 'lightpink');
       } else {
-        $(this).siblings().css('background-color', 'default');
+        $(this).css('background-color', 'grey');
       }
     });
   </script>

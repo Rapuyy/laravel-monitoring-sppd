@@ -36,16 +36,16 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="table-danger">Lebih dari 10 hari</th>
-                                    <th class="table-warning">4 - 10 hari</th>
                                     <th class="table-success">< 4 hari</th>
+                                    <th class="table-warning">4 - 10 hari</th>
+                                    <th class="table-danger">Lebih dari 10 hari</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="text-center">
-                                    <td>{{ $day_status->red1 + $day_status->red2 }} proses</td>
-                                    <td>{{ $day_status->yellow1 + $day_status->yellow2 }} proses</td>
                                     <td>{{ $day_status->green1 + $day_status->green2 }} proses</td>
+                                    <td>{{ $day_status->yellow1 + $day_status->yellow2 }} proses</td>
+                                    <td>{{ $day_status->red1 + $day_status->red2 }} proses</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -60,7 +60,7 @@
 
                 <!--Tabel Data-->
                 <div class="tabel-list mt-5 table-responsive">
-                    <table class="table table-bordered tab align-middle text-center" id="tablesppd">
+                    <table class="table table-bordered tab align-middle text-center cell-border" id="tablesppd">
                         <thead class="text-center">
                             <tr>
                                 <th>Nomor</th>
@@ -73,7 +73,7 @@
                         </thead>
                         
                         <tbody>
-                        @foreach ($sppd_list as $sppd)
+                        @foreach ($sppd_list as $sppd)  
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $sppd->sppd_no ? $sppd->sppd_no : "SPPD Belum diisi" }}</td>
@@ -91,7 +91,7 @@
                                     @elseif ($sppd->status == "4")
                                         {{ __('IPA Menunggu Tanda Tangan dari Divisi Finansial') }}    
                                     @elseif ($sppd->status == "10")
-                                        {{ __('PP Belum Dibuat') }}   
+                                        {{ __('IPA Sudah Selesai, PP Belum Dibuat') }}   
                                     @elseif ($sppd->status == "11")
                                         {{ __('PP Belum Diajukan') }}
                                     @elseif ($sppd->status == "12")
@@ -140,6 +140,6 @@
             $(document).ready(function () {
                 $('#tablesppd').DataTable();
         });
-        </script>
+    </script>
     
 </html>

@@ -26,7 +26,7 @@ class SppdController extends Controller
                             $sppd->status = 4;
                             if ($sppd->pp_no) {
                                 $sppd->status = 11; //pp
-                                if ($sppd->$sppd->pp_tgl_dibuat && $sppd->pp_no) {
+                                if ($sppd->pp_tgl_dibuat && $sppd->pp_no) {
                                     $sppd->status = 11;
                                     if ($sppd->pp_tgl_diajukan) {
                                         $sppd->status = 12;
@@ -197,11 +197,6 @@ class SppdController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     { 
         $sppd_list = Sppd::select(DB::raw('DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) as ipa_time, 
@@ -224,16 +219,28 @@ class SppdController extends Controller
         
         $today = Carbon::now()->format('Y-m-d');
         $today = Carbon::parse($today);
-        // $date_diff = DB::select( DB::raw("SELECT DATEDIFF(ipa_tgl_dibuat, ipa_tgl_selesai) as ipa_time, DATEDIFF(pp_tgl_dibuat, pp_tgl_selesai) as pp_time FROM sppd") );
-        // dd("2021-11-10"->diff($today));
         return view('index', compact(['sppd_list', 'today', 'day_status']));
     }
 
     public function detilSPPD($id)
     {
         $sppd = Sppd::where('id', $id)->first();
+        $progres = $sppd_list = Sppd::select(DB::raw('
+                        DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 as ipa_1, 
+                        DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 as ipa_2, 
+                        DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 as ipa_3, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 as ipa_4, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) + 1 as ipa, 
+                        DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 as pp_1, 
+                        DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 as pp_2, 
+                        DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 as pp_3, 
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 as pp_4,
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) + 1 as pp
+                    '))
+                    ->where('id', $id)->first();
+                    
         $tanggal=Carbon::today()->toDateString();
-        return view('detil', compact('sppd','tanggal'));
+        return view('detil', compact('sppd','tanggal', 'progres'));
     }
 
     public function detilIPA($id)
@@ -247,23 +254,11 @@ class SppdController extends Controller
         $sppd = Sppd::where('id', $id)->first();
         return view('detil', compact('sppd'));
     }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
 
     public function store(Request $request)
     {
@@ -348,37 +343,18 @@ class SppdController extends Controller
         }
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $sppd = Sppd::where('id', $id)->first();
         return view('edit', compact('sppd'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request)
     {
         // dd($request);

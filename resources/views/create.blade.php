@@ -109,24 +109,28 @@
                           <input type="text" name="ipa_no" class="form-control" id="nomorIPA">
                         </div>
                         <div class="mb-3">
-                           <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
-                           <input type="date" name="ipa_tgl_dibuat" class="form-control" id="ajukanIPA">
+                           <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
+                           <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
-                          <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                          <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
+                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
                         </div>
                         <div class="mb-3">
-                           <label for="selesaiIPA" class="form-label">Tanggal IPA selesai</label>
-                           <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
+                           <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
+                           <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="buatIPA" class="form-label">Tanggal IPA di</label>
-                          <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                          <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
+                          <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
+                        </div>
+                        <div class="mb-3">
+                          <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
+                          <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
                         </div>
                 </div>
             </div>
@@ -140,20 +144,28 @@
                           <input type="text" name="pp_no" class="form-control" id="nomorPP">
                         </div>
                         <div class="mb-3">
-                           <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
-                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="ajukanPP">
+                           <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
+                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP">
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
-                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="buatPP">
+                          <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
+                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP">
+                        </div>
+                        <div class="mb-3">
+                          <label for="approvePP" class="form-label">Tanggal PP disetujui</label>
+                          <input type="date" name="pp_tgl_approval" class="form-control" id="approvePP">
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="buatIPA" class="form-label">Tanggal PP di</label>
-                          <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                          <label for="financePP" class="form-label">Tanggal PP masuk Finance</label>
+                          <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financePP">
+                        </div>
+                        <div class="mb-3">
+                          <label for="selesaiPP" class="form-label">Tanggal PP Selesai</label>
+                          <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaiPP">
                         </div>
                 </div>
             </div>
