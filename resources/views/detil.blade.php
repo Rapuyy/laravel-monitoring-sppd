@@ -272,16 +272,18 @@
 
     <script>
       $('.table-hari').each(function () {
-      var hari = parseInt($(this).text());
-      if ((hari >= 0) && (hari <= 4)) {
-        $(this).css('background-color', 'lightgreen');
-      } else if ((hari > 4) && (hari <= 10)) {
-        $(this).css('background-color', 'lightgoldenrodyellow');
-      } else if (hari > 10) {
-        $(this).css('background-color', 'lightpink');
-      } else {
-        $(this).css('background-color', 'grey');
-      }
-    });
+        var hari = parseInt($(this).text());
+        var index = $(this).index();
+      
+        if ((hari >= 0) && (hari <= 4)) {
+          $('.table-status').eq(index).css('background-color', 'lightgreen');
+        } else if ((hari > 4) && (hari <= 10)) {
+          $('.table-status').eq(index).css('background-color', 'lightgoldenrodyellow');
+        } else if (hari > 10) {
+          $('.table-status').eq(index).css('background-color', 'lightpink');
+        } else {
+          $('.table-status').eq(index).css('background-color', 'default');
+        }
+      });
   </script>
 </html>

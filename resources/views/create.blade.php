@@ -32,10 +32,19 @@
         <div class="container mt-3">
             <h2>Formulir Input Laporan SPPD</h2>
 
-            <div class="row mt-4">
+            {{-- lupa mau ditaronya dimana
+              <div class="mb-3">
+                          <label for="unitKerja" class="form-label">Unit Kerja</label>
+                          <span>*</span>
+                          <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required>
+                          @error('unitKerja')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+              --}}
+
                 <h4 class="border-bottom">Surat Perintah Perjalanan Dinas (SPPD)</h4>
-                <p class="text-muted"><span>*</span> ➞ wajib diisi</p>
-                <div class="col-sm-4 mt-2">
+                <p class="text-muted mb-3"><span>*</span> ➞ wajib diisi</p>
                     <form action="{{ route('sppd.store') }}" method="post">
                       @csrf
                       @method('POST')
@@ -47,64 +56,34 @@
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
-                        <div class="mb-3">
-                          <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
-                          <span>*</span>
-                          <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
-                          @error('nomorSPPD')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="mb-3">
+                              <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
+                              <span>*</span>
+                              <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
+                              @error('nomorSPPD')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
+                            <div class="mb-3">
+                              <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
+                              <span>*</span>
+                              <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required>
+                              @error('tujuan')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
+                            <div class="mb-3">
+                              <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
+                              <span>*</span>
+                              <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required>
+                              @error('angkutan')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
                         </div>
-                        <div class="mb-3">
-                           <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
-                           <span>*</span>
-                           <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required>
-                           @error('tujuan')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
-                        </div>
-                        <div class="mb-3">
-                           <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
-                           <span>*</span>
-                           <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required>
-                           @error('angkutan')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
-                        </div>
-                        <div class="mb-3">
-                          <label for="operatorPengisi" class="form-label">Operator Pengisi</label>
-                          <span>*</span>
-                          <input type="text" name="op_pengisi" class="form-control  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required>
-                          @error('operatorPengisi')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                        </div>
-                        <div class="mb-3">
-                          <label for="unitKerja" class="form-label">Unit Kerja</label>
-                          <span>*</span>
-                          <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required>
-                          @error('unitKerja')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                      </div>
-                        <div class="mb-3">
-                          <label for="nilaiIPA" class="form-label">Nilai IPA</label>
-                          <span>*</span>
-                          <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA" required>
-                          @error('nilaiIPA')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                      </div>
-                      <div class="mb-3">
-                        <label for="sumberDana" class="form-label">Sumber Dana</label>
-                        <span>*</span>
-                        <input type="text" name="sumber_dana" class="form-control  @error('sumberDana') is-invalid @enderror" id="sumberDana" required>
-                        @error('sumberDana')
-                           <div class="invalid-feedback">{{ $message }}</div>
-                       @enderror
-                     </div>
-                </div>
-                <div class="col-sm-8 mt-2">
+                <div class="col-sm-8">
                           <div class="mb-3">
                             <label for="pegawai" class="form-label">Nama Pegawai</label>
                             <span>*</span>
@@ -138,42 +117,69 @@
                            </div>
                         </div>
                 </div>
-            </div>
+                </div>
 
-            <div class="row mt-2">
                 <h4 class=" border-bottom">Izin Penggunaan Anggaran (IPA)</h4> 
-                <p class="text-muted">Kosongkan Bila Belum Memiliki IPA</p>
-                <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="nomorIPA" class="form-label">Nomor IPA</label>
-                          <input type="text" name="ipa_no" class="form-control" id="nomorIPA">
+                <p class="text-muted mb-3">Kosongkan Bila Belum Memiliki IPA</p>
+                <div class="row">
+                    <div class="col-sm-4 mb-2">
+                      <label for="operatorPengisi" class="form-label">Nama Operator Pengisi</label>
+                      <span>*</span>
+                      <input type="text" name="op_pengisi" class="form-control  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required>
+                      @error('operatorPengisi')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    </div>
+                    <div class="col-sm-4 mb-2">
+                        <label for="nomorIPA" class="form-label">Nomor IPA</label>
+                        <input type="text" name="ipa_no" class="form-control" id="nomorIPA">
+                      </div>
+                  </div>
+
+                <div class="row">
+                  <div class="col-sm-4 mt-2">
+                          <div class="mb-3">
+                            <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
+                            <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                          </div>
+                          <div class="mb-3">
+                            <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
+                            <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
+                          </div>
+                          <div class="mb-3">
+                            <label for="nilaiIPA" class="form-label">Nilai IPA</label>
+                            <span>*</span>
+                            <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA" required>
+                            @error('nilaiIPA')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
                         </div>
+                  </div>
+                  <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                           <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
-                           <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                          <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
+                          <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
                         </div>
+                          <div class="mb-3">
+                            <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
+                            <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
+                          </div>
+                          <div class="mb-3">
+                            <label for="sumberDana" class="form-label">Sumber Dana</label>
+                            <span>*</span>
+                            <input type="text" name="sumber_dana" class="form-control  @error('sumberDana') is-invalid @enderror" id="sumberDana" required>
+                            @error('sumberDana')
+                               <div class="invalid-feedback">{{ $message }}</div>
+                           @enderror
+                         </div>
+                  </div>
+                  <div class="col-sm-4 mt-2">
+                      <div class="mb-3">
+                        <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
+                        <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
+                      </div>
+              </div>
                 </div>
-                <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
-                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
-                        </div>
-                        <div class="mb-3">
-                           <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
-                           <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
-                        </div>
-                </div>
-                <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
-                          <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
-                        </div>
-                        <div class="mb-3">
-                          <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
-                          <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
-                        </div>
-                </div>
-            </div>
 
             <div class="row mt-2">
                 <h4 class=" border-bottom">Permohonan Pembayaran (PP)</h4>
