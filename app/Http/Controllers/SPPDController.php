@@ -318,6 +318,12 @@ class SppdController extends Controller
         $sppd->pp_tgl_approval = $request->pp_tgl_approval;
         $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
 
+        $sppd->sppd_tgl_msk = $request->sppd_tgl_msk;
+        $sppd->op_pengisi = $request->op_pengisi;
+        $sppd->unit_kerja = $request->unit_kerja;
+        $sppd->ipa_nilai = $request->ipa_nilai;
+        $sppd->sumber_dana = $request->sumber_dana;
+
         // dd($sppd);
 
         $simpan = $sppd->save();

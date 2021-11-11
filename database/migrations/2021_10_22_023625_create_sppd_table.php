@@ -22,6 +22,11 @@ class CreateSppdTable extends Migration
             $table->string('sppd_tujuan');
             $table->string('sppd_alasan');
             $table->string('sppd_kendaraan');
+            $table->string('sppd_tgl_msk')->nullable();
+            $table->string('op_pengisi')->nullable();
+            $table->string('unit_kerja')->nullable();
+            $table->string('ipa_nilai')->nullable();
+            $table->string('sumber_dana')->nullable();
             $table->string('keterangan')->nullable();
             $table->integer('status')->default(0);
             $table->date('tgl_berangkat');

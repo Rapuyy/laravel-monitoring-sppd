@@ -40,6 +40,14 @@
                       @csrf
                       @method('POST')
                         <div class="mb-3">
+                          <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
+                          <span>*</span>
+                          <input type="date" name="sppd_tgl_masuk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required>
+                          @error('masukSPPD')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                        </div>
+                        <div class="mb-3">
                           <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
                           <span>*</span>
                           <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
@@ -63,6 +71,38 @@
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
+                        <div class="mb-3">
+                          <label for="operatorPengisi" class="form-label">Operator Pengisi</label>
+                          <span>*</span>
+                          <input type="text" name="op_pengisi" class="form-control  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required>
+                          @error('operatorPengisi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </div>
+                        <div class="mb-3">
+                          <label for="unitKerja" class="form-label">Unit Kerja</label>
+                          <span>*</span>
+                          <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required>
+                          @error('unitKerja')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                        <div class="mb-3">
+                          <label for="nilaiIPA" class="form-label">Nilai IPA</label>
+                          <span>*</span>
+                          <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA" required>
+                          @error('nilaiIPA')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <div class="mb-3">
+                        <label for="sumberDana" class="form-label">Sumber Dana</label>
+                        <span>*</span>
+                        <input type="text" name="sumber_dana" class="form-control  @error('sumberDana') is-invalid @enderror" id="sumberDana" required>
+                        @error('sumberDana')
+                           <div class="invalid-feedback">{{ $message }}</div>
+                       @enderror
+                     </div>
                 </div>
                 <div class="col-sm-8 mt-2">
                           <div class="mb-3">
