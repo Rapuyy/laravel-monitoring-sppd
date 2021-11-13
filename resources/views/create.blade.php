@@ -31,39 +31,27 @@
 
         <div class="container mt-3">
             <h2>Formulir Input Laporan SPPD</h2>
-
-            {{-- lupa mau ditaronya dimana
-              <div class="mb-3">
-                          <label for="unitKerja" class="form-label">Unit Kerja</label>
-                          <span>*</span>
-                          <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required>
-                          @error('unitKerja')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                      </div>
-              --}}
-
                 <h4 class="border-bottom">Surat Perintah Perjalanan Dinas (SPPD)</h4>
                 <p class="text-muted mb-3"><span>*</span> ➞ wajib diisi</p>
                     <form action="{{ route('sppd.store') }}" method="post">
                       @csrf
                       @method('POST')
-                        <div class="mb-3">
-                          <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
-                          <span>*</span>
-                          <input type="date" name="sppd_tgl_masuk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required>
-                          @error('masukSPPD')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
-                        </div>
-                        <div class="row">
+                      <div class="row">
                           <div class="col-sm-4">
                             <div class="mb-3">
-                              <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
+                              <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
                               <span>*</span>
-                              <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
-                              @error('nomorSPPD')
+                              <input type="date" name="sppd_tgl_masuk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required>
+                              @error('masukSPPD')
                                   <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
+                            <div class="mb-3">
+                              <label for="unitKerja" class="form-label">Unit Kerja</label>
+                              <span>*</span>
+                              <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required>
+                              @error('unitKerja')
+                                <div class="invalid-feedback">{{ $message }}</div>
                               @enderror
                             </div>
                             <div class="mb-3">
@@ -84,6 +72,14 @@
                             </div>
                         </div>
                 <div class="col-sm-8">
+                          <div class="mb-3">
+                              <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
+                              <span>*</span>
+                              <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
+                              @error('nomorSPPD')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                          </div>
                           <div class="mb-3">
                             <label for="pegawai" class="form-label">Nama Pegawai</label>
                             <span>*</span>
@@ -143,13 +139,16 @@
                             <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
                           </div>
                           <div class="mb-3">
-                            <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
-                            <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
+                            <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
+                            <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
                           </div>
                           <div class="mb-3">
                             <label for="nilaiIPA" class="form-label">Nilai IPA</label>
                             <span>*</span>
-                            <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA" required>
+                            <div class="input-group">
+                              <span class="input-group-text" id="basic-addon1">Rp.</span>
+                              <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA" required>
+                            </div>
                             @error('nilaiIPA')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -157,13 +156,13 @@
                   </div>
                   <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
-                          <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
+                          <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
+                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
                         </div>
-                          <div class="mb-3">
-                            <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
-                            <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
-                          </div>
+                        <div class="mb-3">
+                          <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
+                          <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
+                        </div>
                           <div class="mb-3">
                             <label for="sumberDana" class="form-label">Sumber Dana</label>
                             <span>*</span>
@@ -174,10 +173,10 @@
                          </div>
                   </div>
                   <div class="col-sm-4 mt-2">
-                      <div class="mb-3">
-                        <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
-                        <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
-                      </div>
+                        <div class="mb-3">
+                          <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
+                          <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
+                        </div>
               </div>
                 </div>
 

@@ -18,6 +18,7 @@ use App\Http\Controllers\SPPDController;
 //     return view('welcome');
 // });
 
+Auth::routes();
 Route::get('/', [SPPDController::class, 'index'])->name('sppd');
 Route::get('/add', [SPPDController::class, 'create'])->name('sppd.add');
 Route::post('/add', [SPPDController::class, 'store'])->name('sppd.store');
@@ -36,3 +37,5 @@ Route::get('/detil/{id}/11',[SPPDController::class, 'ppdiajukan']);
 Route::get('/detil/{id}/12',[SPPDController::class, 'ppdisetujui']);
 Route::get('/detil/{id}/13',[SPPDController::class, 'ppfinance']);
 Route::get('/detil/{id}/14',[SPPDController::class, 'ppselesai']);
+
+Route::get('/filter/{filter}',[SPPDController::class, 'filterSPPD'])->name('sppd.filter');;
