@@ -65,10 +65,39 @@
                             <div class="mb-3">
                               <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
                               <span>*</span>
-                              <input type="text" name="sppd_kendaraan" class="form-control  @error('angkutan') is-invalid @enderror" id="angkutan" required>
+                              <select class="form-select @error('angkutan') is-invalid @enderror" aria-label="select example" name="sppd_kendaraan"  id="angkutan" required>
+                                <option selected>Pilih Kendaraan</option>
+                                <option value="1">Kendaraan Darat</option>
+                                <option value="2">Kendaraan Udara</option>
+                                <option value="3">Kendaraan Dinas / Pribadi</option>
+                              </select>
                               @error('angkutan')
                                   <div class="invalid-feedback">{{ $message }}</div>
                               @enderror
+                            </div>
+                            <div class="mb-3">
+                              <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
+                              <span>*</span>
+                              <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required>
+                              @error('maksud')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                              @enderror
+                            </div>
+                            <div class="mb-3">
+                               <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
+                               <span>*</span>
+                               <div class="input-group">
+                                    <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required>
+                                    <span class="input-group-btn"></span>
+                                    @error('waktuawal')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required>
+                                    <span class="input-group-btn"></span>
+                                    @error('waktuakhir')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                               </div>
                             </div>
                         </div>
                 <div class="col-sm-8">
@@ -80,38 +109,17 @@
                                   <div class="invalid-feedback">{{ $message }}</div>
                               @enderror
                           </div>
-                          <div class="mb-3">
+                          <div class="mb-2">
                             <label for="pegawai" class="form-label">Nama Pegawai</label>
                             <span>*</span>
                             <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required>
+                            <div id="newElementId"></div>
+                            <input type="button" class="btn btn-outline-dark mt-3" value="Tambah Pegawai" onclick="createNewElement();"/>
                             @error('pegawai')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
-                        <div class="mb-3">
-                          <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
-                          <span>*</span>
-                          <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required>
-                          @error('maksud')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
-                        </div>
-                        <div class="mb-3">
-                           <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
-                           <span>*</span>
-                           <div class="input-group">
-                                <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required>
-                                <span class="input-group-btn"></span>
-                                @error('waktuawal')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required>
-                                <span class="input-group-btn"></span>
-                                @error('waktuakhir')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                           </div>
-                        </div>
+                       
                 </div>
                 </div>
 
@@ -121,7 +129,11 @@
                     <div class="col-sm-4 mb-2">
                       <label for="operatorPengisi" class="form-label">Nama Operator Pengisi</label>
                       <span>*</span>
-                      <input type="text" name="op_pengisi" class="form-control  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required>
+                      <select aria-label="Default select example" name="op_pengisi" class="form-select  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required>
+                        <option selected>Pilih Nama Operator</option>
+                        <option value="1">Ady</option>
+                        <option value="2">Rika</option>
+                      </select>
                       @error('operatorPengisi')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -130,53 +142,53 @@
                         <label for="nomorIPA" class="form-label">Nomor IPA</label>
                         <input type="text" name="ipa_no" class="form-control" id="nomorIPA">
                       </div>
+                      <div class="col-sm-4 mb-2">
+                        <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
+                        <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                      </div>
                   </div>
 
                 <div class="row">
                   <div class="col-sm-4 mt-2">
                           <div class="mb-3">
-                            <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
-                            <input type="date" name="ipa_tgl_dibuat" class="form-control" id="buatIPA">
+                            <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
+                            <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
                           </div>
                           <div class="mb-3">
-                            <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
-                            <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
+                            <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
+                            <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
+                          </div>
+                         
+                  </div>
+                  <div class="col-sm-4 mt-2">
+                          <div class="mb-3">
+                            <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
+                            <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
                           </div>
                           <div class="mb-3">
                             <label for="nilaiIPA" class="form-label">Nilai IPA</label>
-                            <span>*</span>
                             <div class="input-group">
                               <span class="input-group-text" id="basic-addon1">Rp.</span>
-                              <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA" required>
+                              <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA">
                             </div>
                             @error('nilaiIPA')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
+                          
                   </div>
                   <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
-                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA">
-                        </div>
-                        <div class="mb-3">
-                          <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
-                          <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA">
-                        </div>
-                          <div class="mb-3">
-                            <label for="sumberDana" class="form-label">Sumber Dana</label>
-                            <span>*</span>
-                            <input type="text" name="sumber_dana" class="form-control  @error('sumberDana') is-invalid @enderror" id="sumberDana" required>
-                            @error('sumberDana')
-                               <div class="invalid-feedback">{{ $message }}</div>
-                           @enderror
-                         </div>
-                  </div>
-                  <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
-                          <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA">
-                        </div>
+                    <div class="mb-3">
+                      <label for="financeIPA" class="form-label">Tanggal IPA masuk Finance</label>
+                      <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA">
+                    </div>
+                    <div class="mb-3">
+                      <label for="sumberDana" class="form-label">Sumber Dana</label>
+                      <input type="text" name="sumber_dana" class="form-control  @error('sumberDana') is-invalid @enderror" id="sumberDana">
+                      @error('sumberDana')
+                         <div class="invalid-feedback">{{ $message }}</div>
+                     @enderror
+                   </div>
               </div>
                 </div>
 
@@ -225,5 +237,17 @@
         <div class="footer">
             <p class="text-center">©2021 PT Jasamarga Tollroad Maintenance</p>
         </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+          function createNewElement() {
+            // First create a DIV element.
+          var txtNewInputBox = document.createElement('div'); 
+            // Then add the content (a new input box) of the element.
+          txtNewInputBox.innerHTML = "<input type='text' name='pegawai' class='mt-2 form-control @error('pegawai') is-invalid @enderror' id='newInputBox'>";
+            // Finally put it where it is supposed to appear.
+          document.getElementById("newElementId").appendChild(txtNewInputBox);
+        }
+        </script>
     </body>
 </html>

@@ -42,14 +42,14 @@
                       @csrf
                       @method('post')
                       <input  type="hidden" name="id" readonly value="{{ $sppd->id }}">
-                        <div class="mb-3">
-                          <label for="sppd_no" class="form-label">Nomor SPPD</label>
-                          <span>*</span>
-                          <input type="text" name="sppd_no" class="form-control @error('sppd_no') is-invalid @enderror" id="sppd_no" required readonly value="{{ $sppd->sppd_no }}">
-                          @error('sppd_no')
-                              <div class="invalid-feedback">{{ $message }}</div>
-                          @enderror
-                        </div>
+                      <div class="mb-3">
+                        <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
+                        <span>*</span>
+                        <input type="date" name="sppd_tgl_masuk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required readonly value="{{ $sppd->sppd_tgl_masuk }}">
+                        @error('masukSPPD')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
                         <div class="mb-3">
                            <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
                            <span>*</span>
@@ -65,16 +65,6 @@
                            @error('angkutan')
                               <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
-                        </div>
-                </div>
-                <div class="col-sm-8 mt-2">
-                        <div class="mb-3">
-                          <label for="pegawai" class="form-label">Nama Pegawai</label>
-                          <span>*</span>
-                          <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required readonly value="{{ $sppd->pegawai }}">
-                          @error('pegawai')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
                         </div>
                         <div class="mb-3">
                           <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
@@ -101,6 +91,25 @@
                            </div>
                         </div>
                 </div>
+                <div class="col-sm-8 mt-2">
+                      <div class="mb-3">
+                        <label for="sppd_no" class="form-label">Nomor SPPD</label>
+                        <span>*</span>
+                        <input type="text" name="sppd_no" class="form-control @error('sppd_no') is-invalid @enderror" id="sppd_no" required readonly value="{{ $sppd->sppd_no }}">
+                        @error('sppd_no')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <div class="mb-3">
+                          <label for="pegawai" class="form-label">Nama Pegawai</label>
+                          <span>*</span>
+                          <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required readonly value="{{ $sppd->pegawai }}">
+                          @error('pegawai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        </div>
+                        
+                </div>
             </div>
 
             <div class="row mt-2">
@@ -120,34 +129,63 @@
                   <button class="btn btn-secondary" disabled>IPA Selesai</button></span>
                   @endif
                 <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="nomorIPA" class="form-label">Nomor IPA</label>
-                          <input type="text" name="ipa_no" class="form-control" id="nomorIPA" value="{{ $sppd->ipa_no }}">
-                        </div>
-                        <div class="mb-3">
-                           <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
-                           <input type="date" name="ipa_tgl_dibuat" class="form-control" id="dateIPA" value="{{ $sppd->ipa_tgl_dibuat }}" readonly>
-                        </div>
+                      <div class="mb-3">      
+                      <label for="operatorPengisi" class="form-label">Nama Operator Pengisi</label>
+                            <span>*</span>
+                            <select aria-label="Default select example" name="op_pengisi" class="form-select  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required disabled>
+                              <option selected>Pilih Nama Operator</option>
+                              <option value="1">Ady</option>
+                              <option value="2">Rika</option>
+                            </select>
+                            @error('operatorPengisi')
+                              <div class="invalid-feedback">{{ $message }}</div>
+                          @enderror
+                      </div>
+                      <div class="mb-3">
+                        <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
+                        <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA" value="{{ $sppd->ipa_tgl_diajukan }}" readonly>
+                      </div>
+                      <div class="mb-3">
+                         <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
+                         <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA" value="{{ $sppd->ipa_tgl_selesai }}" readonly>
+                      </div>
                 </div>
                 <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="ajukanIPA" class="form-label">Tanggal IPA diajukan</label>
-                          <input type="date" name="ipa_tgl_diajukan" class="form-control" id="ajukanIPA" value="{{ $sppd->ipa_tgl_diajukan }}" readonly>
-                        </div>
+                      <div class="mb-3">
+                        <label for="nomorIPA" class="form-label">Nomor IPA</label>
+                        <input type="text" name="ipa_no" class="form-control" id="nomorIPA" value="{{ $sppd->ipa_no }}">
+                      </div>
                         <div class="mb-3">
                            <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
                            <input type="date" name="ipa_tgl_approval" class="form-control" id="approveIPA" value="{{ $sppd->ipa_tgl_approval }}" readonly>
                         </div>
+                        <div class="mb-3">
+                          <label for="nilaiIPA" class="form-label">Nilai IPA</label>
+                          <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">Rp.</span>
+                            <input type="text" name="ipa_nilai" class="form-control  @error('nilaiIPA') is-invalid @enderror" id="nilaiIPA">
+                          </div>
+                          @error('nilaiIPA')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
                 </div>
                 <div class="col-sm-4 mt-2">
+                        <div class="mb-3">
+                            <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
+                            <input type="date" name="ipa_tgl_dibuat" class="form-control" id="dateIPA" value="{{ $sppd->ipa_tgl_dibuat }}" readonly>
+                        </div>
                         <div class="mb-3">
                           <label for="financeIPA" class="form-label">Tanggal IPA masuk ke Finance</label>
                           <input type="date" name="ipa_tgl_msk_finance" class="form-control" id="financeIPA" value="{{ $sppd->ipa_tgl_msk_finance }}" readonly>
                         </div>
                         <div class="mb-3">
-                           <label for="selesaiIPA" class="form-label">Tanggal IPA Selesai</label>
-                           <input type="date" name="ipa_tgl_selesai" class="form-control" id="selesaiIPA" value="{{ $sppd->ipa_tgl_selesai }}" readonly>
-                        </div>
+                          <label for="sumberDana" class="form-label">Sumber Dana</label>
+                          <input type="text" name="sumber_dana" class="form-control  @error('sumberDana') is-invalid @enderror" id="sumberDana">
+                          @error('sumberDana')
+                             <div class="invalid-feedback">{{ $message }}</div>
+                         @enderror
+                       </div>
                 </div>
             </div>
 
