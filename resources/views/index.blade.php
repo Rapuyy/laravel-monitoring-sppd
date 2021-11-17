@@ -1,45 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.main')
 
-        <title>Web Monitoring SPPD</title>
+@section('container')
 
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        
-        <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-        
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/css/style.css">
-
-    </head>
-    <body>
-        <!-- Navigation Bar-->
-        <nav class="navbar navbar-expand-lg">
-            <div class="container container-fluid">
-              <a class="navbar-brand ms-2" href="/" style="color: aliceblue;">Web Monitoring SPPD</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="navbar-nav ml-auto" >
-                <a class="btn btn-primary" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class=" ml-auto">
-                    @csrf
-                </form>
-            </div>
-        </nav>
-
-        <div class="container">
+<div class="container">
             
             <!--Tabel-->
             <div class="row tabel-data">
@@ -125,32 +88,4 @@
             </div>
         </div>
 
-
-        <!--Footer-->
-        <div class="footer mt-5">
-            <p class="text-center">©2021 PT Jasamarga Tollroad Maintenance</p>
-        </div>   
-    </body>
-
-
-    <script>
-            $('.table-hari').each(function () {
-            var hari = parseInt($(this).text());
-            if ((hari >= 0) && (hari <= 4)) {
-              $(this).siblings().css('background-color', 'lightgreen');
-            } else if ((hari > 4) && (hari <= 10)) {
-              $(this).siblings().css('background-color', 'lightgoldenrodyellow');
-            } else if (hari > 10) {
-              $(this).siblings().css('background-color', 'lightpink');
-            } else {
-              $(this).siblings().css('background-color', 'default');
-            }
-          });
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#tablesppd').DataTable();
-        });
-    </script>
-    
-</html>
+@endsection

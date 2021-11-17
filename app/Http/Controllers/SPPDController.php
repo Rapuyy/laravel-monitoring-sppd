@@ -98,6 +98,7 @@ class SppdController extends Controller
         $sppd->ipa_no = $request->ipa_no;
         $sppd->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
         $sppd->ipa_tgl_approval = $request->ipa_tgl_approval;
+        $sppd->ipa_msk_finance = $request->ipa_tgl_msk_finance;
         $sppd->ipa_tgl_selesai = $request->ipa_tgl_selesai;
         $sppd->pp_no = $request->pp_no;
         $sppd->pp_tgl_dibuat = $request->pp_tgl_dibuat;
