@@ -33,7 +33,7 @@
                     {{ __('Logout') }}
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class=" ml-auto">
                     @csrf
                 </form>
             </div>
@@ -48,15 +48,15 @@
                         <thead>
                             <tr>
                                 <th class="table-success"><a href="{{ route('sppd.filter', ['filter' => "green"]) }}">< 4 hari</a></th>
-                                <th class="table-warning">4 - 10 hari</th>
-                                <th class="table-danger">Lebih dari 10 hari</th>
+                                <th class="table-warning"><a href="{{ route('sppd.filter', ['filter' => "yellow"]) }}">4 - 10 hari</a></th>
+                                <th class="table-danger"><a href="{{ route('sppd.filter', ['filter' => "red"]) }}">Lebih dari 10 hari</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-center">
-                                <td>{{ $day_status->green1 + $day_status->green2 }} proses</td>
-                                <td>{{ $day_status->yellow1 + $day_status->yellow2 }} proses</td>
-                                <td>{{ $day_status->red1 + $day_status->red2 }} proses</td>
+                                <td>{{ $day_status->green }} proses</td>
+                                <td>{{ $day_status->yellow }} proses</td>
+                                <td>{{ $day_status->red }} proses</td>
                             </tr>
                         </tbody>
                     </table>
@@ -81,7 +81,7 @@
                             <th>Status Sekarang</th>
                             <th>Aksi</th>
                         </tr>
-                    </thead>
+                    </thead> 
                     
                     <tbody>
                     @foreach ($sppd_list as $sppd)  

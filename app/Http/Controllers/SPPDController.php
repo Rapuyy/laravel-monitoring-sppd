@@ -215,20 +215,52 @@ class SppdController extends Controller
                                     status, tgl_berangkat, tgl_pulang, ipa_tgl_dibuat, ipa_tgl_selesai,
                                     pp_tgl_dibuat'))
                     ->get();
-        
-        $day_status = DB::select( DB::raw("
-                                SELECT green1.total as green1, green2.total as green2, yellow1.total as yellow1, yellow2.total as yellow2, red1.total as red1, red2.total as red2 
-                                from 
-                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) < 4) green1, 
-                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) < 4) green2, 
-                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) >= 4 and DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) < 10) yellow1, 
-                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) >= 4 and DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) < 10) yellow2, 
-                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) >= 10) red1, 
-                                (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) >= 10) red2
-                                "))[0];
-        
+        // $day_status = DB::select( DB::raw("
+        //                         SELECT green1.total as green1, green2.total as green2, 
+        //                         yellow1.total as yellow1, yellow2.total as yellow2, 
+        //                         red1.total as red1, red2.total as red2 
+        //                         from 
+        //                         (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) < 4) green1, 
+        //                         (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) < 4) green2, 
+        //                         (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) >= 4 and DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) < 10) yellow1, 
+        //                         (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) >= 4 and DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) < 10) yellow2, 
+        //                         (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) >= 10) red1, 
+        //                         (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) >= 10) red2
+        //                         "))[0];
 
-        
+        $day_status = DB::select( DB::raw("
+                        SELECT green1.total as green1, green2.total as green2, green3.total as green3, green4.total as green4, green5.total as green5, green6.total as green6, green7.total as green7 ,green8.total as green8,
+                        yellow1.total as yellow1, yellow2.total as yellow2, yellow3.total as yellow3, yellow4.total as yellow4, yellow5.total as yellow5, yellow6.total as yellow6, yellow7.total as yellow7 ,yellow8.total as yellow8,
+                        red1.total as red1, red2.total as red2, red3.total as red3, red4.total as red4, red5.total as red5, red6.total as red6, red7.total as red7 ,red8.total as red8
+                        from 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 < 4) green1, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 < 4) green2, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 < 4) green3, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 < 4) green4, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 < 4) green5, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 < 4) green6, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 < 4) green7, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 < 4) green8, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 >= 4 and DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 < 10) yellow1, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 >= 4 and DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 < 10) yellow2, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 >= 4 and DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 < 10) yellow3, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 >= 4 and DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 < 10) yellow4, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 >= 4 and DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 < 10) yellow5, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 >= 4 and DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 < 10) yellow6, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 >= 4 and DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 < 10) yellow7, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 >= 4 and DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 < 10) yellow8, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 >= 10) red1, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 >= 10) red2, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 >= 10) red3, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 >= 10) red4, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 >= 10) red5, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 >= 10) red6, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 >= 10) red7, 
+                        (SELECT COUNT(*) as total FROM sppd WHERE DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 >= 10) red8 
+                        "))[0];
+        $day_status->green = $day_status->green1 + $day_status->green2 + $day_status->green3 + $day_status->green4 + $day_status->green5 + $day_status->green6 + $day_status->green7 + $day_status->green8;
+        $day_status->yellow = $day_status->yellow1 + $day_status->yellow2 + $day_status->yellow3 + $day_status->yellow4 + $day_status->yellow5 + $day_status->yellow6 + $day_status->yellow7 + $day_status->yellow8;
+        $day_status->red = $day_status->red1 + $day_status->red2 + $day_status->red3 + $day_status->red4 + $day_status->red5 + $day_status->red6 + $day_status->red7 + $day_status->red8;
         $today = Carbon::now()->format('Y-m-d');
         $today = Carbon::parse($today);
         return view('index', compact(['sppd_list', 'today', 'day_status']));
@@ -258,16 +290,72 @@ class SppdController extends Controller
     public function filterSPPD(Request $request)
     {
         if ($request->filter == "green") {
+            $sppd_list = DB::select(DB::raw('
+                        SELECT a.*
+                        from (
+                        SELECT
+                        DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 as ipa_1, 
+                        DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 as ipa_2, 
+                        DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 as ipa_3, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 as ipa_4, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) + 1 as ipa, 
+                        DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 as pp_1, 
+                        DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 as pp_2, 
+                        DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 as pp_3, 
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 as pp_4,
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) + 1 as pp,
+                        id, sppd_no, ipa_no, pp_no, pegawai, sppd_tujuan, sppd_alasan, sppd_kendaraan, keterangan, 
+                        status, tgl_berangkat, tgl_pulang, ipa_tgl_dibuat, ipa_tgl_selesai,
+                        pp_tgl_dibuat
+                        from sppd) a
+                        where a.ipa_1 < 4 or a.ipa_2 < 4 or a.ipa_3 < 4 or a.ipa_4 < 4 or a.pp_1 < 4 or a.pp_2 < 4 or a.pp_3 < 4 or a.pp_4 < 4'));
         }
         elseif ($request->filter == "yellow") {
-            
+            $sppd_list = DB::select(DB::raw('
+                        SELECT a.*
+                        from (
+                        SELECT
+                        DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 as ipa_1, 
+                        DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 as ipa_2, 
+                        DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 as ipa_3, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 as ipa_4, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) + 1 as ipa, 
+                        DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 as pp_1, 
+                        DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 as pp_2, 
+                        DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 as pp_3, 
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 as pp_4,
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) + 1 as pp,
+                        id, sppd_no, ipa_no, pp_no, pegawai, sppd_tujuan, sppd_alasan, sppd_kendaraan, keterangan, 
+                        status, tgl_berangkat, tgl_pulang, ipa_tgl_dibuat, ipa_tgl_selesai,
+                        pp_tgl_dibuat
+                        from sppd) a
+                        where (a.ipa_1 >= 4 and a.ipa_1 < 10) or (a.ipa_2 >= 4 and a.ipa_2 < 10) or (a.ipa_3 >= 4 and a.ipa_3 < 10) or (a.ipa_4 >= 4 and a.ipa_4 < 10) or 
+                        (a.pp_1 >= 4 and a.pp_1 < 10) or (a.pp_2 >= 4 and a.pp_2 < 10) or (a.pp_3 >= 4 and a.pp_3 < 10) or (a.pp_4 >= 4 and a.pp_4 < 10)'));
         }
         elseif ($request->filter == "red") {
-            
+            $sppd_list = DB::select(DB::raw('
+                        SELECT a.*
+                        from (
+                        SELECT
+                        DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 as ipa_1, 
+                        DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 as ipa_2, 
+                        DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 as ipa_3, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 as ipa_4, 
+                        DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) + 1 as ipa, 
+                        DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 as pp_1, 
+                        DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 as pp_2, 
+                        DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 as pp_3, 
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 as pp_4,
+                        DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) + 1 as pp,
+                        id, sppd_no, ipa_no, pp_no, pegawai, sppd_tujuan, sppd_alasan, sppd_kendaraan, keterangan, 
+                        status, tgl_berangkat, tgl_pulang, ipa_tgl_dibuat, ipa_tgl_selesai,
+                        pp_tgl_dibuat
+                        from sppd) a
+                        where a.ipa_1 >= 10 or a.ipa_2 >= 10 or a.ipa_3 >= 10 or a.ipa_4 >= 10 or a.pp_1 >= 10 or a.pp_2 >= 10 or a.pp_3 >= 10 or a.pp_4 >= 10'));
         }
-
         if ($sppd_list) {
-            return view('detil', compact('sppd_list'));
+            // dd($sppd_list);
+            return view('filter', compact('sppd_list'));
         }
         else {
             return redirect()->back();
@@ -296,33 +384,52 @@ class SppdController extends Controller
 
         $sppd = new Sppd;
         $sppd->sppd_no = $request->sppd_no;
-        $sppd->pegawai = $request->pegawai;
+        // $sppd->pegawai = $request->pegawai;
         $sppd->sppd_tujuan = $request->sppd_tujuan;
-        $sppd->sppd_kendaraan = $request->sppd_kendaraan;
         $sppd->sppd_alasan = $request->sppd_alasan;
         $sppd->tgl_berangkat = $request->tgl_berangkat;
         $sppd->tgl_pulang = $request->tgl_pulang;
-
+        
         $sppd->ipa_no = $request->ipa_no;
         $sppd->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
         $sppd->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
         $sppd->ipa_tgl_approval = $request->ipa_tgl_approval;
         $sppd->ipa_tgl_selesai = $request->ipa_tgl_selesai;
-
+        
         $sppd->pp_no = $request->pp_no;
         $sppd->pp_tgl_dibuat = $request->pp_tgl_dibuat;
         $sppd->pp_tgl_diajukan = $request->pp_tgl_diajukan;
         $sppd->pp_tgl_approval = $request->pp_tgl_approval;
         $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
-
+        
         $sppd->sppd_tgl_msk = $request->sppd_tgl_msk;
-        $sppd->op_pengisi = $request->op_pengisi;
         $sppd->unit_kerja = $request->unit_kerja;
         $sppd->ipa_nilai = $request->ipa_nilai;
         $sppd->sumber_dana = $request->sumber_dana;
-
+        
         $sppd->status = $this->validateStatus($sppd);
+        
 
+        $sppd->pegawai = implode(', ', $request->pegawai);
+
+        if ($request->sppd_kendaraan == '1') {
+            $sppd->sppd_kendaraan = 'Kendaraan Darat';
+        }
+        else if ($request->sppd_kendaraan == '2') {
+            $sppd->sppd_kendaraan = 'Kendaraan Udara';
+        }
+        else if ($request->sppd_kendaraan == '3') {
+            $sppd->sppd_kendaraan = 'Kendaraan Dinas/Pribadi';
+        }
+        else return redirect()->route('sppd.add');
+        
+        if ($request->op_pengisi == '1') {
+            $sppd->op_pengisi = 'Ady';
+        }
+        else if ($request->op_pengisi == '2') {
+            $sppd->op_pengisi = 'Rika';
+        }
+        else redirect()->route('sppd.add');
 
         $simpan = $sppd->save();
   
@@ -365,9 +472,9 @@ class SppdController extends Controller
         $sppd = Sppd::find($request->id);
         
         $sppd->sppd_no = $request->sppd_no;
-        $sppd->pegawai = $request->pegawai;
+        // $sppd->pegawai = $request->pegawai;
         $sppd->sppd_tujuan = $request->sppd_tujuan;
-        $sppd->sppd_kendaraan = $request->sppd_kendaraan;
+        // $sppd->sppd_kendaraan = $request->sppd_kendaraan;
         $sppd->sppd_alasan = $request->sppd_alasan;
         $sppd->tgl_berangkat = $request->tgl_berangkat;
         $sppd->tgl_pulang = $request->tgl_pulang;
@@ -379,6 +486,34 @@ class SppdController extends Controller
         $sppd->pp_tgl_dibuat = $request->pp_tgl_dibuat;
         $sppd->pp_tgl_approval = $request->pp_tgl_approval;
         $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
+
+        $sppd->sppd_tgl_msk = $request->sppd_tgl_msk;
+        // $sppd->op_pengisi = $request->op_pengisi;
+        $sppd->unit_kerja = $request->unit_kerja;
+        $sppd->ipa_nilai = $request->ipa_nilai;
+        $sppd->sumber_dana = $request->sumber_dana;
+        
+
+        $sppd->pegawai = implode(', ', $request->pegawai);
+
+        if ($request->sppd_kendaraan == '1') {
+            $sppd->sppd_kendaraan = 'Kendaraan Darat';
+        }
+        else if ($request->sppd_kendaraan == '2') {
+            $sppd->sppd_kendaraan = 'Kendaraan Udara';
+        }
+        else if ($request->sppd_kendaraan == '3') {
+            $sppd->sppd_kendaraan = 'Kendaraan Dinas/Pribadi';
+        }
+        else return redirect()->route('sppd.add');
+        
+        if ($request->op_pengisi == '1') {
+            $sppd->op_pengisi = 'Ady';
+        }
+        else if ($request->op_pengisi == '2') {
+            $sppd->op_pengisi = 'Rika';
+        }
+        else redirect()->route('sppd.add');
 
         $sppd->status = $this->validateStatus($sppd);
 

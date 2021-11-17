@@ -112,7 +112,7 @@
                           <div class="mb-2">
                             <label for="pegawai" class="form-label">Nama Pegawai</label>
                             <span>*</span>
-                            <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required>
+                            <input type="text" name="pegawai[]" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required>
                             <div id="newElementId"></div>
                             <input type="button" class="btn btn-outline-dark mt-3" value="Tambah Pegawai" onclick="createNewElement();"/>
                             @error('pegawai')
@@ -244,7 +244,7 @@
             // First create a DIV element.
           var txtNewInputBox = document.createElement('div'); 
             // Then add the content (a new input box) of the element.
-          txtNewInputBox.innerHTML = "<input type='text' name='pegawai' class='mt-2 form-control @error('pegawai') is-invalid @enderror' id='newInputBox'>";
+          txtNewInputBox.innerHTML = "<input type='text' name='pegawai[]' class='mt-2 form-control @error('pegawai[]') is-invalid @enderror' id='newInputBox'>";
             // Finally put it where it is supposed to appear.
           document.getElementById("newElementId").appendChild(txtNewInputBox);
         }

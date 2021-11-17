@@ -103,7 +103,7 @@
                       <div class="mb-3">
                           <label for="pegawai" class="form-label">Nama Pegawai</label>
                           <span>*</span>
-                          <input type="text" name="pegawai" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required readonly value="{{ $sppd->pegawai }}">
+                          <input type="text" name="pegawai[]" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required readonly value="{{ $sppd->pegawai }}">
                           @error('pegawai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -133,7 +133,7 @@
                       <label for="operatorPengisi" class="form-label">Nama Operator Pengisi</label>
                             <span>*</span>
                             <select aria-label="Default select example" name="op_pengisi" class="form-select  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required disabled>
-                              <option selected>Pilih Nama Operator</option>
+                              <option selected>{{ $sppd->op_pengisi }}</option>
                               <option value="1">Ady</option>
                               <option value="2">Rika</option>
                             </select>

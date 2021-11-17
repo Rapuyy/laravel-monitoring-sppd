@@ -42,27 +42,7 @@
 
         <div class="container">
             
-            <!--Tabel-->
-            <div class="row tabel-data">
-                <div class="col-7 mt-4 table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="table-success">< 4 hari</th>
-                                <th class="table-warning">4 - 10 hari</th>
-                                <th class="table-danger">Lebih dari 10 hari</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="text-center">
-                                <td>{{ $day_status->green1 + $day_status->green2 }} proses</td>
-                                <td>{{ $day_status->yellow1 + $day_status->yellow2 }} proses</td>
-                                <td>{{ $day_status->red1 + $day_status->red2 }} proses</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <!--
 
             <!--Button Opsi-->
             <div class="d-grid gap-2 d-md-block mt-2 mb-2">
