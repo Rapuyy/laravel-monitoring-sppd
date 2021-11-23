@@ -1,10 +1,62 @@
-    $('.table-hari-1').each(function(i, n) {
-        if($(n).text() < 5) $('.table-status-1').css('background-color', 'lightgreen');
-        if(4 < $(n).text() && $(n).text() < 10) $('.table-status-1').css('background-color', 'lightgoldenrodyellow');
-        if($(n).text() > 9) $('.table-status-1').css('background-color', 'lightred');
-     });
-     $('.table-hari-2').each(function(i, n) {
-        if($(n).text() < 5) $('.table-status-2').css('background-color', 'lightgreen');
-        if(4 < $(n).text() && $(n).text() < 10) $('.table-status-2').css('background-color', 'lightyellow');
-        if($(n).text() > 9) $('.table-status-2').css('background-color', 'lightpink');
-     });
+ $('.table-hari-ipa').each(function () {
+  var hari = parseInt($(this).text());
+  var index = $(this).index();
+
+  if ((hari >= 0) && (hari <= 4)) {
+    $('.table-status-ipa').eq(index).css('background-color', '#32CD32');
+  } else if ((hari > 4) && (hari <= 10)) {
+    $('.table-status-ipa').eq(index).css('background-color', '#FFA500'); //'lightgoldenrodyellow');
+  } else if (hari > 10) {
+    $('.table-status-ipa').eq(index).css('background-color', '#CD5C5C');
+  } else {
+    $('.table-status-ipa').eq(index).css('background-color', 'default');
+  }
+});
+
+
+$('.table-hari-pp').each(function () {
+  var hari = parseInt($(this).text());
+  var index = $(this).index();
+
+  if ((hari >= 0) && (hari <= 4)) {
+    $('.table-status-pp').eq(index).css('background-color', '#32CD32');
+  } else if ((hari > 4) && (hari <= 10)) {
+    $('.table-status-pp').eq(index).css('background-color', '#FFA500'); //'lightgoldenrodyellow');
+  } else if (hari > 10) {
+    $('.table-status-pp').eq(index).css('background-color', '#CD5C5C');
+  } else {
+    $('.table-status-pp').eq(index).css('background-color', 'default');
+  }
+});
+
+ $(document).ready(function () {
+   $('#tablesppd').DataTable();
+});
+
+function createNewElement() {
+   // First create a DIV element.
+ var txtNewInputBox = document.createElement('div'); 
+   // Then add the content (a new input box) of the element.
+ txtNewInputBox.innerHTML = "<input type='text' name='pegawai[]' class='mt-2 form-control @error('pegawai[]') is-invalid @enderror' id='newInputBox'>";
+   // Finally put it where it is supposed to appear.
+ document.getElementById("newElementId").appendChild(txtNewInputBox);
+}
+
+function tanggal(){
+  var startDate = $('#waktuawal').val()
+  var endDate = $('#waktuakhir').val()
+  if (startDate == '' || endDate == ''){
+    return;
+  }
+    
+  var awal = new Date(startDate);
+  var akhir = new Date(endDate)
+    
+  if (akhir < awal){
+    return;
+  }
+    
+  var selisih = akhir - awal; 
+  $('.hasilselisih').text(selisih / (1000 * 60 * 60 * 24));
+  console.log(selisih / (1000 * 60 * 60 * 24));
+}

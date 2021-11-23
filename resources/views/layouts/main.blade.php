@@ -25,40 +25,7 @@
 
         @include('partials.footer')
 
+        @yield('script')
+
     </body>
-
-
-    <script>
-        $('.table-hari').each(function () {
-            var hari = parseInt($(this).text());
-            var index = $(this).index();
-          
-            if ((hari >= 0) && (hari <= 4)) {
-              $('.table-status').eq(index).css('background-color', 'lightgreen');
-            } else if ((hari > 4) && (hari <= 10)) {
-              $('.table-status').eq(index).css('background-color', 'lightgoldenrodyellow');
-            } else if (hari > 10) {
-              $('.table-status').eq(index).css('background-color', 'lightpink');
-            } else {
-              $('.table-status').eq(index).css('background-color', 'default');
-            }
-          });
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#tablesppd').DataTable();
-        });
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script>
-          function createNewElement() {
-            // First create a DIV element.
-          var txtNewInputBox = document.createElement('div'); 
-            // Then add the content (a new input box) of the element.
-          txtNewInputBox.innerHTML = "<input type='text' name='pegawai[]' class='mt-2 form-control @error('pegawai[]') is-invalid @enderror' id='newInputBox'>";
-            // Finally put it where it is supposed to appear.
-          document.getElementById("newElementId").appendChild(txtNewInputBox);
-        }
-        </script>
-    
 </html>

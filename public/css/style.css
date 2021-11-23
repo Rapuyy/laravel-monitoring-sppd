@@ -36,3 +36,11 @@ span {
 th{
     text-align: center !important;
 }
+
+.btn-logout {
+    background-color: #000248 !important;
+}
+
+.btn-logout:hover {
+    background-color: #0C4F89 !important;
+}

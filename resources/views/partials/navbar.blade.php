@@ -3,7 +3,7 @@
             <div class="container container-fluid">
               <a class="navbar-brand" href="/" style="color: aliceblue;">Web Monitoring SPPD</a>
               <form class="d-flex">
-                    <a class="btn btn-primary" href="{{ route('logout') }}"
+                    <a class="btn btn-primary btn-logout" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}

@@ -13,13 +13,15 @@
                                 <th class="table-success"><a href="{{ route('sppd.filter', ['filter' => "green"]) }}">< 4 hari</a></th>
                                 <th class="table-warning"><a href="{{ route('sppd.filter', ['filter' => "yellow"]) }}">4 - 10 hari</a></th>
                                 <th class="table-danger"><a href="{{ route('sppd.filter', ['filter' => "red"]) }}">Lebih dari 10 hari</a></th>
+                                <th><a href="{{ route('sppd.filter', ['filter' => "red"]) }}">Sudah selesai</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-center">
-                                <td>{{ $day_status->green }} proses</td>
-                                <td>{{ $day_status->yellow }} proses</td>
-                                <td>{{ $day_status->red }} proses</td>
+                                <td>{{ $day_status->green }} Dokumen</td>
+                                <td>{{ $day_status->yellow }} Dokumen</td>
+                                <td>{{ $day_status->red }} Dokumen</td>
+                                <td>{{ $day_status->red }} Dokumen</td>
                             </tr>
                         </tbody>
                     </table>
@@ -39,9 +41,11 @@
                         <tr>
                             <th>Nomor</th>
                             <th>Nomor SPPD</th>
-                            <th>PerihalPegawai</th>
+                            <th>Perihal</th>
                             <th>Pegawai</th>
                             <th>Status Sekarang</th>
+                            <th>Dana</th>
+                            <th>Sumber Dana</th>
                             <th>Aksi</th>
                         </tr>
                     </thead> 
@@ -78,6 +82,8 @@
                                     {{ __('PP Selesai') }}  
                                 @endif
                             </td>
+                            <td>{{ $sppd->ipa_nilai }}</td>
+                            <td>{{ $sppd->sumber_dana }}</td>
                             <td align="center">
                                 <a href=" {{ route('sppd.detil', ['id' => $sppd->id]) }}" class="btn btn-info">Detail</a>
                             </td>
@@ -87,5 +93,8 @@
                 </table>
             </div>
         </div>
+        @section('script')
+        <script type="text/javascript" src="/js/script.js"></script>
+        @endsection
 
 @endsection

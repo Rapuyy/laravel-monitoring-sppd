@@ -16,7 +16,7 @@
                             <div class="mb-3">
                               <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
                               <span>*</span>
-                              <input type="date" name="sppd_tgl_masuk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required>
+                              <input type="date" name="sppd_tgl_msk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required>
                               @error('masukSPPD')
                                   <div class="invalid-feedback">{{ $message }}</div>
                               @enderror
@@ -62,17 +62,20 @@
                                <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
                                <span>*</span>
                                <div class="input-group">
-                                    <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required>
+                                    <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" onchange="tanggal()" required>
                                     <span class="input-group-btn"></span>
                                     @error('waktuawal')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" required>
+                                    <input type="date" name="tgl_pulang" class="form-control  @error('waktuakhir') is-invalid @enderror" id="waktuakhir" onclick="tanggal()"required>
                                     <span class="input-group-btn"></span>
                                     @error('waktuakhir')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                </div>
+                            </div>
+                            <div class="mb-3">
+                              <p>Lama perjalanan <b class="hasilselisih"></b> hari</p>
                             </div>
                         </div>
                 <div class="col-sm-8">
@@ -176,24 +179,24 @@
                           <input type="text" name="pp_no" class="form-control" id="nomorPP">
                         </div>
                         <div class="mb-3">
-                           <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
-                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP">
-                        </div>
-                </div>
-                <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
-                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP">
-                        </div>
-                        <div class="mb-3">
                           <label for="approvePP" class="form-label">Tanggal PP disetujui</label>
                           <input type="date" name="pp_tgl_approval" class="form-control" id="approvePP">
                         </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
+                           <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
+                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP">
+                        </div>
+                        <div class="mb-3">
                           <label for="financePP" class="form-label">Tanggal PP masuk Finance</label>
                           <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financePP">
+                        </div>
+                </div>
+                <div class="col-sm-4 mt-2">
+                        <div class="mb-3">
+                          <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
+                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP">
                         </div>
                         <div class="mb-3">
                           <label for="selesaiPP" class="form-label">Tanggal PP Selesai</label>
@@ -207,4 +210,7 @@
             </div>
         </div>
     </form>
+    @section('script')
+    <script type="text/javascript" src="/js/script.js"></script>
+    @endsection
 @endsection

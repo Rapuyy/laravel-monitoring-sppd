@@ -17,7 +17,7 @@
                       <div class="mb-3">
                         <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
                         <span>*</span>
-                        <input type="date" name="sppd_tgl_masuk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required readonly value="{{ $sppd->sppd_tgl_masuk }}">
+                        <input type="date" name="sppd_tgl_msk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required readonly value="{{ $sppd->sppd_tgl_msk }}">
                         @error('masukSPPD')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -61,6 +61,9 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                            </div>
+                        </div>
+                        <div class="mb-3">
+                              <p>Lama waktu perjalanan : <b>{{ $progres->lama_perjalanan }}</b> hari </p>
                         </div>
                 </div>
                 <div class="col-sm-8 mt-2">
@@ -222,43 +225,40 @@
             <td colspan="5">IPA</td>
           </tr>
           <tr>
-            <td class="table-status">Diajukan</td>
-            <td class="table-status">Disetujui</td>
-            <td class="table-status">Di Finance</td>
-            <td class="table-status">Selesai</td>
+            <td class="table-status-ipa">Diajukan</td>
+            <td class="table-status-ipa">Disetujui</td>
+            <td class="table-status-ipa">Di Finance</td>
+            <td class="table-status-ipa">Selesai</td>
             <td>Total</td>
           </tr>
           <tr>
-            <td class="table-hari">{{ $progres->ipa_1 }} hari</td>
-            <td class="table-hari">{{ $progres->ipa_2 }} hari</td>
-            <td class="table-hari">{{ $progres->ipa_3 }} hari</td>
-            <td class="table-hari">{{ $progres->ipa_4 }} hari</td>
-            <td class="table-hari">{{ $progres->ipa }} hari</td>
+            <td class="table-hari-ipa">{{ $progres->ipa_1 }} hari</td>
+            <td class="table-hari-ipa">{{ $progres->ipa_2 }} hari</td>
+            <td class="table-hari-ipa">{{ $progres->ipa_3 }} hari</td>
+            <td class="table-hari-ipa">{{ $progres->ipa_4 }} hari</td>
+            <td class="table-hari-ipa">{{ $progres->ipa }} hari</td>
           </tr>
           <tr>
             <td colspan="5">PP</td>
           </tr>
           <tr>
-            <td class="table-status">Diajukan</td>
-            <td class="table-status">Disetujui</td>
-            <td class="table-status">Di Finance</td>
-            <td class="table-status">Selesai</td>
+            <td class="table-status-pp">Dibuat</td>
+            <td class="table-status-pp">Diajukan</td>
+            <td class="table-status-pp">Disetujui</td>
+            <td class="table-status-pp">Di Finance</td>
+            <td class="table-status-pp">Selesai</td>
             <td>Total</td>
           </tr>
           <tr>
-            <td class="table-hari">{{ $progres->pp_1 }} hari</td>
-            <td class="table-hari">{{ $progres->pp_2 }} hari</td>
-            <td class="table-hari">{{ $progres->pp_3 }} hari</td>
-            <td class="table-hari">{{ $progres->pp_4 }} hari</td>
-            <td class="table-hari">{{ $progres->pp }} hari</td>
+            <td class="table-hari-pp">{{ $progres->ipa_pp }} hari</td>
+            <td class="table-hari-pp">{{ $progres->pp_1 }} hari</td>
+            <td class="table-hari-pp">{{ $progres->pp_2 }} hari</td>
+            <td class="table-hari-pp">{{ $progres->pp_3 }} hari</td>
+            <td class="table-hari-pp">{{ $progres->pp_4 }} hari</td>
+            <td class="table-hari-pp">{{ $progres->pp }} hari</td>
           </tr>
       </table>
       </div>
-
-        <!--Footer-->
-        <div class="footer">
-            <p class="text-center">©2021 PT Jasamarga Tollroad Maintenance</p>
-        </div>
 
         <!--Modal-->
         <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -278,4 +278,9 @@
             </div>
           </div>
         </div>
+
+        @section('script')
+        <script type="text/javascript" src="/js/script.js"></script>
+        @endsection
+        
 @endsection
