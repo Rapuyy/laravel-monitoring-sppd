@@ -220,7 +220,7 @@ class SppdController extends Controller
                                     pegawai, sppd_tujuan, sppd_alasan, sppd_kendaraan, keterangan, 
                                     status, ipa_nilai, sumber_dana,
                                     tgl_berangkat, tgl_pulang, ipa_tgl_dibuat, ipa_tgl_selesai,pp_tgl_dibuat'))
-                    ->get();
+                    ->orderBy('id', 'DESC')->get();
         $day_status = DB::select( DB::raw("
                     SELECT green1.total as green1, green2.total as green2, green3.total as green3, green4.total as green4, green5.total as green5, green6.total as green6, green7.total as green7 ,green8.total as green8,
                     yellow1.total as yellow1, yellow2.total as yellow2, yellow3.total as yellow3, yellow4.total as yellow4, yellow5.total as yellow5, yellow6.total as yellow6, yellow7.total as yellow7 ,yellow8.total as yellow8,

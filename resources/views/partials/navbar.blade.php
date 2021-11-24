@@ -2,7 +2,7 @@
         <nav class="navbar">
             <div class="container container-fluid">
               <a class="navbar-brand" href="/" style="color: aliceblue;">Web Monitoring SPPD</a>
-              <form class="d-flex">
+              <div class="d-flex">
                     <a class="btn btn-primary btn-logout" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
@@ -12,6 +12,6 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="ml-auto">
                         @csrf
                     </form>
-                </form>
+                </div>
             </div>
           </nav>
