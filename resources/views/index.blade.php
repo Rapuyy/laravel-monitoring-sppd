@@ -13,15 +13,15 @@
                                 <th class="table-success"><a href="{{ route('sppd.filter', ['filter' => "green"]) }}">< 4 hari</a></th>
                                 <th class="table-warning"><a href="{{ route('sppd.filter', ['filter' => "yellow"]) }}">4 - 10 hari</a></th>
                                 <th class="table-danger"><a href="{{ route('sppd.filter', ['filter' => "red"]) }}">Lebih dari 10 hari</a></th>
-                                <th><a href="{{ route('sppd.filter', ['filter' => "red"]) }}">Sudah selesai</a></th>
+                                <th><a href="{{ route('sppd.filter', ['filter' => "done"]) }}">Sudah selesai</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="text-center">
-                                <td>{{ $day_status->green }} Dokumen</td>
-                                <td>{{ $day_status->yellow }} Dokumen</td>
-                                <td>{{ $day_status->red }} Dokumen</td>
-                                <td>{{ $day_status->red }} Dokumen</td>
+                                <td>{{ $status['green'] }} Dokumen</td>
+                                <td>{{ $status['yellow'] }} Dokumen</td>
+                                <td>{{ $status['red'] }} Dokumen</td>
+                                <td>{{ $status['done'] }} Dokumen</td>
                             </tr>
                         </tbody>
                     </table>
