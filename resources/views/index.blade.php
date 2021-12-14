@@ -53,7 +53,7 @@
                     <tbody>
                     @foreach ($sppd_list as $sppd)  
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sppd->id }}</td>
                             <td>{{ $sppd->sppd_no ? $sppd->sppd_no : "SPPD Belum diisi" }}</td>
                             <td>{{ $sppd->sppd_alasan }}</td>
                             <td>{{ $sppd->pegawai }}</td>

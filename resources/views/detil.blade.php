@@ -22,6 +22,14 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
+                      <div class="mb-3">
+                        <label for="unitKerja" class="form-label">Unit Kerja</label>
+                        <span>*</span>
+                        <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required readonly value="{{ $sppd->sppd_tgl_msk }}">
+                        @error('unitKerja')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
                         <div class="mb-3">
                            <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
                            <span>*</span>
@@ -129,6 +137,12 @@
                       <div class="mb-3">
                         <label for="nomorIPA" class="form-label">Nomor IPA</label>
                         <input type="text" name="ipa_no" class="form-control" id="nomorIPA" value="{{ $sppd->ipa_no }}">
+                        <select name="ipa_no" id="ipa">
+                          <option value="0" selected>IPA</option>
+                          @foreach ($ipa_list as $ipa)
+                            <option value="{{ $ipa->ipa_no }}">{{ $ipa->ipa_no }}</option>
+                          @endforeach
+                        </select>
                       </div>
                         <div class="mb-3">
                            <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
@@ -184,16 +198,12 @@
                         <div class="mb-3">
                           <label for="nomorPP" class="form-label">Nomor PP</label>
                           <input type="text" name="pp_no" class="form-control" id="nomorPP" value="{{ $sppd->pp_no }}">
-                        </div>
-                        <div class="mb-3">
-                           <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
-                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP" value="{{ $sppd->pp_tgl_dibuat }}" readonly>
-                        </div>
-                </div>
-                <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
-                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP" value="{{ $sppd->pp_tgl_diajukan }}" readonly>
+                          <select name="pp_no" id="pp">
+                            <option value="0" selected>PP</option>
+                            @foreach ($pp_list as $pp)
+                              <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
+                            @endforeach
+                          </select>
                         </div>
                         <div class="mb-3">
                           <label for="approvePP" class="form-label">Tanggal PP disetujui</label>
@@ -202,8 +212,18 @@
                 </div>
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
+                           <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
+                           <input type="date" name="pp_tgl_dibuat" class="form-control" id="buatPP" value="{{ $sppd->pp_tgl_dibuat }}" readonly>
+                        </div>
+                        <div class="mb-3">
                           <label for="financePP" class="form-label">Tanggal PP masuk ke Finance</label>
                           <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financePP" value="{{ $sppd->pp_tgl_msk_finance }}" readonly>
+                        </div>
+                </div>
+                <div class="col-sm-4 mt-2">
+                        <div class="mb-3">
+                          <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
+                          <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP" value="{{ $sppd->pp_tgl_diajukan }}" readonly>
                         </div>
                         <div class="mb-3">
                           <label for="selesaiPP" class="form-label">Tanggal PP selesai</label>
@@ -220,7 +240,7 @@
 
         <div class="container">
         <h3>Status SPPD</h3>
-        <table class="table table-bordered ket-status text-center">
+        <table class="table table-bordered ket-status text-center table-ipa">
           <tr>
             <td colspan="5">IPA</td>
           </tr>
@@ -238,6 +258,8 @@
             <td class="table-hari-ipa">{{ $progres->ipa_4 }} hari</td>
             <td class="table-hari-ipa">{{ $progres->ipa }} hari</td>
           </tr>
+        </table>
+        <table class="table table-bordered ket-status text-center table-pp">
           <tr>
             <td colspan="5">PP</td>
           </tr>

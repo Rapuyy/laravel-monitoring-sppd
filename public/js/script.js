@@ -33,15 +33,6 @@ $('.table-hari-pp').each(function () {
    $('#tablesppd').DataTable();
 });
 
-function createNewElement() {
-   // First create a DIV element.
- var txtNewInputBox = document.createElement('div'); 
-   // Then add the content (a new input box) of the element.
- txtNewInputBox.innerHTML = "<input type='text' name='pegawai[]' class='mt-2 form-control @error('pegawai[]') is-invalid @enderror' id='newInputBox'>";
-   // Finally put it where it is supposed to appear.
- document.getElementById("newElementId").appendChild(txtNewInputBox);
-}
-
 function tanggal(){
   var startDate = $('#waktuawal').val()
   var endDate = $('#waktuakhir').val()

@@ -15,32 +15,22 @@ class CreateSppdTable extends Migration
     {
         Schema::create('sppd', function (Blueprint $table) {
             $table->id();
+
             $table->string('sppd_no');
             $table->string('ipa_no')->nullable();
             $table->string('pp_no')->nullable();
+            $table->date('sppd_tgl_msk');
             $table->string('pegawai');
             $table->string('sppd_tujuan');
             $table->string('sppd_alasan');
             $table->string('sppd_kendaraan');
-            $table->string('sppd_tgl_msk')->nullable();
-            $table->string('op_pengisi')->nullable();
-            $table->string('unit_kerja')->nullable();
-            $table->string('ipa_nilai')->nullable();
-            $table->string('sumber_dana')->nullable();
+            $table->string('op_pengisi');
+            $table->string('unit_kerja');
             $table->string('keterangan')->nullable();
             $table->integer('status')->default(0);
             $table->date('tgl_berangkat');
             $table->date('tgl_pulang');
-            $table->date('ipa_tgl_dibuat')->nullable();
-            $table->date('ipa_tgl_diajukan')->nullable();
-            $table->date('ipa_tgl_approval')->nullable();
-            $table->date('ipa_tgl_msk_finance')->nullable();
-            $table->date('ipa_tgl_selesai')->nullable();
-            $table->date('pp_tgl_dibuat')->nullable();
-            $table->date('pp_tgl_diajukan')->nullable();
-            $table->date('pp_tgl_approval')->nullable();
-            $table->date('pp_tgl_msk_finance')->nullable();
-            $table->date('pp_tgl_selesai')->nullable();
+
             $table->timestamps();
         });
     }

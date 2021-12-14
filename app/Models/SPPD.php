@@ -26,21 +26,9 @@ class Sppd extends Model
         'sppd_tgl_msk',
         'op_pengisi',
         'unit_kerja',
-        'ipa_nilai',
-        'sumber_dana',
         'keterangan',
         'status',
         'tgl_berangkat',
-        'tgl_pulang',
-        'ipa_tgl_dibuat',
-        'ipa_tgl_diajukan',
-        'ipa_tgl_approval',
-        'ipa_tgl_msk_finance',
-        'ipa_tgl_selesai',
-        'pp_tgl_dibuat',
-        'pp_tgl_diajukan',
-        'pp_tgl_approval',
-        'pp_tgl_msk_finance',
-        'pp_tgl_selesai'
+        'tgl_pulang'
     ];
 }
