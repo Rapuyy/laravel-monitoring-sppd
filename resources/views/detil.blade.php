@@ -25,7 +25,7 @@
                       <div class="mb-3">
                         <label for="unitKerja" class="form-label">Unit Kerja</label>
                         <span>*</span>
-                        <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required readonly value="{{ $sppd->sppd_tgl_msk }}">
+                        <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required readonly value="{{ $sppd->unit_kerja }}">
                         @error('unitKerja')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -261,7 +261,7 @@
         </table>
         <table class="table table-bordered ket-status text-center table-pp">
           <tr>
-            <td colspan="5">PP</td>
+            <td colspan="6">PP</td>
           </tr>
           <tr>
             <td class="table-status-pp">Dibuat</td>

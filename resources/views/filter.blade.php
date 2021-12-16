@@ -2,7 +2,7 @@
 
 @section('container')
 
-        <div class="container">
+        <div class="container mt-3">
             
             <!--Back Button-->
             <a href="/">
@@ -11,7 +11,7 @@
             </svg>Kembali</a>
 
             <!--Button Opsi-->
-            <div class="d-grid gap-2 d-md-block mt-2">
+            <div class="d-grid gap-2 d-md-block mt-3">
                 <a href="{{ route("sppd.add") }}" class="btn btn-primary" type="button">Tambah Ajuan SPPD</a>
                 {{-- <button class="btn btn-secondary" type="button">Lihat Status Ajuan SPPD</button> --}}
             </div>
