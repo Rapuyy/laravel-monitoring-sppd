@@ -14,7 +14,7 @@
                         @csrf
                     </form>
                 @else
-                    <a class="btn btn-primary btn-login" href="{{ route('login') }}">{{ __('login') }}</a>
+                    <a class="btn btn-primary btn-logout" href="{{ route('login') }}">{{ __('login') }}</a>
                 @endif
                 </div>
             </div>
