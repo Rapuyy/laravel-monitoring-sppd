@@ -17,7 +17,7 @@ class SppdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
     public function validateStatus($sppd, $ipa, $pp) //dipake store sama update
@@ -366,7 +366,12 @@ class SppdController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $today = Carbon::parse($today);
 
-        $sppd_list = SPPD::all();
+        $sppd_list = DB::table('sppd')
+        ->selectRaw('ipa.*, pp.*,sppd.*')
+        ->join('ipa', 'ipa.ipa_no', '=', 'sppd.ipa_no', 'left outer')
+        ->join('pp', 'pp.pp_no', '=', 'sppd.pp_no', 'left outer')
+        ->orderByDesc('sppd.id')
+        ->get();
         
         $cek_days = [];
         $count = 0;

@@ -14,9 +14,9 @@ use App\Http\Controllers\SPPDController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/home', function () {
+    return redirect()->route('sppd');
+});
 
 Auth::routes();
 Route::get('/', [SPPDController::class, 'index'])->name('sppd');
@@ -27,6 +27,7 @@ Route::get('/detil/{id}', [SPPDController::class, 'detilSPPD'])->name('sppd.deti
 Route::delete('/delete/{id}', [SPPDController::class, 'delete'])->name('sppd.delete');
 Route::post('/update', [SPPDController::class, 'update'])->name('sppd.update');
 Route::post('/updateStatus', [SPPDController::class, 'updateStatus'])->name('sppd.updateStatus');
+Route::get('/filter/{filter}',[SPPDController::class, 'filterSPPD'])->name('sppd.filter');;
 Route::get('/detil/{id}/0',[SPPDController::class, 'dibuat']);
 Route::get('/detil/{id}/1',[SPPDController::class, 'diajukan']);
 Route::get('/detil/{id}/2',[SPPDController::class, 'disetujui']);
@@ -37,5 +38,3 @@ Route::get('/detil/{id}/11',[SPPDController::class, 'ppdiajukan']);
 Route::get('/detil/{id}/12',[SPPDController::class, 'ppdisetujui']);
 Route::get('/detil/{id}/13',[SPPDController::class, 'ppfinance']);
 Route::get('/detil/{id}/14',[SPPDController::class, 'ppselesai']);
-
-Route::get('/filter/{filter}',[SPPDController::class, 'filterSPPD'])->name('sppd.filter');;

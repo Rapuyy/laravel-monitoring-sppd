@@ -137,12 +137,14 @@
                       <div class="mb-3">
                         <label for="nomorIPA" class="form-label">Nomor IPA</label>
                         <input type="text" name="ipa_no" class="form-control" id="nomorIPA" value="{{ $sppd->ipa_no }}">
-                        <select name="ipa_no" id="ipa">
-                          <option value="0" selected>IPA</option>
-                          @foreach ($ipa_list as $ipa)
-                            <option value="{{ $ipa->ipa_no }}">{{ $ipa->ipa_no }}</option>
-                          @endforeach
-                        </select>
+                        @if (!$sppd->ipa_no)
+                          <select name="ipa_no" id="ipa">
+                            <option value="0" selected>IPA</option>
+                            @foreach ($ipa_list as $ipa)
+                              <option value="{{ $ipa->ipa_no }}">{{ $ipa->ipa_no }}</option>
+                            @endforeach
+                          </select>
+                        @endif
                       </div>
                         <div class="mb-3">
                            <label for="approveIPA" class="form-label">Tanggal IPA disetujui</label>
@@ -198,12 +200,14 @@
                         <div class="mb-3">
                           <label for="nomorPP" class="form-label">Nomor PP</label>
                           <input type="text" name="pp_no" class="form-control" id="nomorPP" value="{{ $sppd->pp_no }}">
-                          <select name="pp_no" id="pp">
-                            <option value="0" selected>PP</option>
-                            @foreach ($pp_list as $pp)
-                              <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
-                            @endforeach
-                          </select>
+                          @if (!$sppd->pp_no)
+                            <select name="pp_no" id="pp">
+                              <option value="0" selected>PP</option>
+                              @foreach ($pp_list as $pp)
+                                <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
+                              @endforeach
+                            </select>
+                          @endif
                         </div>
                         <div class="mb-3">
                           <label for="approvePP" class="form-label">Tanggal PP disetujui</label>
