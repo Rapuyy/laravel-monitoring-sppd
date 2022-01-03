@@ -257,14 +257,22 @@ class SppdController extends Controller
 
         $status = [
             "green" => 0,
+            "greenIPA" => 0,
+            "greenPP" => 0,
             "yellow" => 0,
+            "yellowIPA" => 0,
+            "yellowPP" => 0,
             "red" => 0,
+            "redIPA" => 0,
+            "redPP" => 0,
             "done" => 0,
         ];
 
         $cek_days = [];
         $count = 0;
         $diff = 0;
+        $diff2 = 0;
+        $diff3 = 0;
         foreach ($sppd_list as $sppd) 
         {
             if ($sppd->status == 0) {
@@ -272,30 +280,39 @@ class SppdController extends Controller
             }
             else if ($sppd->status == 1) {
                 $diff = $today->diffindays($sppd->ipa_tgl_dibuat);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_dibuat);
             }
             else if ($sppd->status == 2) {
                 $diff = $today->diffindays($sppd->ipa_tgl_diajukan);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_diajukan);
             }
             else if ($sppd->status == 3) {
                 $diff = $today->diffindays($sppd->ipa_tgl_approval);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_approval);
             }
             else if ($sppd->status == 4) {
                 $diff = $today->diffindays($sppd->ipa_tgl_msk_finance);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_msk_finance);
             }
             else if ($sppd->status == 10) {
                 $diff = $today->diffindays($sppd->ipa_tgl_selesai);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_selesai);
             }
             else if ($sppd->status == 11) {
                 $diff = $today->diffindays($sppd->pp_tgl_dibuat);
+                $diff3 = $today->diffindays($sppd->pp_tgl_dibuat);
             }
             else if ($sppd->status == 12) {
                 $diff = $today->diffindays($sppd->pp_tgl_diajukan);
+                $diff3 = $today->diffindays($sppd->pp_tgl_diajukan);
             }
             else if ($sppd->status == 13) {
                 $diff = $today->diffindays($sppd->pp_tgl_approval);
+                $diff3 = $today->diffindays($sppd->pp_tgl_approval);
             }
             else if ($sppd->status == 14) {
                 $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
+                $diff3 = $today->diffindays($sppd->pp_tgl_msk_finance);
             }
             else if ($sppd->status == 15) {
                 $diff = 999;
@@ -307,6 +324,14 @@ class SppdController extends Controller
             if ($diff < 4) $status['green']++;
             else if ($diff >= 4 && $diff < 10) $status['yellow']++;
             else if ($diff >=10 && $diff != 999) $status['red']++;
+
+            if ($diff2 < 4) $status['greenIPA']++;
+            else if ($diff2 >= 4 && $diff2 < 10) $status['yellowIPA']++;
+            else if ($diff2 >=10 && $diff2 != 999) $status['redIPA']++;
+
+            if ($diff3 < 4) $status['greenPP']++;
+            else if ($diff3 >= 4 && $diff3 < 10) $status['yellowPP']++;
+            else if ($diff3 >=10 && $diff3 != 999) $status['redPP']++;
         }
         return view('index', compact(['sppd_list', 'today', 'status']));
     }
