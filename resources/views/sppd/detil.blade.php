@@ -135,15 +135,20 @@
                 </div>
                 <div class="col-sm-4 mt-2">
                       <div class="mb-3">
-                        <label for="nomorIPA" class="form-label">Nomor IPA</label>
-                        <input type="text" name="ipa_no" class="form-control" id="nomorIPA" value="{{ $sppd->ipa_no }}">
+                        <label for="noIPA" class="form-label">Nomor IPA</label>
+                        @if ($sppd->ipa_no)
+                        <input type="text" name="ipa_no" class="form-control" id="noIPA" value="{{ $sppd->ipa_no }}" readonly>
+                        @endif
                         @if (!$sppd->ipa_no)
-                          <select name="ipa_no" id="ipa">
-                            <option value="0" selected>IPA</option>
+                          <input type="text" name="ipa_no" class="form-control" id="nomorIPA" value="{{ $sppd->ipa_no }}">
+                          <select class="form-select" name="ipa_no" id="selectIPA">
+                            <option selected disabled hidden>IPA</option>
                             @foreach ($ipa_list as $ipa)
                               <option value="{{ $ipa->ipa_no }}">{{ $ipa->ipa_no }}</option>
                             @endforeach
                           </select>
+                          <button type="button" class="btn btn-outline-dark mt-3" onclick="createNewIPA();" id="buttonBelumIPA">IPA Belum Terdaftar</button>
+                          
                         @endif
                       </div>
                         <div class="mb-3">
@@ -198,15 +203,20 @@
                   @endif
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
-                          <label for="nomorPP" class="form-label">Nomor PP</label>
-                          <input type="text" name="pp_no" class="form-control" id="nomorPP" value="{{ $sppd->pp_no }}">
+                          <label for="noPP" class="form-label">Nomor PP</label>
+                          @if ($sppd->pp_no)
+                          <input type="text" name="pp_no" class="form-control" id="noPP" value="{{ $sppd->pp_no }}" readonly>
+                          @endif
                           @if (!$sppd->pp_no)
-                            <select name="pp_no" id="pp">
-                              <option value="0" selected>PP</option>
+                          <input type="text" name="pp_no" class="form-control" id="nomorPP" value="{{ $sppd->pp_no }}">
+                          <select class="form-select" name="pp_no" id="selectPP">
+                              <option selected disabled hidden>PP</option>
                               @foreach ($pp_list as $pp)
                                 <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
                               @endforeach
                             </select>
+                          <button type="button" class="btn btn-outline-dark mt-3" onclick="createNewPP();" id="buttonBelumPP">PP Belum Terdaftar</button>
+                          
                           @endif
                         </div>
                         <div class="mb-3">
@@ -235,7 +245,6 @@
                         </div>
                 </div>
             </div>
-
           <div class="text-center justify-content-center">
                 <button class=" btn btn-lg btn-success button mt-3 mb-3" type="submit">Ajukan Perubahan Laporan SPPD</button>
             </div><br>
@@ -265,10 +274,9 @@
         </table>
         <table class="table table-bordered ket-status text-center table-pp">
           <tr>
-            <td colspan="6">PP</td>
+            <td colspan="5">PP</td>
           </tr>
           <tr>
-            <td class="table-status-pp">Dibuat</td>
             <td class="table-status-pp">Diajukan</td>
             <td class="table-status-pp">Disetujui</td>
             <td class="table-status-pp">Di Finance</td>
@@ -276,7 +284,6 @@
             <td>Total</td>
           </tr>
           <tr>
-            <td class="table-hari-pp">{{ $progres->ipa_pp }} hari</td>
             <td class="table-hari-pp">{{ $progres->pp_1 }} hari</td>
             <td class="table-hari-pp">{{ $progres->pp_2 }} hari</td>
             <td class="table-hari-pp">{{ $progres->pp_3 }} hari</td>
@@ -307,6 +314,50 @@
 
         @section('script')
         <script type="text/javascript" src="/js/script.js"></script>
-        @endsection
+
+    <script>
+          var a = document.getElementById("selectIPA");
+          var b = document.getElementById("buttonBelumIPA");
+          var c = document.getElementById("nomorIPA");
+          var x = document.getElementById("selectPP");
+          var y = document.getElementById("buttonBelumPP");
+          var z = document.getElementById("nomorPP");
+          window.onload = function() {
+      
+              a.style.display = "block";
+              b.style.display = "block";
+              c.style.display = "none";
+              x.style.display = "block";
+              y.style.display = "block";
+              z.style.display = "none";
+      
+            };
+      </script>
+      <script>
+      function createNewIPA(a,b,c) {
+        var a = document.getElementById("selectIPA");
+        var b = document.getElementById("buttonBelumIPA");
+        var c = document.getElementById("nomorIPA");
+
+        a.style.display = "none";
+        b.style.display = "none";
+        c.style.display="block";
+      }
+      </script>
+
+      <script>
+      function createNewPP(x,y,z) {
+        var x = document.getElementById("selectPP");
+        var y = document.getElementById("buttonBelumPP");
+        var z = document.getElementById("nomorPP");
+
+        x.style.display = "none";
+        y.style.display = "none";
+        z.style.display="block";
+      }
+      </script>
+
+        
+      @endsection
         
 @endsection

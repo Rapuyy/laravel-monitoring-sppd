@@ -24,5 +24,6 @@ class IPA extends Model
         'ipa_tgl_approval',
         'ipa_tgl_msk_finance',
         'ipa_tgl_selesai',
+        'ipa_status'
     ];
 }

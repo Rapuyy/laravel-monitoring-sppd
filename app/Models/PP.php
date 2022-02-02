@@ -21,6 +21,7 @@ class PP extends Model
         'pp_tgl_diajukan',
         'pp_tgl_approval',
         'pp_tgl_msk_finance',
-        'pp_tgl_selesai'
+        'pp_tgl_selesai',
+        'pp_status'
     ];
 }

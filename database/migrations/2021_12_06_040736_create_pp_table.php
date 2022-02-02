@@ -22,6 +22,8 @@ class CreatePpTable extends Migration
             $table->date('pp_tgl_approval')->nullable();
             $table->date('pp_tgl_msk_finance')->nullable();
             $table->date('pp_tgl_selesai')->nullable();
+            $table->integer('pp_status')->nullable();
+
 
             $table->timestamps();
         });

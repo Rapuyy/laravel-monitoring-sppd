@@ -17,14 +17,16 @@ class SppdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index', 'indexIPA', 'indexPP']]);
     }
 
     public function validateStatus($sppd, $ipa, $pp) //dipake store sama update
     {
+        // dd($ipa, $pp, $sppd);
         //nanti kayanya mesti null nullan disini deh
         if ($sppd->sppd_no) { //ipa
             $sppd->status = 0;
+            if ($ipa) {
             if ($ipa->ipa_tgl_dibuat && $sppd->ipa_no) {
                 $sppd->status = 1;
                 if ($ipa->ipa_tgl_diajukan) {
@@ -53,6 +55,7 @@ class SppdController extends Controller
                             }
                         }
                     }
+                }
                 }
             }
         }
@@ -130,8 +133,20 @@ class SppdController extends Controller
         // $sppd->ipa_tgl_dibuat=$ipa_tgl_dibuat;
         $sppd->save();
         $ipa = IPA::where('ipa_no', $sppd->ipa_no)->first();
+        $ipa->ipa_status = "1";
         $ipa->ipa_tgl_dibuat=$ipa_tgl_dibuat;
         $ipa->save();
+        return redirect()->back();
+    }
+
+    public function dibuat2($id){
+        $ipa = IPA::where('id', $id)->first();
+
+        $ipa_tgl_dibuat=Carbon::today()->toDateString();
+        $ipa->ipa_status = "1";
+        $ipa->ipa_tgl_dibuat=$ipa_tgl_dibuat;
+        $ipa->save();
+        SPPD::where('ipa_no', $ipa->ipa_no)->update(['status'=>'1']);
         return redirect()->back();
     }
 
@@ -142,8 +157,22 @@ class SppdController extends Controller
         // $sppd->ipa_tgl_diajukan=$ipa_tgl_diajukan;
         $sppd->save();
         $ipa = IPA::where('ipa_no', $sppd->ipa_no)->first();
+        $ipa->ipa_status = "2";
         $ipa->ipa_tgl_diajukan=$ipa_tgl_diajukan;
         $ipa->save();
+        
+        return redirect()->back();
+    }
+
+    public function diajukan2($id){
+        $ipa = IPA::where('id', $id)->first();
+
+        $ipa_tgl_diajukan=Carbon::today()->toDateString();
+        $ipa->ipa_status = "2";
+        $ipa->ipa_tgl_diajukan=$ipa_tgl_diajukan;
+        $ipa->save();
+        SPPD::where('ipa_no',$ipa->ipa_no)->update(['status'=>'2']);
+
         return redirect()->back();
     }
 
@@ -154,8 +183,21 @@ class SppdController extends Controller
         // $sppd->ipa_tgl_approval=$ipa_tgl_approval;
         $sppd->save();
         $ipa = IPA::where('ipa_no', $sppd->ipa_no)->first();
+        $ipa->ipa_status = "3";
         $ipa->ipa_tgl_approval=$ipa_tgl_approval;
         $ipa->save();
+        return redirect()->back();
+    }
+
+    public function disetujui2($id){
+        $ipa = IPA::where('id', $id)->first();
+
+        $ipa_tgl_approval=Carbon::today()->toDateString();
+        $ipa->ipa_status = "3";
+        $ipa->ipa_tgl_approval=$ipa_tgl_approval;
+        $ipa->save();
+        SPPD::where('ipa_no',$ipa->ipa_no)->update(['status'=>'3']);
+
         return redirect()->back();
     }
 
@@ -166,8 +208,21 @@ class SppdController extends Controller
         // $sppd->ipa_tgl_msk_finance=$ipa_tgl_msk_finance;
         $sppd->save();
         $ipa = IPA::where('ipa_no', $sppd->ipa_no)->first();
+        $ipa->ipa_status = "4";
         $ipa->ipa_tgl_msk_finance=$ipa_tgl_msk_finance;
         $ipa->save();
+        return redirect()->back();
+    }
+
+    public function finance2($id){
+        $ipa = IPA::where('id', $id)->first();
+
+        $ipa_tgl_msk_finance=Carbon::today()->toDateString();
+        $ipa->ipa_status = "4";
+        $ipa->ipa_tgl_msk_finance=$ipa_tgl_msk_finance;
+        $ipa->save();
+        SPPD::where('ipa_no',$ipa->ipa_no)->update(['status'=>'4']);
+
         return redirect()->back();
     }
 
@@ -178,8 +233,21 @@ class SppdController extends Controller
         // $sppd->ipa_tgl_selesai=$ipa_tgl_selesai;
         $sppd->save();
         $ipa = IPA::where('ipa_no', $sppd->ipa_no)->first();
+        $ipa->ipa_status = "10";
         $ipa->ipa_tgl_selesai=$ipa_tgl_selesai;
         $ipa->save();
+        return redirect()->back();
+    }
+
+    public function selesai2($id){
+        $ipa = IPA::where('id', $id)->first();
+
+        $ipa_tgl_selesai=Carbon::today()->toDateString();
+        $ipa->ipa_status = "10";
+        $ipa->ipa_tgl_selesai=$ipa_tgl_selesai;
+        $ipa->save();
+        SPPD::where('ipa_no',$ipa->ipa_no)->update(['status'=>'10']);
+
         return redirect()->back();
     }
 
@@ -190,20 +258,47 @@ class SppdController extends Controller
         // $sppd->pp_tgl_dibuat=$pp_tgl_dibuat;
         $sppd->save();
         $pp = PP::where('pp_no', $sppd->pp_no)->first();
+        $pp->pp_status = "11";
         $pp->pp_tgl_dibuat=$pp_tgl_dibuat;
         $pp->save();
         return redirect()->back();
     }
 
+    public function ppdibuat2($id){
+        $pp = PP::where('id', $id)->first();
+
+        $pp_tgl_dibuat=Carbon::today()->toDateString();
+        $pp->pp_status = "11";
+        $pp->pp_tgl_dibuat=$pp_tgl_dibuat;
+        $pp->save();
+        SPPD::where('pp_no',$pp->pp_no)->update(['status'=>'11']);
+
+        return redirect()->back();
+    }
+
     public function ppdiajukan($id){
         $sppd=Sppd::find($id);
+        dd($sppd);
         $sppd->status = "12";
         $pp_tgl_diajukan=Carbon::today()->toDateString();
         // $sppd->pp_tgl_diajukan=$pp_tgl_diajukan;
         $sppd->save();
         $pp = PP::where('pp_no', $sppd->pp_no)->first();
+        $pp->pp_status = "12";
         $pp->pp_tgl_diajukan=$pp_tgl_diajukan;
         $pp->save();
+        return redirect()->back();
+    }
+
+    public function ppdiajukan2($id){
+        $pp = PP::where('id', $id)->first();
+
+        $pp_tgl_diajukan=Carbon::today()->toDateString();
+        $pp->pp_status = "12";
+        $pp->pp_tgl_diajukan=$pp_tgl_diajukan;
+        $pp->save();
+        SPPD::where('pp_no',$pp->pp_no)->update(['status'=>'12']);
+
         return redirect()->back();
     }
 
@@ -214,8 +309,21 @@ class SppdController extends Controller
         // $sppd->pp_tgl_approval=$pp_tgl_approval;
         $sppd->save();
         $pp = PP::where('pp_no', $sppd->pp_no)->first();
+        $pp->pp_status = "13";
         $pp->pp_tgl_approval=$pp_tgl_approval;
-        $pp->save();
+        $pp->save();   
+        return redirect()->back();
+    }
+
+    public function ppdisetujui2($id){
+        $pp = PP::where('id', $id)->first();
+
+        $pp_tgl_approval=Carbon::today()->toDateString();
+        $pp->pp_status = "13";
+        $pp->pp_tgl_approval=$pp_tgl_approval;
+        $pp->save();   
+        SPPD::where('pp_no',$pp->pp_no)->update(['status'=>'13']);
+
         return redirect()->back();
     }
 
@@ -226,8 +334,21 @@ class SppdController extends Controller
         // $sppd->pp_tgl_msk_finance=$pp_tgl_msk_finance;
         $sppd->save();
         $pp = PP::where('pp_no', $sppd->pp_no)->first();
+        $pp->pp_status = "14";
         $pp->pp_tgl_msk_finance=$pp_tgl_msk_finance;
         $pp->save();
+        return redirect()->back();
+    }
+
+    public function ppfinance2($id){
+        $pp = PP::where('id', $id)->first();
+
+        $pp_tgl_msk_finance=Carbon::today()->toDateString();
+        $pp->pp_status = "14";
+        $pp->pp_tgl_msk_finance=$pp_tgl_msk_finance;
+        $pp->save();
+        SPPD::where('pp_no',$pp->pp_no)->update(['status'=>'14']);
+
         return redirect()->back();
     }
 
@@ -238,12 +359,271 @@ class SppdController extends Controller
         // $sppd->pp_tgl_seles/ai=$pp_tgl_selesai;
         $sppd->save();
         $pp = PP::where('pp_no', $sppd->pp_no)->first();
+        $pp->pp_status = "15";
         $pp->pp_tgl_selesai=$pp_tgl_selesai;
         $pp->save();
         return redirect()->back();
     }
 
+    public function ppselesai2($id){
+        $pp = PP::where('id', $id)->first();
+
+        $pp_tgl_selesai=Carbon::today()->toDateString();
+        $pp->pp_status = "15";
+        $pp->pp_tgl_selesai=$pp_tgl_selesai;
+        $pp->save();
+        SPPD::where('pp_no',$pp->pp_no)->update(['status'=>'15']);
+
+        return redirect()->back();
+    }
+
     public function index()
+    {
+        // $sppd_list = Sppd::select(DB::raw('*'))->orderBy('id', 'DESC')->get();
+        $sppd_list = DB::table('sppd')
+            ->selectRaw('ipa.*, pp.*,sppd.*')
+            ->join('ipa', 'ipa.ipa_no', '=', 'sppd.ipa_no', 'left outer')
+            ->join('pp', 'pp.pp_no', '=', 'sppd.pp_no', 'left outer')
+            ->orderByDesc('sppd.id')
+            ->get();
+        
+        $pp_list = Pp::select('pp.*', DB::raw("DATEDIFF(curdate(), pp.pp_tgl_dibuat) as pp, DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat) as pp_selesai"))
+            ->get();
+
+        $ipa_list = Ipa::select('ipa.*', DB::raw("DATEDIFF(curdate(), ipa.ipa_tgl_dibuat) as ipa, DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat) as ipa_selesai"))
+            ->get();
+        
+        $today = Carbon::now()->format('Y-m-d');
+        $today = Carbon::parse($today);
+
+        $status = [
+            "green" => 0,
+            "greenIPA" => 0,
+            "greenPP" => 0,
+            "yellow" => 0,
+            "yellowIPA" => 0,
+            "yellowPP" => 0,
+            "red" => 0,
+            "redIPA" => 0,
+            "redPP" => 0,
+            "done" => 0,
+        ];
+
+        $cek_days = [];
+        $count = 0;
+        $diff = 0;
+        $diff2 = 0;
+        $diff3 = 0;
+
+        foreach ($pp_list as $pp) {
+            if ($pp->pp) {
+                if ($pp->pp < 3) $status['greenPP']++;
+                else if ($pp->pp >= 3 && $pp->pp < 10) $status['yellowPP']++;
+                else if ($pp->pp >=10 && $pp->pp != 999) $status['redPP']++;
+            }
+            else {
+                if ($pp->pp < 3) $status['greenPP']++;
+                else if ($pp->pp >= 3 && $pp->pp < 10) $status['yellowPP']++;
+                else if ($pp->pp >=10 && $pp->pp != 999) $status['redPP']++;
+            }
+        }
+        foreach ($ipa_list as $ipa) {
+            if ($ipa->ipa) {
+                if ($ipa->ipa < 3) $status['greenIPA']++;
+                else if ($ipa->ipa >= 3 && $ipa->ipa < 10) $status['yellowIPA']++;
+                else if ($ipa->ipa >=10 && $ipa->ipa != 999) $status['redIPA']++;
+            }
+            else {
+                if ($ipa->ipa < 3) $status['greenIPA']++;
+                else if ($ipa->ipa >= 3 && $ipa->ipa < 10) $status['yellowIPA']++;
+                else if ($ipa->ipa >=10 && $ipa->ipa != 999) $status['redIPA']++;
+            }
+        }
+
+        foreach ($sppd_list as $sppd) 
+        {
+            if ($sppd->status == 0) {
+                $diff = $today->diffindays($sppd->tgl_pulang);
+            }
+            else if ($sppd->status == 1) {
+                $diff = $today->diffindays($sppd->ipa_tgl_dibuat);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_dibuat);
+            }
+            else if ($sppd->status == 2) {
+                $diff = $today->diffindays($sppd->ipa_tgl_diajukan);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_diajukan);
+            }
+            else if ($sppd->status == 3) {
+                $diff = $today->diffindays($sppd->ipa_tgl_approval);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_approval);
+            }
+            else if ($sppd->status == 4) {
+                $diff = $today->diffindays($sppd->ipa_tgl_msk_finance);
+                $diff2 = $today->diffindays($sppd->ipa_tgl_msk_finance);
+            }
+            else if ($sppd->status == 10) {
+                $diff = $today->diffindays($sppd->ipa_tgl_selesai);
+
+                $ipaDone = new Carbon($sppd->ipa_tgl_selesai);
+                $ipaDone = Carbon::parse($ipaDone);
+                $diff2 = $ipaDone->diffindays($sppd->ipa_tgl_dibuat);
+
+            }
+            else if ($sppd->status == 11) {
+                $diff = $today->diffindays($sppd->pp_tgl_dibuat);
+                $diff3 = $today->diffindays($sppd->pp_tgl_dibuat);
+            }
+            else if ($sppd->status == 12) {
+                $diff = $today->diffindays($sppd->pp_tgl_diajukan);
+                $diff3 = $today->diffindays($sppd->pp_tgl_diajukan);
+            }
+            else if ($sppd->status == 13) {
+                $diff = $today->diffindays($sppd->pp_tgl_approval);
+                $diff3 = $today->diffindays($sppd->pp_tgl_approval);
+            }
+            else if ($sppd->status == 14) {
+                $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
+                $diff3 = $today->diffindays($sppd->pp_tgl_msk_finance);
+            }
+            else if ($sppd->status == 15) {
+                $diff = 999;
+                $status['done']++;
+
+                $ppDone = new Carbon($sppd->pp_tgl_selesai);
+                $ppDone = Carbon::parse($ppDone);
+                $diff3 = $ppDone->diffindays($sppd->pp_tgl_dibuat);
+            }
+            else return abort(404);
+            
+            // array_push($cek_days,['id' => $sppd->id, 'status' => $sppd->status, 'diffToday' => $diff]);
+            if ($diff < 4) $status['green']++;
+            else if ($diff >= 4 && $diff < 10) $status['yellow']++;
+            else if ($diff >=10 && $diff != 999) $status['red']++;
+
+            // if ($diff2 < 4) $status['greenIPA']++;
+            // else if ($diff2 >= 4 && $diff2 < 10) $status['yellowIPA']++;
+            // else if ($diff2 >=10 && $diff2 != 999) $status['redIPA']++;
+
+            // if ($diff3 < 4) $status['greenPP']++;
+            // else if ($diff3 >= 4 && $diff3 < 10) $status['yellowPP']++;
+            // else if ($diff3 >=10 && $diff3 != 999) $status['redPP']++;
+        }
+        // dd($status);
+        return view('index', compact(['sppd_list', 'today', 'status']));
+    }
+
+    public function detilSPPD($id)
+    {
+        $sppd = DB::table('sppd')
+            ->selectRaw('ipa.*, pp.*,sppd.*')
+            ->join('ipa', 'ipa.ipa_no', '=', 'sppd.ipa_no', 'left outer')
+            ->join('pp', 'pp.pp_no', '=', 'sppd.pp_no', 'left outer')
+            ->orderByDesc('sppd.id')
+            ->where('sppd.id', $id)
+            ->first();
+        $query = 'select
+            DATEDIFF(sppd.tgl_pulang, sppd.tgl_berangkat) +1 as lama_perjalanan, 
+            DATEDIFF(ipa.ipa_tgl_diajukan, ipa.ipa_tgl_dibuat)  as ipa_1, 
+            DATEDIFF(ipa.ipa_tgl_approval, ipa.ipa_tgl_diajukan)  as ipa_2, 
+            DATEDIFF(ipa.ipa_tgl_msk_finance, ipa.ipa_tgl_approval)  as ipa_3, 
+            DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_msk_finance)  as ipa_4, 
+            DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat)  as ipa,
+            DATEDIFF(pp.pp_tgl_dibuat, ipa.ipa_tgl_selesai)  as ipa_pp, 
+            DATEDIFF(pp.pp_tgl_diajukan, pp.pp_tgl_dibuat)  as pp_1, 
+            DATEDIFF(pp.pp_tgl_approval, pp.pp_tgl_diajukan)  as pp_2, 
+            DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_approval)  as pp_3, 
+            DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_msk_finance)  as pp_4,
+            DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat)  as pp
+            from sppd
+            left join `ipa` on `sppd`.`ipa_no` = `ipa`.`ipa_no` 
+			left join `pp` on `sppd`.`pp_no` = `pp`.`pp_no`
+            where sppd.id=
+            ' . $id;
+        $progres = DB::select(DB::raw($query))[0];
+        $ipa_list = IPA::select('ipa_no')->get();
+        $pp_list = PP::select('pp_no')->get();
+        $tanggal=Carbon::today()->toDateString();
+        return view('sppd.detil', compact('sppd', 'ipa_list', 'pp_list', 'tanggal', 'progres'));
+    }
+
+    public function filterSPPD(Request $request)
+    {
+        $today = Carbon::now()->format('Y-m-d');
+        $today = Carbon::parse($today);
+
+        $sppd_list = DB::table('sppd')
+        ->selectRaw('ipa.*, pp.*,sppd.*')
+        ->join('ipa', 'ipa.ipa_no', '=', 'sppd.ipa_no', 'left outer')
+        ->join('pp', 'pp.pp_no', '=', 'sppd.pp_no', 'left outer')
+        ->orderByDesc('sppd.id')
+        ->get();
+        
+        $cek_days = [];
+        $count = 0;
+        $diff = 0;
+        
+        foreach ($sppd_list as $id => $sppd) 
+        {
+            if ($sppd->status == 0) {
+                $diff = $today->diffindays($sppd->tgl_pulang);
+            }
+            else if ($sppd->status == 1) {
+                $diff = $today->diffindays($sppd->ipa_tgl_dibuat);
+            }
+            else if ($sppd->status == 2) {
+                $diff = $today->diffindays($sppd->ipa_tgl_diajukan);
+            }
+            else if ($sppd->status == 3) {
+                $diff = $today->diffindays($sppd->ipa_tgl_approval);
+            }
+            else if ($sppd->status == 4) {
+                $diff = $today->diffindays($sppd->ipa_tgl_msk_finance);
+            }
+            else if ($sppd->status == 10) {
+                $diff = $today->diffindays($sppd->ipa_tgl_selesai);
+            }
+            else if ($sppd->status == 11) {
+                $diff = $today->diffindays($sppd->pp_tgl_dibuat);
+            }
+            else if ($sppd->status == 12) {
+                $diff = $today->diffindays($sppd->pp_tgl_diajukan);
+            }
+            else if ($sppd->status == 13) {
+                $diff = $today->diffindays($sppd->pp_tgl_approval);
+            }
+            else if ($sppd->status == 14) {
+                $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
+            }
+            else if ($sppd->status == 15) {
+                $diff = 999;
+            }
+            else return abort(404);
+            
+            if ($request->filter == "green") {
+                if ($diff < 0 or $diff >=4) unset($sppd_list[$id]);
+            }
+            else if ($request->filter == "yellow") {
+                if ($diff < 4 || $diff >= 10) unset($sppd_list[$id]);
+            }
+            else if ($request->filter == "red") {
+                if ($diff < 10 || $diff == 999) unset($sppd_list[$id]);
+            }
+            else if ($request->filter == "done") {
+                if ($diff != 999) unset($sppd_list[$id]);
+            }
+        }
+        // dd($sppd_list);
+        
+        if ($sppd_list) {
+            // dd($sppd_list);
+            return view('sppd.filter', compact('sppd_list'));
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+
+    public function indexSPPD()
     {
         // $sppd_list = Sppd::select(DB::raw('*'))->orderBy('id', 'DESC')->get();
         $sppd_list = DB::table('sppd')
@@ -333,196 +713,210 @@ class SppdController extends Controller
             else if ($diff3 >= 4 && $diff3 < 10) $status['yellowPP']++;
             else if ($diff3 >=10 && $diff3 != 999) $status['redPP']++;
         }
-        return view('index', compact(['sppd_list', 'today', 'status']));
+        return view('sppd.index', compact(['sppd_list', 'today', 'status']));
     }
 
-    public function detilSPPD($id)
+    public function indexIPA()
     {
-        // $sppd = Sppd::where('id', $id)->first();
-        $sppd = DB::table('sppd')
-            ->selectRaw('ipa.*, pp.*,sppd.*')
-            ->join('ipa', 'ipa.ipa_no', '=', 'sppd.ipa_no', 'left outer')
-            ->join('pp', 'pp.pp_no', '=', 'sppd.pp_no', 'left outer')
-            ->orderByDesc('sppd.id')
-            ->where('sppd.id', $id)
-            ->first();
-        // $progres = Sppd::select(DB::raw('
-        //     DATEDIFF(tgl_pulang, tgl_berangkat) + 1 as lama_perjalanan, 
-        //     DATEDIFF(ipa_tgl_diajukan, ipa_tgl_dibuat) + 1 as ipa_1, 
-        //     DATEDIFF(ipa_tgl_approval, ipa_tgl_diajukan) + 1 as ipa_2, 
-        //     DATEDIFF(ipa_tgl_msk_finance, ipa_tgl_approval) + 1 as ipa_3, 
-        //     DATEDIFF(ipa_tgl_selesai, ipa_tgl_msk_finance) + 1 as ipa_4, 
-        //     DATEDIFF(ipa_tgl_selesai, ipa_tgl_dibuat) + 1 as ipa,
-        //     DATEDIFF(pp_tgl_dibuat, ipa_tgl_selesai) + 1 as ipa_pp, 
-        //     DATEDIFF(pp_tgl_diajukan, pp_tgl_dibuat) + 1 as pp_1, 
-        //     DATEDIFF(pp_tgl_approval, pp_tgl_diajukan) + 1 as pp_2, 
-        //     DATEDIFF(pp_tgl_msk_finance, pp_tgl_approval) + 1 as pp_3, 
-        //     DATEDIFF(pp_tgl_selesai, pp_tgl_msk_finance) + 1 as pp_4,
-        //     DATEDIFF(pp_tgl_selesai, pp_tgl_dibuat) + 1 as pp
-        //     '))
-        //     ->where('id', $id)->first();
-        $query = 'select
-            DATEDIFF(sppd.tgl_pulang, sppd.tgl_berangkat) + 1 as lama_perjalanan, 
-            DATEDIFF(ipa.ipa_tgl_diajukan, ipa.ipa_tgl_dibuat) + 1 as ipa_1, 
-            DATEDIFF(ipa.ipa_tgl_approval, ipa.ipa_tgl_diajukan) + 1 as ipa_2, 
-            DATEDIFF(ipa.ipa_tgl_msk_finance, ipa.ipa_tgl_approval) + 1 as ipa_3, 
-            DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_msk_finance) + 1 as ipa_4, 
-            DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat) + 1 as ipa,
-            DATEDIFF(pp.pp_tgl_dibuat, ipa.ipa_tgl_selesai) + 1 as ipa_pp, 
-            DATEDIFF(pp.pp_tgl_diajukan, pp.pp_tgl_dibuat) + 1 as pp_1, 
-            DATEDIFF(pp.pp_tgl_approval, pp.pp_tgl_diajukan) + 1 as pp_2, 
-            DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_approval) + 1 as pp_3, 
-            DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_msk_finance) + 1 as pp_4,
-            DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat) + 1 as pp
-            from sppd
-            left join `ipa` on `sppd`.`ipa_no` = `ipa`.`ipa_no` 
-			left join `pp` on `sppd`.`pp_no` = `pp`.`pp_no`
-            where sppd.id=
-            ' . $id;
-        $progres = DB::select(DB::raw($query))[0];
-        $ipa_list = IPA::select('ipa_no')->get();
-        $pp_list = PP::select('pp_no')->get();
-        $tanggal=Carbon::today()->toDateString();
-        return view('detil', compact('sppd', 'ipa_list', 'pp_list', 'tanggal', 'progres'));
+        \DB::statement("SET SQL_MODE=''");
+        $ipa_list = ipa::leftJoin('sppd', 'sppd.ipa_no', '=', 'ipa.ipa_no')
+        ->select('ipa.*', 'sppd.status',DB::raw("DATEDIFF(curdate(), ipa.ipa_tgl_dibuat)  as ipa"))
+        ->groupBy('ipa.ipa_no')->get()->sortByDesc('created_at');
+
+        $today = Carbon::now()->format('Y-m-d');
+        $today = Carbon::parse($today);
+
+        foreach ($ipa_list as $ipa) 
+        {
+            $ipa->diff = 0;
+            if ($ipa->status == 0) {
+                $diff = $today->diffindays($ipa->tgl_pulang);
+            }
+            else if ($ipa->status == 1 || $ipa->status == 2 || $ipa->status == 3) {
+                $ipa->diff = $today->diffindays($ipa->ipa_tgl_dibuat);
+            }
+            else if ($ipa->status == 4) {
+                $ipa->diff = $today->diffindays($ipa->ipa_tgl_msk_finance);
+            }
+        }
+        // dd($ipa_list);
+        return view('ipa.index', compact('ipa_list'));
     }
 
-    public function filterSPPD(Request $request)
+    public function detailIPA($id)
+    {
+        $ipa = ipa::leftJoin('sppd', 'sppd.ipa_no', '=', 'ipa.ipa_no')
+        ->select('ipa.*', 'sppd.status')
+        ->where([['ipa.id', '=', $id]])
+        ->first();
+        // dd($ipa);
+
+        $query = 'select
+        DATEDIFF(sppd.tgl_pulang, sppd.tgl_berangkat)  as lama_perjalanan, 
+        DATEDIFF(ipa.ipa_tgl_diajukan, ipa.ipa_tgl_dibuat)  as ipa_1, 
+        DATEDIFF(ipa.ipa_tgl_approval, ipa.ipa_tgl_diajukan)  as ipa_2, 
+        DATEDIFF(ipa.ipa_tgl_msk_finance, ipa.ipa_tgl_approval)  as ipa_3, 
+        DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_msk_finance)  as ipa_4, 
+        DATEDIFF(curdate(), ipa.ipa_tgl_dibuat)  as ipa,
+        DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat)  as ipa_selesai,
+        DATEDIFF(pp.pp_tgl_dibuat, ipa.ipa_tgl_selesai)  as ipa_pp, 
+        DATEDIFF(pp.pp_tgl_diajukan, pp.pp_tgl_dibuat)  as pp_1, 
+        DATEDIFF(pp.pp_tgl_approval, pp.pp_tgl_diajukan)  as pp_2, 
+        DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_approval)  as pp_3, 
+        DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_msk_finance)  as pp_4,
+        DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat)  as pp
+        from ipa
+        left join `sppd` on `sppd`.`ipa_no` = `ipa`.`ipa_no` 
+        left join `pp` on `sppd`.`pp_no` = `pp`.`pp_no`
+        where ipa.id=
+        ' . $id;
+        $progres = DB::select(DB::raw($query))[0];
+        $tanggal=Carbon::today()->toDateString();
+        return view('ipa.detail', compact('ipa', 'progres', 'tanggal'));
+    }
+
+    public function indexPP()
     {
         $today = Carbon::now()->format('Y-m-d');
         $today = Carbon::parse($today);
 
-        $sppd_list = DB::table('sppd')
-        ->selectRaw('ipa.*, pp.*,sppd.*')
-        ->join('ipa', 'ipa.ipa_no', '=', 'sppd.ipa_no', 'left outer')
-        ->join('pp', 'pp.pp_no', '=', 'sppd.pp_no', 'left outer')
-        ->orderByDesc('sppd.id')
-        ->get();
-        
-        $cek_days = [];
-        $count = 0;
-        $diff = 0;
-        
-        foreach ($sppd_list as $id => $sppd) 
+        \DB::statement("SET SQL_MODE=''");
+        $pp_list = pp::leftJoin('sppd', 'sppd.pp_no', '=', 'pp.pp_no')
+            ->select('pp.*', 'sppd.status')
+            ->where([['sppd.status', '>=', '10'], ['sppd.status', '<=', '15']])
+            ->groupBy('pp.pp_no')->get()->sortByDesc('created_at');
+        foreach ($pp_list as $pp) 
         {
-            if ($sppd->status == 0) {
-                $diff = $today->diffindays($sppd->tgl_pulang);
+            $pp->diff = 0;
+            if ($pp->status == 0) {
+                $diff = $today->diffindays($pp->tgl_pulang);
             }
-            else if ($sppd->status == 1) {
-                $diff = $today->diffindays($sppd->ipa_tgl_dibuat);
+            else if ($pp->status == 11 || $pp->status == 12 || $pp->status == 13) {
+                $pp->diff = $today->diffindays($pp->pp_tgl_dibuat);
             }
-            else if ($sppd->status == 2) {
-                $diff = $today->diffindays($sppd->ipa_tgl_diajukan);
-            }
-            else if ($sppd->status == 3) {
-                $diff = $today->diffindays($sppd->ipa_tgl_approval);
-            }
-            else if ($sppd->status == 4) {
-                $diff = $today->diffindays($sppd->ipa_tgl_msk_finance);
-            }
-            else if ($sppd->status == 10) {
-                $diff = $today->diffindays($sppd->ipa_tgl_selesai);
-            }
-            else if ($sppd->status == 11) {
-                $diff = $today->diffindays($sppd->pp_tgl_dibuat);
-            }
-            else if ($sppd->status == 12) {
-                $diff = $today->diffindays($sppd->pp_tgl_diajukan);
-            }
-            else if ($sppd->status == 13) {
-                $diff = $today->diffindays($sppd->pp_tgl_approval);
-            }
-            else if ($sppd->status == 14) {
-                $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
-            }
-            else if ($sppd->status == 15) {
-                $diff = 999;
-            }
-            else return abort(404);
-            
-            if ($request->filter == "green") {
-                if ($diff < 0 or $diff >=4) unset($sppd_list[$id]);
-            }
-            else if ($request->filter == "yellow") {
-                if ($diff < 4 || $diff >= 10) unset($sppd_list[$id]);
-            }
-            else if ($request->filter == "red") {
-                if ($diff < 10 || $diff == 999) unset($sppd_list[$id]);
-            }
-            else if ($request->filter == "done") {
-                if ($diff != 999) unset($sppd_list[$id]);
+            else if ($pp->status == 14) {
+                $pp->diff = $today->diffindays($pp->pp_tgl_msk_finance);
             }
         }
-        // dd($sppd_list);
-        
-        if ($sppd_list) {
-            // dd($sppd_list);
-            return view('filter', compact('sppd_list'));
-        }
-        else {
-            return redirect()->back();
-        }
+        // dd($pp);
+        return view('pp.index', compact('pp_list'));
     }
 
-    public function detilIPA($id)
+    public function detailPP($id)
     {
-        $sppd = Sppd::where('id', $id)->first();
-        return view('detil', compact('sppd'));
-    }
+        $pp = pp::leftJoin('sppd', 'sppd.pp_no', '=', 'pp.pp_no')
+        ->select('pp.*', 'sppd.status')
+        ->where([['sppd.status', '>=', '10'], ['sppd.status', '<=', '15'], ['pp.id', '=', $id]])
+        ->first();
+        // dd($pp);
 
-    public function detilPP($id)
-    {
-        $sppd = Sppd::where('id', $id)->first();
-        return view('detil', compact('sppd'));
+        $query = 'select
+        DATEDIFF(sppd.tgl_pulang, sppd.tgl_berangkat)  as lama_perjalanan, 
+        DATEDIFF(ipa.ipa_tgl_diajukan, ipa.ipa_tgl_dibuat)  as ipa_1, 
+        DATEDIFF(ipa.ipa_tgl_approval, ipa.ipa_tgl_diajukan)  as ipa_2, 
+        DATEDIFF(ipa.ipa_tgl_msk_finance, ipa.ipa_tgl_approval)  as ipa_3, 
+        DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_msk_finance)  as ipa_4, 
+        DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat)  as ipa,
+        DATEDIFF(pp.pp_tgl_dibuat, ipa.ipa_tgl_selesai)  as ipa_pp, 
+        DATEDIFF(pp.pp_tgl_diajukan, pp.pp_tgl_dibuat)  as pp_1, 
+        DATEDIFF(pp.pp_tgl_approval, pp.pp_tgl_diajukan)  as pp_2, 
+        DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_approval)  as pp_3, 
+        DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_msk_finance)  as pp_4,
+        DATEDIFF(curdate(), pp.pp_tgl_dibuat)  as pp,
+        DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat)  as pp_selesai
+        from pp
+        left join `sppd` on `sppd`.`pp_no` = `pp`.`pp_no`
+        left join `ipa` on `sppd`.`ipa_no` = `ipa`.`ipa_no` 
+        where pp.id=
+        ' . $id;
+        $progres = DB::select(DB::raw($query))[0];
+        $tanggal=Carbon::today()->toDateString();
+        // dd($pp);
+        return view('pp.detail', compact('pp', 'progres', 'tanggal'));
     }
 
     public function create()
     {
         $ipa_list = IPA::select('ipa_no')->get();
         $pp_list = PP::select('pp_no')->get();
-        return view('create', compact('ipa_list', 'pp_list'));
+        return view('sppd.create', compact('ipa_list', 'pp_list'));
     }
 
     public function store(Request $request)
     {
         $sppd = new Sppd;
         
-        if ($request->ipa_tgl_dibuat) { //case ipa baru dibuat
+        if ($request->ipa_no) { //case ipa baru dibuat
             $ipa = new Ipa;
             
             $ipa->ipa_no = $request->ipa_no;
-            $ipa->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
-            $ipa->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
-            $ipa->ipa_tgl_approval = $request->ipa_tgl_approval;
-            $ipa->ipa_tgl_msk_finance = $request->ipa_tgl_msk_finance;
-            $ipa->ipa_tgl_selesai = $request->ipa_tgl_selesai;
+            $ipa->ipa_status = '0';
+            if ($request->ipa_tgl_dibuat) {
+                $ipa->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
+                $ipa->ipa_status = '1';
+            }
+            if ($request->ipa_tgl_diajukan) {
+                $ipa->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
+                $ipa->ipa_status = '2';
+            }
+            if ($request->ipa_tgl_dibuat) {
+                $ipa->ipa_tgl_approval = $request->ipa_tgl_approval;
+                $ipa->ipa_status = '3';
+            }
+            if ($request->ipa_tgl_msk_finance) {
+                $ipa->ipa_tgl_msk_finance = $request->ipa_tgl_msk_finance;
+                $ipa->ipa_status = '4';
+            }
+            if ($request->ipa_tgl_selesai) {
+                $ipa->ipa_tgl_selesai = $request->ipa_tgl_selesai;
+                $ipa->ipa_status = '10';
+            }
+            
             $ipa->ipa_nilai = $request->ipa_nilai;
             $ipa->sumber_dana = $request->sumber_dana;
+            // dd($ipa);
             $simpan_ipa = $ipa->save();
-            
-            if (!$simpan_ipa) {
-                Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
-                return redirect()->route('sppd.add');
-            }
+            // if (!$simpan_ipa) {
+            //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
+            //     return redirect()->route('sppd.add');
+            // }
             
         }    
         else {
             $ipa = IPA::where('ipa_no', $request->ipa_no)->first();
-
-        }    
-        if ($request->pp_tgl_dibuat) {//case pp baru dibuat
+        }   
+        
+        
+        if ($request->pp_no) {//case pp baru dibuat
             $pp = new Pp;
             
             $pp->pp_no = $request->pp_no;
-            $pp->pp_tgl_dibuat = $request->pp_tgl_dibuat;
-            $pp->pp_tgl_diajukan = $request->pp_tgl_diajukan;
-            $pp->pp_tgl_approval = $request->pp_tgl_approval;
-            $pp->pp_tgl_msk_finance = $request->pp_tgl_msk_finance;
-            $pp->pp_tgl_selesai = $request->pp_tgl_selesai;
-            $simpan_pp = $pp->save();
-            if (!$simpan_pp) {
-                Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
-                return redirect()->route('sppd.add');
+            $pp->pp_status = '10';
+            if ($request->pp_tgl_dibuat) {
+                $pp->pp_tgl_dibuat = $request->pp_tgl_dibuat;
+                $pp->pp_status = '11';
             }
+            if ($request->pp_tgl_diajukan) {
+                $pp->pp_tgl_diajukan = $request->pp_tgl_diajukan;
+                $pp->pp_status = '12';
+            }
+            if ($request->pp_tgl_approval) {
+                $pp->pp_tgl_approval = $request->pp_tgl_approval;
+                $pp->pp_status = '13';
+            }
+            if ($request->pp_tgl_msk_finance) {
+                $pp->pp_tgl_msk_finance = $request->pp_tgl_msk_finance;
+                $pp->pp_status = '14';
+            }
+            if ($request->pp_tgl_selesai) {
+                $pp->pp_tgl_selesai = $request->pp_tgl_selesai;
+                $pp->pp_status = '15';
+            }
+            $simpan_pp = $pp->save();
+            // if (!$simpan_pp) {
+            //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
+            //     return redirect()->route('sppd.add');
+            // }
         }
         else {
             $pp = PP::where('pp_no', $request->pp_no)->first();
@@ -599,9 +993,11 @@ class SppdController extends Controller
         // dd($request);
         $sppd = Sppd::find($request->id);
         
-        if ($request->ipa_tgl_dibuat) { //case ipa baru dibuat
-            $ipa = IPA::where('ipa_no', $request->ipa_no)->first();
+        // dd($request);
+        if (!$request->ipa_tgl_dibuat) { //case ipa baru dibuat
+            $ipa = new IPA;
             
+            $ipa->ipa_status = '0';
             $ipa->ipa_no = $request->ipa_no;
             $ipa->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
             $ipa->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
@@ -620,12 +1016,15 @@ class SppdController extends Controller
         }    
         else {
             $ipa = IPA::where('ipa_no', $request->ipa_no)->first();
+            $ipa->ipa_nilai = $request->ipa_nilai;
+            $ipa->sumber_dana = $request->sumber_dana;
+            $ipa->update();
 
         }    
-        if ($request->pp_tgl_dibuat) {//case pp baru dibuat
-            $pp = PP::where('pp_no', $request->pp_no)->first();
+        if (!$request->pp_tgl_dibuat) {//case pp baru dibuat
+            $pp = new PP;
 
-            
+            $pp->pp_status = '10';
             $pp->pp_no = $request->pp_no;
             $pp->pp_tgl_dibuat = $request->pp_tgl_dibuat;
             $pp->pp_tgl_diajukan = $request->pp_tgl_diajukan;
@@ -640,7 +1039,6 @@ class SppdController extends Controller
         }
         else {
             $pp = PP::where('pp_no', $request->pp_no)->first();
-
         }
 
         $sppd->sppd_no = $request->sppd_no;

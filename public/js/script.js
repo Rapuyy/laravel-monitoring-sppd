@@ -33,6 +33,14 @@ $('.table-hari-pp').each(function () {
    $('#tablesppd').DataTable();
 });
 
+$(document).ready(function () {
+  $('#tableipa').DataTable();
+});
+
+$(document).ready(function () {
+  $('#tablepp').DataTable();
+});
+
 function tanggal(){
   var startDate = $('#waktuawal').val()
   var endDate = $('#waktuakhir').val()

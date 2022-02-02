@@ -24,13 +24,11 @@ font-family: arial, sans-serif;
 width: 100%;
 }
 
-td, th {
-border: 1px solid #dddddd;
-}
 
 
-span {
-    color: red;
+
+.required {
+    color: red !important;
 }
 
 th{
@@ -44,3 +42,11 @@ th{
 .btn-logout:hover {
     background-color: #0C4F89 !important;
 }
+
+.bg-green {
+    background-color: lightgreen;
+  }
+
+  .bg-red {
+    background-color: red;
+  }

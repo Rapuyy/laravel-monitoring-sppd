@@ -24,6 +24,8 @@ class CreateIpaTable extends Migration
             $table->date('ipa_tgl_approval')->nullable();
             $table->date('ipa_tgl_msk_finance')->nullable();
             $table->date('ipa_tgl_selesai')->nullable();
+            $table->integer('ipa_status')->nullable();
+
 
             $table->timestamps();
         });

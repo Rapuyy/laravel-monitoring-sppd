@@ -15,7 +15,7 @@
                           <div class="col-sm-4">
                             <div class="mb-3">
                               <label for="masukSPPD" class="form-label">Tanggal Masuk SPPD</label>
-                              <span>*</span>
+                              <span class="required">*</span>
                               <input type="date" name="sppd_tgl_msk" class="form-control @error('nomorSPPD') is-invalid @enderror" id="masukSPPD" required>
                               @error('masukSPPD')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="unitKerja" class="form-label">Unit Kerja</label>
-                              <span>*</span>
+                              <span class="required">*</span>
                               <input type="text" name="unit_kerja" class="form-control  @error('unitKerja') is-invalid @enderror" id="unitKerja" required>
                               @error('unitKerja')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="tujuan" class="form-label">Tempat/Tujuan Perjalanan Dinas</label>
-                              <span>*</span>
+                              <span class="required">*</span>
                               <input type="text" name="sppd_tujuan" class="form-control  @error('tujuan') is-invalid @enderror" id="tujuan" required>
                               @error('tujuan')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="angkutan" class="form-label">Alat Angkutan yang Dipergunakan</label>
-                              <span>*</span>
+                              <span class="required">*</span>
                               <select class="form-select @error('angkutan') is-invalid @enderror" aria-label="select example" name="sppd_kendaraan"  id="angkutan" required>
                                 <option selected>Pilih Kendaraan</option>
                                 <option value="1">Kendaraan Darat</option>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="maksud" class="form-label">Maksud Perjalanan Dinas</label>
-                              <span>*</span>
+                              <span class="required">*</span>
                               <input type="text" name="sppd_alasan" class="form-control  @error('maksud') is-invalid @enderror" id="maksud" required>
                               @error('maksud')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -60,9 +60,9 @@
                             </div>
                             <div class="mb-3">
                                <label for="waktu" class="form-label">Lama Perjalanan Dinas</label>
-                               <span>*</span>
+                               <span class="required">*</span>
                                <div class="input-group">
-                                    <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" onchange="tanggal()" required>
+                                    <input type="date" name="tgl_berangkat" class="form-control  @error('waktuawal') is-invalid @enderror" id="waktuawal" required>
                                     <span class="input-group-btn"></span>
                                     @error('waktuawal')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -73,7 +73,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <button class="btn btn-outline-dark mt-3" onclick="tanggal();">Hitung Tanggal</button>
+                                <button type="button" class="btn btn-outline-dark mt-3" onclick="tanggal();">Hitung Tanggal</button>
                             </div>
                             <div class="mb-3">
                               <p>Lama perjalanan <b class="hasilselisih"></b> hari</p>
@@ -82,7 +82,7 @@
                 <div class="col-sm-8">
                           <div class="mb-3">
                               <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
-                              <span>*</span>
+                              <span class="required">*</span>
                               <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
                               @error('nomorSPPD')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -90,7 +90,7 @@
                           </div>
                           <div class="mb-2">
                             <label for="pegawai" class="form-label">Nama Pegawai</label>
-                            <span>*</span>
+                            <span class="required">*</span>
                             <input type="text" name="pegawai[]" class="form-control  @error('pegawai') is-invalid @enderror" id="pegawai" required>
                             <div id="newElementId"></div>
                             <input type="button" class="btn btn-outline-dark mt-3" value="Tambah Pegawai" onclick="createNewPegawai();"/>
@@ -107,9 +107,9 @@
                 <div class="row">
                     <div class="col-sm-4 mb-2">
                       <label for="operatorPengisi" class="form-label">Nama Operator Pengisi</label>
-                      <span>*</span>
+                      <span class="required">*</span>
                       <select aria-label="Default select example" name="op_pengisi" class="form-select  @error('operatorPengisi') is-invalid @enderror" id="operatorPengisi" required>
-                        <option selected>Pilih Nama Operator</option>
+                        <option selected disabled hidden>Pilih Nama Operator</option>
                         <option value="1">Ady</option>
                         <option value="2">Rika</option>
                       </select>
@@ -126,7 +126,7 @@
                             <option value="{{ $ipa->ipa_no }}">{{ $ipa->ipa_no }}</option>
                           @endforeach
                         </select>
-                        <button class="btn btn-outline-dark mt-3" onclick="createNewIPA();">IPA Tidak Terdaftar</button>
+                        <button type="button" class="btn btn-outline-dark mt-3" onclick="createNewIPA();">IPA Belum Terdaftar</button>
                         <label>klik jika IPA belum terdaftar</label>
                       </div>
                       <input type="text" name="ipa_no" class="form-control" id="nomorIPA">
@@ -192,20 +192,20 @@
                 <h4 class=" border-bottom">Permohonan Pembayaran (PP)</h4>
                 <p class="text-muted">Kosongkan Bila Belum Memiliki PP</p>
                 <div class="col-sm-4 mt-2">
-                        <div class="mb-3">
-                          <label for="nomorPP" class="form-label">Nomor PP</label>
-                          <div id="pppp">
-                            <select class="form-select" name="pp_no" id="pp">
-                              @foreach ($pp_list as $pp)
-                                <option value="0" selected>PP</option>
-                                <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
-                              @endforeach
-                            </select>
-                            <button class="btn btn-outline-dark mt-3" onclick="createNewPP();">PP Belum Terdaftar</button>
-                            <label>klik jika PP belum terdaftar</label>
-                          </div>
-                          <input type="text" name="pp_no" class="form-control" id="nomorPP">
-                        </div>
+                  <div class="mb-3">
+                    <label for="nomorPP" class="form-label">Nomor PP</label>
+                    <div id="pppp">
+                      <select class="form-select" name="pp_no" id="pp">
+                        @foreach ($pp_list as $pp)
+                          <option value="0" selected>PP</option>
+                          <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
+                        @endforeach
+                      </select>
+                      <button type="button" class="btn btn-outline-dark mt-3" onclick="createNewPP();">PP Belum Terdaftar</button>
+                      <label>klik jika PP belum terdaftar</label>
+                    </div>
+                    <input type="text" name="pp_no" class="form-control" id="nomorPP">
+                  </div>
                 </div>
                 <div class="row" id="newPP">
                   <div class="col-sm-4 mt-2">
