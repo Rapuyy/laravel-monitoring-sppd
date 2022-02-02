@@ -197,9 +197,9 @@
                   @elseif($sppd->status == "13")
                   <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP masuk Finance</a></span>
                   @elseif($sppd->status == "14")
-                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP Selesai</a></span>
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP Selesai dari Finance</a></span>
                   @else
-                  <button class="btn btn-secondary" disabled>PP Selesai</button></span>
+                  <button class="btn btn-secondary" disabled>PP Selesai dari Finance</button></span>
                   @endif
                 <div class="col-sm-4 mt-2">
                         <div class="mb-3">
@@ -240,7 +240,7 @@
                           <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP" value="{{ $sppd->pp_tgl_diajukan }}" readonly>
                         </div>
                         <div class="mb-3">
-                          <label for="selesaiPP" class="form-label">Tanggal PP selesai</label>
+                          <label for="selesaiPP" class="form-label">Tanggal PP Selesai dari Finance</label>
                           <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaiPP" value="{{ $sppd->pp_tgl_selesai }}" readonly>
                         </div>
                 </div>
@@ -260,7 +260,7 @@
           <tr>
             <td class="table-status-ipa">Diajukan</td>
             <td class="table-status-ipa">Disetujui</td>
-            <td class="table-status-ipa">Di Finance</td>
+            <td class="table-status-ipa">Pengajuan ke Finance</td>
             <td class="table-status-ipa">Selesai</td>
             <td>Total</td>
           </tr>
@@ -279,7 +279,7 @@
           <tr>
             <td class="table-status-pp">Diajukan</td>
             <td class="table-status-pp">Disetujui</td>
-            <td class="table-status-pp">Di Finance</td>
+            <td class="table-status-pp">Pengajuan ke Finance</td>
             <td class="table-status-pp">Selesai</td>
             <td>Total</td>
           </tr>

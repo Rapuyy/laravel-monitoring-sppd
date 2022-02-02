@@ -59,7 +59,7 @@
                                 @elseif ($sppd->status == "14")
                                     {{ __('PP Menunggu Kembali dari Divisi Finansial') }}   
                                 @elseif ($sppd->status == "15")
-                                    {{ __('PP Selesai') }}  
+                                    {{ __('PP Selesai dari Finance') }}  
                                 @endif
                             </td>
                             <td align="center">

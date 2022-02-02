@@ -224,7 +224,7 @@
                             <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP">
                           </div>
                           <div class="mb-3">
-                            <label for="selesaiPP" class="form-label">Tanggal PP Selesai</label>
+                            <label for="selesaiPP" class="form-label">Tanggal PP Selesai dari Finance</label>
                             <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaiPP">
                           </div>
                   </div>

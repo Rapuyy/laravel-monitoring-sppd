@@ -86,7 +86,7 @@
           <tr>
             <td class="table-status-ipa">Diajukan</td>
             <td class="table-status-ipa">Disetujui</td>
-            <td class="table-status-ipa">Di Finance</td>
+            <td class="table-status-ipa">Pengajuan ke Finance</td>
             <td class="table-status-ipa">Selesai</td>
             <td>Total</td>
           </tr>

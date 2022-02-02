@@ -18,9 +18,9 @@
                   @elseif($pp->pp_status == "13")
                   <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP masuk Finance</a></span>
                   @elseif($pp->pp_status == "14")
-                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP Selesai</a></span>
+                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP Selesai dari Finance</a></span>
                   @else
-                  <button class="btn btn-secondary" disabled>PP Selesai</button></span>
+                  <button class="btn btn-secondary" disabled>PP Selesai dari Finance</button></span>
                   @endif
                 <div class="col-sm-4 mt-2">
                     <div class="mb-3">
@@ -28,7 +28,7 @@
                       <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanpp" value="{{ $pp->pp_tgl_diajukan }}" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="selesaipp" class="form-label">Tanggal PP Selesai</label>
+                        <label for="selesaipp" class="form-label">Tanggal PP Selesai dari Finance</label>
                         <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaipp" value="{{ $pp->pp_tgl_selesai }}" readonly>
                     </div>
                 </div>
@@ -70,12 +70,12 @@
                 <h3>Status PP</h3>
                 <table class="table table-bordered ket-status text-center table-pp">
                   <tr>
-                    <td colspan="5">pp</td>
+                    <td colspan="5">PP</td>
                   </tr>
                   <tr>
                     <td class="table-status-pp">Diajukan</td>
                     <td class="table-status-pp">Disetujui</td>
-                    <td class="table-status-pp">Di Finance</td>
+                    <td class="table-status-pp">Pengajuan ke Finance</td>
                     <td class="table-status-pp">Selesai</td>
                     <td>Total</td>
                   </tr>
