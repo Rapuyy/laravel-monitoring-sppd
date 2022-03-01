@@ -44,7 +44,7 @@
                         @elseif ($ipa->status == "13")
                             {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
                         @elseif ($ipa->status == "14")
-                            {{ __('PP Menunggu Kembali dari Unit Finance') }}   
+                            {{ __('PP Sudah Dikirim ke Unit Finance') }}   
                         @elseif ($ipa->status == "15")
                             {{ __('PP Selesai dari Finance') }}  
                         @endif

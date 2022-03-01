@@ -16,7 +16,7 @@
             <thead class="text-center">
                 <tr>
                     <th>Nomor</th>
-                    <th>Nomor SPPD</th>
+                    <th>Nomor SPMPD</th>
                     <th>Tanggal Masuk</th>
                     <th>Nama Pegawai</th>
                     <th>Unit</th>
@@ -55,7 +55,7 @@
                         @elseif ($sppd->status == "13")
                             {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
                         @elseif ($sppd->status == "14")
-                            {{ __('PP Menunggu Kembali dari Unit Fin') }}   
+                            {{ __('PP Sudah Dikirim ke Unit Fin') }}   
                         @elseif ($sppd->status == "15")
                             {{ __('PP Selesai dari Finance') }}  
                         @endif
@@ -91,7 +91,7 @@
         <div class="modal-body" id="exampleModalBody">
             <table class="table table-borderless">
                 <tr>
-                    <td class="fw-bold">Nomor SPPD : </td>
+                    <td class="fw-bold">Nomor SPMPD : </td>
                     <td id="sppd_no">{{ $sppd->sppd_no}}</td>
                 </tr>
                 <tr>

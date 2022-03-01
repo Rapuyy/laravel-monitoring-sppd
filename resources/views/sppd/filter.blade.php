@@ -57,7 +57,7 @@
                                 @elseif ($sppd->status == "13")
                                     {{ __('PP Menunggu Dikirim ke Divisi Finansial') }}  
                                 @elseif ($sppd->status == "14")
-                                    {{ __('PP Menunggu Kembali dari Divisi Finansial') }}   
+                                    {{ __('PP Sudah Dikirim ke Divisi Finansial') }}   
                                 @elseif ($sppd->status == "15")
                                     {{ __('PP Selesai dari Finance') }}  
                                 @endif

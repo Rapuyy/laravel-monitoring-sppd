@@ -38,7 +38,7 @@ class SppdSeeder extends Seeder
                 'id' => '1',
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
-                'password' => '$2y$10$1FPo/sm8iqvgKHXfU8cQF.1bMzzKwnsZK/ngrkyZhoDXhVg4K2zCS',
+                'password' => '$2y$10$1FPo/sm8iqvgKHXfU8cQF.1bMzzKwnsZK/ngrkyZhoDXhVg4K2zCS', //admin123
             ],
         ]);
     }

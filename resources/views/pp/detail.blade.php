@@ -18,48 +18,48 @@
                   @elseif($pp->pp_status == "13")
                   <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP masuk Finance</a></span>
                   @elseif($pp->pp_status == "14")
-                  <a href="/" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">PP Selesai dari Finance</a></span>
-                  @else
-                  <button class="btn btn-secondary" disabled>PP Selesai dari Finance</button></span>
+                  <a class="btn btn-secondary" disabled>PP Telah dikirim ke Finance</a></span>
+                  {{-- @else
+                  <button class="btn btn-secondary" disabled>PP Selesai dari Finance</button></span> --}}
                   @endif
                 <div class="col-sm-4 mt-2">
+                  <div class="mb-3">
+                    <label for="nomorpp" class="form-label">Nomor PP</label>
+                    <input type="text" name="pp_no" class="form-control" id="nomorpp" value="{{ $pp->pp_no }}">
+                    @if (!$pp->pp_no)
+                      <select name="pp_no" id="pp">
+                        <option value="0" selected>PP</option>
+                        @foreach ($pp_list as $pp)
+                          <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
+                        @endforeach
+                      </select>
+                    @endif
+                  </div>
                     <div class="mb-3">
-                      <label for="ajukanpp" class="form-label">Tanggal PP diajukan</label>
-                      <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanpp" value="{{ $pp->pp_tgl_diajukan }}" readonly>
+                      <label for="approvepp" class="form-label">Tanggal PP disetujui</label>
+                      <input type="date" name="pp_tgl_approval" class="form-control" id="approvepp" value="{{ $pp->pp_tgl_approval }}" readonly>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="selesaipp" class="form-label">Tanggal PP Selesai dari Finance</label>
                         <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaipp" value="{{ $pp->pp_tgl_selesai }}" readonly>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-sm-4 mt-2">
                       <div class="mb-3">
-                        <label for="nomorpp" class="form-label">Nomor PP</label>
-                        <input type="text" name="pp_no" class="form-control" id="nomorpp" value="{{ $pp->pp_no }}">
-                        @if (!$pp->pp_no)
-                          <select name="pp_no" id="pp">
-                            <option value="0" selected>PP</option>
-                            @foreach ($pp_list as $pp)
-                              <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
-                            @endforeach
-                          </select>
-                        @endif
+                        <label for="buatpp" class="form-label">Tanggal PP dibuat</label>
+                        <input type="date" name="pp_tgl_dibuat" class="form-control" id="datepp" value="{{ $pp->pp_tgl_dibuat }}" readonly>
                       </div>
-                        <div class="mb-3">
-                           <label for="approvepp" class="form-label">Tanggal PP disetujui</label>
-                           <input type="date" name="pp_tgl_approval" class="form-control" id="approvepp" value="{{ $pp->pp_tgl_approval }}" readonly>
-                        </div>
+                      <div class="mb-3">
+                        <label for="financepp" class="form-label">Tanggal PP masuk ke Finance</label>
+                        <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financepp" value="{{ $pp->pp_tgl_msk_finance }}" readonly>
+                      </div>
                         <div class="mb-3">
                       </div>
                 </div>
                 <div class="col-sm-4 mt-2">
                   <div class="mb-3">
-                      <label for="buatpp" class="form-label">Tanggal PP dibuat</label>
-                      <input type="date" name="pp_tgl_dibuat" class="form-control" id="datepp" value="{{ $pp->pp_tgl_dibuat }}" readonly>
-                  </div>
-                  <div class="mb-3">
-                    <label for="financepp" class="form-label">Tanggal PP masuk ke Finance</label>
-                    <input type="date" name="pp_tgl_msk_finance" class="form-control" id="financepp" value="{{ $pp->pp_tgl_msk_finance }}" readonly>
+                    <label for="ajukanpp" class="form-label">Tanggal PP diajukan</label>
+                    <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanpp" value="{{ $pp->pp_tgl_diajukan }}" readonly>
                   </div>
                   <div class="mb-3">
                   </div>
@@ -76,15 +76,15 @@
                     <td class="table-status-pp">Diajukan</td>
                     <td class="table-status-pp">Disetujui</td>
                     <td class="table-status-pp">Pengajuan ke Finance</td>
-                    <td class="table-status-pp">Selesai</td>
+                    {{-- <td class="table-status-pp">Selesai</td> --}}
                     <td>Total</td>
                   </tr>
                   <tr>
                     <td class="table-hari-pp">{{ $progres->pp_1 }} hari</td>
                     <td class="table-hari-pp">{{ $progres->pp_2 }} hari</td>
                     <td class="table-hari-pp">{{ $progres->pp_3 }} hari</td>
-                    <td class="table-hari-pp">{{ $progres->pp_4 }} hari</td>
-                    @if ($pp->pp_status == "15")
+                    {{-- <td class="table-hari-pp">{{ $progres->pp_4 }} hari</td> --}}
+                    @if ($pp->pp_status == "14")
                       <td class="table-hari-pp">{{ $progres->pp_selesai }} hari</td>
                     @else
                       <td class="table-hari-pp">{{ $progres->pp }} hari</td>

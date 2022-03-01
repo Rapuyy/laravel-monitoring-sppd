@@ -17,7 +17,7 @@ class SppdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'indexIPA', 'indexPP']]);
+        $this->middleware('auth', ['except' => ['index', 'indexSPPD', 'indexIPA', 'indexPP']]);
     }
 
     public function validateStatus($sppd, $ipa, $pp) //dipake store sama update
@@ -823,7 +823,7 @@ class SppdController extends Controller
         DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_approval)  as pp_3, 
         DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_msk_finance)  as pp_4,
         DATEDIFF(curdate(), pp.pp_tgl_dibuat)  as pp,
-        DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat)  as pp_selesai
+        DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_dibuat)  as pp_selesai
         from pp
         left join `sppd` on `sppd`.`pp_no` = `pp`.`pp_no`
         left join `ipa` on `sppd`.`ipa_no` = `ipa`.`ipa_no` 

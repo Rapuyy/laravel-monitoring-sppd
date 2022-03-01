@@ -42,7 +42,7 @@
                         @elseif ($pp->status == "13")
                             {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
                         @elseif ($pp->status == "14")
-                            {{ __('PP Menunggu Kembali dari Unit Finance') }}   
+                            {{ __('PP Sudah Dikirim ke Unit Finance') }}   
                         @elseif ($pp->status == "15")
                             {{ __('PP Selesai dari Finance') }}  
                         @endif
@@ -69,7 +69,7 @@
                 <p>Beberapa PP sudah hampir melewati tenggat waktu, ingatkan pihak terkait agar dapat menyelesaikan tepat waktu.</p>
                 <table class="table table-borderless table-condensed table-hover">
                     @foreach ($pp_list as $pp)
-                        @if ($pp->diff > 3 && $pp->status < 15)
+                        @if ($pp->diff > 3 && $pp->status < 14)
                         {{-- @if ($pp->diff > 3 && $pp->status < 10) --}}
                         <tr class="align-middle text-center">
                             <td class="warningpp" id="warningpp">{{ $pp->pp_no }}</td>
@@ -82,7 +82,7 @@
                             @elseif ($pp->status == "13")
                                 {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
                             @elseif ($pp->status == "14")
-                                {{ __('PP Menunggu Kembali dari Unit Finance') }}   
+                                {{ __('PP Sudah Dikirim ke Unit Finance') }}   
                             @elseif ($pp->status == "15")
                                 {{ __('PP Selesai dari Finance') }}  
                             @endif

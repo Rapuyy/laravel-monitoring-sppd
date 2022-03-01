@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-sm-8 mt-2">
                       <div class="mb-3">
-                        <label for="sppd_no" class="form-label">Nomor SPPD</label>
+                        <label for="sppd_no" class="form-label">Nomor SPMPD</label>
                         <span>*</span>
                         <input type="text" name="sppd_no" class="form-control @error('sppd_no') is-invalid @enderror" id="sppd_no" required readonly value="{{ $sppd->sppd_no }}">
                         @error('sppd_no')

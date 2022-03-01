@@ -81,7 +81,7 @@
                         </div>
                 <div class="col-sm-8">
                           <div class="mb-3">
-                              <label for="nomorSPPD" class="form-label">Nomor SPPD</label>
+                              <label for="nomorSPPD" class="form-label">Nomor SPMPD</label>
                               <span class="required">*</span>
                               <input type="text" name="sppd_no" class="form-control @error('nomorSPPD') is-invalid @enderror" id="nomorSPPD" required>
                               @error('nomorSPPD')
