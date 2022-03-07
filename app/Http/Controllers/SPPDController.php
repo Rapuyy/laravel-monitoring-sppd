@@ -17,47 +17,51 @@ class SppdController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'indexSPPD', 'indexIPA', 'indexPP']]);
+        $this->middleware('auth', ['except' => ['index']]);
     }
 
-    public function validateStatus($sppd, $ipa, $pp) //dipake store sama update
+    public function validateStatus($sppd, ?IPA $ipa, ?PP $pp) //dipake store sama update
     {
         // dd($ipa, $pp, $sppd);
         //nanti kayanya mesti null nullan disini deh
         if ($sppd->sppd_no) { //ipa
-            $sppd->status = 0;
+            $sppd->status = '0';
             if ($ipa) {
-            if ($ipa->ipa_tgl_dibuat && $sppd->ipa_no) {
-                $sppd->status = 1;
-                if ($ipa->ipa_tgl_diajukan) {
-                    $sppd->status = 2;
-                    if ($ipa->ipa_tgl_approval) {
-                        $sppd->status = 3;
-                        if ($ipa->ipa_tgl_msk_finance) {
-                            $sppd->status = 4;
-                            if ($ipa->ipa_tgl_selesai) {
-                                $sppd->status = 10;
-                                if ($sppd->pp_no && $pp->pp_tgl_dibuat) {
-                                    $sppd->status = 11; //pp
-                                    if ($pp->pp_tgl_diajukan) {
-                                        $sppd->status = 12;
-                                        if ($pp->pp_tgl_approval) {
-                                            $sppd->status = 13;
-                                            if ($pp->pp_tgl_msk_finance) {
-                                                $sppd->status = 14;
-                                                if ($pp->pp_tgl_selesai) {
-                                                    $sppd->status = 15;
+                if ($ipa->ipa_tgl_dibuat && $sppd->ipa_no) {
+                    $sppd->status = '1';
+                    if ($ipa->ipa_tgl_diajukan) {
+                        $sppd->status = '2';
+                        if ($ipa->ipa_tgl_approval) {
+                            $sppd->status = '3';
+                            if ($ipa->ipa_tgl_msk_finance) {
+                                $sppd->status = '4';
+                                if ($ipa->ipa_tgl_selesai) {
+                                    $sppd->status = '10';
+                                    if ($pp) {
+                                        if ($sppd->pp_no && $pp->pp_tgl_dibuat) {
+                                            $sppd->status = '11'; //pp
+                                            if ($pp->pp_tgl_diajukan) {
+                                                $sppd->status = '12';
+                                                if ($pp->pp_tgl_approval) {
+                                                    $sppd->status = '13';
+                                                    if ($pp->pp_tgl_msk_finance) {
+                                                        $sppd->status = '14';
+                                                        if ($pp->pp_tgl_selesai) {
+                                                            $sppd->status = '15';
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+                                    else return $sppd->status;
                                 }
                             }
                         }
                     }
                 }
-                }
             }
+            else return $sppd->status;
         }
 
         return $sppd->status;
@@ -114,7 +118,6 @@ class SppdController extends Controller
         $sppd->pp_tgl_selesai = $request->pp_tgl_selesai;
 
         $sppd->status = $this->validateStatus($sppd);
-
         $simpan = $sppd->update();
 
         if($simpan){
@@ -417,25 +420,25 @@ class SppdController extends Controller
 
         foreach ($pp_list as $pp) {
             if ($pp->pp) {
-                if ($pp->pp < 3) $status['greenPP']++;
-                else if ($pp->pp >= 3 && $pp->pp < 10) $status['yellowPP']++;
+                if ($pp->pp < 5) $status['greenPP']++;
+                else if ($pp->pp >= 5 && $pp->pp < 10) $status['yellowPP']++;
                 else if ($pp->pp >=10 && $pp->pp != 999) $status['redPP']++;
             }
             else {
-                if ($pp->pp < 3) $status['greenPP']++;
-                else if ($pp->pp >= 3 && $pp->pp < 10) $status['yellowPP']++;
+                if ($pp->pp < 5) $status['greenPP']++;
+                else if ($pp->pp >= 5 && $pp->pp < 10) $status['yellowPP']++;
                 else if ($pp->pp >=10 && $pp->pp != 999) $status['redPP']++;
             }
         }
         foreach ($ipa_list as $ipa) {
             if ($ipa->ipa) {
-                if ($ipa->ipa < 3) $status['greenIPA']++;
-                else if ($ipa->ipa >= 3 && $ipa->ipa < 10) $status['yellowIPA']++;
+                if ($ipa->ipa < 5) $status['greenIPA']++;
+                else if ($ipa->ipa >= 5 && $ipa->ipa < 10) $status['yellowIPA']++;
                 else if ($ipa->ipa >=10 && $ipa->ipa != 999) $status['redIPA']++;
             }
             else {
-                if ($ipa->ipa < 3) $status['greenIPA']++;
-                else if ($ipa->ipa >= 3 && $ipa->ipa < 10) $status['yellowIPA']++;
+                if ($ipa->ipa < 5) $status['greenIPA']++;
+                else if ($ipa->ipa >= 5 && $ipa->ipa < 10) $status['yellowIPA']++;
                 else if ($ipa->ipa >=10 && $ipa->ipa != 999) $status['redIPA']++;
             }
         }
@@ -482,10 +485,6 @@ class SppdController extends Controller
                 $diff3 = $today->diffindays($sppd->pp_tgl_approval);
             }
             else if ($sppd->status == 14) {
-                $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
-                $diff3 = $today->diffindays($sppd->pp_tgl_msk_finance);
-            }
-            else if ($sppd->status == 15) {
                 $diff = 999;
                 $status['done']++;
 
@@ -532,8 +531,7 @@ class SppdController extends Controller
             DATEDIFF(pp.pp_tgl_diajukan, pp.pp_tgl_dibuat)  as pp_1, 
             DATEDIFF(pp.pp_tgl_approval, pp.pp_tgl_diajukan)  as pp_2, 
             DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_approval)  as pp_3, 
-            DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_msk_finance)  as pp_4,
-            DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat)  as pp
+            DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_dibuat)  as pp
             from sppd
             left join `ipa` on `sppd`.`ipa_no` = `ipa`.`ipa_no` 
 			left join `pp` on `sppd`.`pp_no` = `pp`.`pp_no`
@@ -592,9 +590,7 @@ class SppdController extends Controller
                 $diff = $today->diffindays($sppd->pp_tgl_approval);
             }
             else if ($sppd->status == 14) {
-                $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
-            }
-            else if ($sppd->status == 15) {
+                // $diff = $today->diffindays($sppd->pp_tgl_msk_finance);
                 $diff = 999;
             }
             else return abort(404);
@@ -844,98 +840,185 @@ class SppdController extends Controller
 
     public function store(Request $request)
     {
-        $sppd = new Sppd;
-        
-        if ($request->ipa_no) { //case ipa baru dibuat
-            $ipa = new Ipa;
-            
-            $ipa->ipa_no = $request->ipa_no;
-            $ipa->ipa_status = '0';
-            if ($request->ipa_tgl_dibuat) {
-                $ipa->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
-                $ipa->ipa_status = '1';
-            }
-            if ($request->ipa_tgl_diajukan) {
-                $ipa->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
-                $ipa->ipa_status = '2';
-            }
-            if ($request->ipa_tgl_dibuat) {
-                $ipa->ipa_tgl_approval = $request->ipa_tgl_approval;
-                $ipa->ipa_status = '3';
-            }
-            if ($request->ipa_tgl_msk_finance) {
-                $ipa->ipa_tgl_msk_finance = $request->ipa_tgl_msk_finance;
-                $ipa->ipa_status = '4';
-            }
-            if ($request->ipa_tgl_selesai) {
-                $ipa->ipa_tgl_selesai = $request->ipa_tgl_selesai;
-                $ipa->ipa_status = '10';
-            }
-            
-            $ipa->ipa_nilai = $request->ipa_nilai;
-            $ipa->sumber_dana = $request->sumber_dana;
-            // dd($ipa);
-            $simpan_ipa = $ipa->save();
-            // if (!$simpan_ipa) {
-            //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
-            //     return redirect()->route('sppd.add');
-            // }
-            
-        }    
-        else {
-            $ipa = IPA::where('ipa_no', $request->ipa_no)->first();
-        }   
-        
-        
-        if ($request->pp_no) {//case pp baru dibuat
-            $pp = new Pp;
-            
-            $pp->pp_no = $request->pp_no;
-            $pp->pp_status = '10';
-            if ($request->pp_tgl_dibuat) {
-                $pp->pp_tgl_dibuat = $request->pp_tgl_dibuat;
-                $pp->pp_status = '11';
-            }
-            if ($request->pp_tgl_diajukan) {
-                $pp->pp_tgl_diajukan = $request->pp_tgl_diajukan;
-                $pp->pp_status = '12';
-            }
-            if ($request->pp_tgl_approval) {
-                $pp->pp_tgl_approval = $request->pp_tgl_approval;
-                $pp->pp_status = '13';
-            }
-            if ($request->pp_tgl_msk_finance) {
-                $pp->pp_tgl_msk_finance = $request->pp_tgl_msk_finance;
-                $pp->pp_status = '14';
-            }
-            if ($request->pp_tgl_selesai) {
-                $pp->pp_tgl_selesai = $request->pp_tgl_selesai;
-                $pp->pp_status = '15';
-            }
-            $simpan_pp = $pp->save();
-            // if (!$simpan_pp) {
-            //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
-            //     return redirect()->route('sppd.add');
-            // }
-        }
-        else {
-            $pp = PP::where('pp_no', $request->pp_no)->first();
 
+        $sppd = new Sppd;
+        $ipa = null;
+        $pp = null;
+
+        // dd($request);
+
+        if (!$request->ipa_no || $request->ipa_no == '0'){
+            $request->ipa_no == null;
         }
+        else{
+            $ipa = IPA::where('ipa_no', $request->ipa_no)->first();
+            if ($ipa) {
+                $request->ipa_no == $ipa->ipa_no;
+            }
+            else {
+                $ipa = new Ipa;
+            
+                $ipa->ipa_no = $request->ipa_no;
+                $ipa->ipa_status = '0';
+                if ($request->ipa_tgl_dibuat) {
+                    $ipa->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
+                    $ipa->ipa_status = '1';
+                }
+                if ($request->ipa_tgl_diajukan) {
+                    $ipa->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
+                    $ipa->ipa_status = '2';
+                }
+                if ($request->ipa_tgl_dibuat) {
+                    $ipa->ipa_tgl_approval = $request->ipa_tgl_approval;
+                    $ipa->ipa_status = '3';
+                }
+                if ($request->ipa_tgl_msk_finance) {
+                    $ipa->ipa_tgl_msk_finance = $request->ipa_tgl_msk_finance;
+                    $ipa->ipa_status = '4';
+                }
+                if ($request->ipa_tgl_selesai) {
+                    $ipa->ipa_tgl_selesai = $request->ipa_tgl_selesai;
+                    $ipa->ipa_status = '10';
+                }
+                
+                $ipa->ipa_nilai = $request->ipa_nilai;
+                $ipa->sumber_dana = $request->sumber_dana;
+                // dd($ipa);
+                $simpan_ipa = $ipa->save();
+                // if (!$simpan_ipa) {
+                //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
+                //     return redirect()->route('sppd.add');
+                // }
+            }
+        }
+
+        // if (!$request->ipa_no) { //case ipa baru dibuat
+        //     $ipa = new Ipa;
+            
+        //     $ipa->ipa_no = $request->ipa_no;
+        //     $ipa->ipa_status = '0';
+        //     if ($request->ipa_tgl_dibuat) {
+        //         $ipa->ipa_tgl_dibuat = $request->ipa_tgl_dibuat;
+        //         $ipa->ipa_status = '1';
+        //     }
+        //     if ($request->ipa_tgl_diajukan) {
+        //         $ipa->ipa_tgl_diajukan = $request->ipa_tgl_diajukan;
+        //         $ipa->ipa_status = '2';
+        //     }
+        //     if ($request->ipa_tgl_dibuat) {
+        //         $ipa->ipa_tgl_approval = $request->ipa_tgl_approval;
+        //         $ipa->ipa_status = '3';
+        //     }
+        //     if ($request->ipa_tgl_msk_finance) {
+        //         $ipa->ipa_tgl_msk_finance = $request->ipa_tgl_msk_finance;
+        //         $ipa->ipa_status = '4';
+        //     }
+        //     if ($request->ipa_tgl_selesai) {
+        //         $ipa->ipa_tgl_selesai = $request->ipa_tgl_selesai;
+        //         $ipa->ipa_status = '10';
+        //     }
+            
+        //     $ipa->ipa_nilai = $request->ipa_nilai;
+        //     $ipa->sumber_dana = $request->sumber_dana;
+        //     // dd($ipa);
+        //     $simpan_ipa = $ipa->save();
+        //     // if (!$simpan_ipa) {
+        //     //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
+        //     //     return redirect()->route('sppd.add');
+        //     // }
+            
+        // }    
+        // else {
+        //     $ipa = IPA::where('ipa_no', $request->ipa_no)->first();
+        // }   
+        
+        if (!$request->pp_no || $request->pp_no == '0'){
+            $request->pp_no == null;
+        }
+        else{
+            $pp = PP::where('pp_no', $request->pp_no)->first();
+            if ($pp) {
+                $request->pp_no == $pp->pp_no;
+            }
+            else {
+                $pp = new Pp;
+                
+                $pp->pp_no = $request->pp_no;
+                $pp->pp_status = '10';
+                if ($request->pp_tgl_dibuat) {
+                    $pp->pp_tgl_dibuat = $request->pp_tgl_dibuat;
+                    $pp->pp_status = '11';
+                }
+                if ($request->pp_tgl_diajukan) {
+                    $pp->pp_tgl_diajukan = $request->pp_tgl_diajukan;
+                    $pp->pp_status = '12';
+                }
+                if ($request->pp_tgl_approval) {
+                    $pp->pp_tgl_approval = $request->pp_tgl_approval;
+                    $pp->pp_status = '13';
+                }
+                if ($request->pp_tgl_msk_finance) {
+                    $pp->pp_tgl_msk_finance = $request->pp_tgl_msk_finance;
+                    $pp->pp_status = '14';
+                }
+                if ($request->pp_tgl_selesai) {
+                    $pp->pp_tgl_selesai = $request->pp_tgl_selesai;
+                    $pp->pp_status = '15';
+                }
+                $simpan_pp = $pp->save();
+            }
+        }
+        
+        // if (!$request->pp_no) {//case pp baru dibuat
+        //     $pp = new Pp;
+            
+        //     $pp->pp_no = $request->pp_no;
+        //     $pp->pp_status = '10';
+        //     if ($request->pp_tgl_dibuat) {
+        //         $pp->pp_tgl_dibuat = $request->pp_tgl_dibuat;
+        //         $pp->pp_status = '11';
+        //     }
+        //     if ($request->pp_tgl_diajukan) {
+        //         $pp->pp_tgl_diajukan = $request->pp_tgl_diajukan;
+        //         $pp->pp_status = '12';
+        //     }
+        //     if ($request->pp_tgl_approval) {
+        //         $pp->pp_tgl_approval = $request->pp_tgl_approval;
+        //         $pp->pp_status = '13';
+        //     }
+        //     if ($request->pp_tgl_msk_finance) {
+        //         $pp->pp_tgl_msk_finance = $request->pp_tgl_msk_finance;
+        //         $pp->pp_status = '14';
+        //     }
+        //     if ($request->pp_tgl_selesai) {
+        //         $pp->pp_tgl_selesai = $request->pp_tgl_selesai;
+        //         $pp->pp_status = '15';
+        //     }
+        //     $simpan_pp = $pp->save();
+        //     // if (!$simpan_pp) {
+        //     //     Session::flash('errors', ['' => 'Penambahan gagal! Silahkan ulangi beberapa saat lagi']);
+        //     //     return redirect()->route('sppd.add');
+        //     // }
+        // }
+        // else {
+        //     $pp = PP::where('pp_no', $request->pp_no)->first();
+
+        // }
 
         $sppd->sppd_no = $request->sppd_no;
-        $sppd->ipa_no = $request->ipa_no;
-        $sppd->pp_no = $request->pp_no;
+
+        $sppd->ipa_no = (!$request->ipa_no || $request->ipa_no == '0') ? null : $request->ipa_no ;
+        // $sppd->ipa_no = $request->ipa_no;
+        $sppd->pp_no = (!$request->pp_no || $request->pp_no == '0') ? null : $request->pp_no ;
+        // $sppd->pp_no = $request->pp_no;
         $sppd->sppd_tujuan = $request->sppd_tujuan;
         $sppd->sppd_alasan = $request->sppd_alasan;
         $sppd->tgl_berangkat = $request->tgl_berangkat;
         $sppd->tgl_pulang = $request->tgl_pulang;
         $sppd->sppd_tgl_msk = $request->sppd_tgl_msk;
         $sppd->unit_kerja = $request->unit_kerja;
-        
-
+        $sppd->status = '0';
         $sppd->status = $this->validateStatus($sppd, $ipa, $pp);
-        
 
         $sppd->pegawai = implode(', ', $request->pegawai);
 

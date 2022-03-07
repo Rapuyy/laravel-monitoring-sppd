@@ -1,8 +1,8 @@
-@extends('layouts.main')
+@extends('dashboard.layout.main')
 
 @section('container')
 <div class="container">
-    <h2 class="mt-3 text-center fw-bold">Data Izin Permohonan Pembayaran</h2>  
+    <h3 class="mt-3 text-center fw-bold">Data Izin Permohonan Pembayaran</h3>  
     <!--Tabel Data-->
     <div class="tabel-list mt-3 table-responsive">
         <table class="table table-bordered tab align-middle text-center cell-border" id="tablesppd">
@@ -22,18 +22,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $pp->pp_no ? $pp->pp_no : "pp Belum diisi" }}</td>
                     <td>{{ $pp->pp_tgl_dibuat }}</td>
-                    <td>
-                        @if ($pp->status == "0")
-                            {{ __('IPA Belum Dibuat') }}
-                        @elseif ($pp->status == "1")
-                            {{ __('IPA Belum Diajukan') }}
-                        @elseif ($pp->status == "2")
-                            {{ __('IPA Menunggu Tanda Tangan Approval') }}
-                        @elseif ($pp->status == "3")
-                            {{ __('IPA Menunggu Dikirim ke Unit Finance') }}
-                        @elseif ($pp->status == "4")
-                            {{ __('IPA Menunggu Kembali dari Unit Finance') }}    
-                        @elseif ($pp->status == "10")
+                    <td> 
+                        @if ($pp->status == "10")
                             {{ __('IPA Sudah Selesai, PP Belum Dibuat') }}   
                         @elseif ($pp->status == "11")
                             {{ __('PP Belum Diajukan') }}
@@ -41,14 +31,14 @@
                             {{ __('PP Menunggu Tanda Tangan Approval') }}
                         @elseif ($pp->status == "13")
                             {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
-                        @elseif ($pp->status == "14")
+                        @elseif ($pp->status == "14" || $pp->status == "15")
                             {{ __('PP Sudah Dikirim ke Unit Finance') }}   
-                        @elseif ($pp->status == "15")
-                            {{ __('PP Selesai dari Finance') }}  
+                        {{-- @elseif ($pp->status == "15")
+                            {{ __('PP Selesai dari Finance') }}   --}}
                         @endif
                     </td>
                     <td align="center">
-                        <a href=" {{ route('pp.detail', ['id' => $pp->id]) }}" class="btn btn-info">Detail</a>
+                        <a href=" {{ route('pp.detail', ['id' => $pp->id]) }}" class="btn btn-info btn-sm">Detail</a>
                     </td>
                 </tr>
             @endforeach
@@ -69,7 +59,7 @@
                 <p>Beberapa PP sudah hampir melewati tenggat waktu, ingatkan pihak terkait agar dapat menyelesaikan tepat waktu.</p>
                 <table class="table table-borderless table-condensed table-hover">
                     @foreach ($pp_list as $pp)
-                        @if ($pp->diff > 3 && $pp->status < 14)
+                        @if ($pp->diff > 4 && $pp->status < 14)
                         {{-- @if ($pp->diff > 3 && $pp->status < 10) --}}
                         <tr class="align-middle text-center">
                             <td class="warningpp" id="warningpp">{{ $pp->pp_no }}</td>
@@ -114,15 +104,15 @@ $(".daypp").each(function () {
     var hari = parseInt($(this).text());
     var el = $(this).siblings('.warningpp');
     setInterval(function () {
-      if (hari < 4) {
+      if (hari < 5) {
         var color = el.css('background-color');
         el.css('background-color', color == 'rgb(144, 238, 144)' ? 'white' : 'lightgreen');
       }
-      else if((hari>3) && (hari<6)){
+      else if((hari>4) && (hari<10)){
         var color = el.css('background-color');
         el.css('background-color', color == 'rgb(255, 165, 0)' ? 'white' : 'orange');
       }
-      else if(hari > 5){
+      else if(hari >= 10){
         var color = el.css('background-color');
         el.css('background-color', color == 'rgb(255, 0, 0)' ? 'white' : 'red');
       }

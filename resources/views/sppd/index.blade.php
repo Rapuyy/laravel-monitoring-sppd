@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('dashboard.layout.main')
 
 @section('container')
 <div class="container">  
@@ -9,7 +9,7 @@
         {{-- <button class="btn btn-secondary" type="button">Lihat Status Ajuan SPPD</button> --}}
     </div>
 
-    <h2 class="mt-3 text-center fw-bold">Data Surat Perintah Perjalanan Dinas</h2>
+    <h3 class="mt-3 text-center fw-bold">Data Surat Permohonan Melakukan Perjalanan Dinas</h3>
     <!--Tabel Data-->
     <div class="tabel-list mt-3 table-responsive mb-5">
         <table class="table table-bordered tab align-middle text-center cell-border mb-2" id="tablesppd">
@@ -18,7 +18,6 @@
                     <th>Nomor</th>
                     <th>Nomor SPMPD</th>
                     <th>Tanggal Masuk</th>
-                    <th>Nama Pegawai</th>
                     <th>Unit</th>
                     <th>Tujuan</th>
                     <th>Status</th>
@@ -32,7 +31,6 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $sppd->sppd_no ? $sppd->sppd_no : "SPPD Belum diisi" }}</td>
                     <td>{{ $sppd->sppd_tgl_msk }}</td>
-                    <td>{{ $sppd->pegawai }}</td>
                     <td>{{ $sppd->unit_kerja }}</td>
                     <td>{{ $sppd->sppd_tujuan }}</td>
                     <td>
@@ -54,14 +52,14 @@
                             {{ __('PP Menunggu Tanda Tangan Approval') }}
                         @elseif ($sppd->status == "13")
                             {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
-                        @elseif ($sppd->status == "14")
-                            {{ __('PP Sudah Dikirim ke Unit Fin') }}   
-                        @elseif ($sppd->status == "15")
-                            {{ __('PP Selesai dari Finance') }}  
+                        @elseif ($sppd->status == "14" || $sppd->status == "15")
+                            {{ __('PP Sudah Dikirim ke Unit Finance') }}   
+                        {{-- @elseif ($sppd->status == "15")
+                            {{ __('PP Selesai dari Finance') }}   --}}
                         @endif
                     </td>
                     <td class="btn-group">
-                        <a id="detail" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                        <a id="detail" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" 
                         data-id="<?=$sppd->id?>"
                         data-sppd_no="<?=$sppd->sppd_no?>"
                         data-sppd_tgl_msk="<?=$sppd->sppd_tgl_msk?>"
@@ -71,7 +69,7 @@
                         data-sppd_alasan="<?=$sppd->sppd_alasan?>"
                         data-sppd_kendaraan="<?=$sppd->sppd_kendaraan?>"
                         data-ipa_no = "<?=$sppd->ipa_no?>">Detail</a>
-                        <a href=" {{ route('sppd.detil', ['id' => $sppd->id]) }}" class="btn btn-info ms-2">Perbarui</a>
+                        <a href=" {{ route('sppd.detil', ['id' => $sppd->id]) }}" class="btn btn-info ms-2 btn-sm">Perbarui</a>
                     </td>
                 </tr>
             @endforeach

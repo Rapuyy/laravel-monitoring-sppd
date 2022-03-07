@@ -1,8 +1,8 @@
-@extends('layouts.main')
+@extends('dashboard.layout.main')
 
 @section('container')
 <div class="container">
-    <h2 class="mt-3 text-center fw-bold">Data Izin Penggunaan Anggaran</h2>
+    <h3 class="mt-3 text-center fw-bold">Data Izin Penggunaan Anggaran</h3>
     <!--Tabel Data-->
     <div class="tabel-list mt-3 table-responsive">
         <table class="table table-bordered tab align-middle text-center cell-border" id="tableipa">
@@ -36,23 +36,13 @@
                         @elseif ($ipa->status == "4")
                             {{ __('IPA Menunggu Kembali dari Unit Finance') }}    
                         @elseif ($ipa->status == "10")
-                            {{ __('IPA Sudah Selesai, PP Belum Dibuat') }}   
-                        @elseif ($ipa->status == "11")
-                            {{ __('PP Belum Diajukan') }}
-                        @elseif ($ipa->status == "12")
-                            {{ __('PP Menunggu Tanda Tangan Approval') }}
-                        @elseif ($ipa->status == "13")
-                            {{ __('PP Menunggu Dikirim ke Unit Finance') }}  
-                        @elseif ($ipa->status == "14")
-                            {{ __('PP Sudah Dikirim ke Unit Finance') }}   
-                        @elseif ($ipa->status == "15")
-                            {{ __('PP Selesai dari Finance') }}  
+                            {{ __('IPA Sudah Selesai') }}   
                         @endif
                     </td>
                     <td>{{ $ipa->ipa_nilai }}</td>
                     <td>{{ $ipa->sumber_dana }}</td>
                     <td align="center">
-                        <a href=" {{ route('ipa.detail', ['id' => $ipa->id]) }}" class="btn btn-info">Detail</a>
+                        <a href=" {{ route('ipa.detail', ['id' => $ipa->id]) }}" class="btn btn-info btn-sm">Detail</a>
                     </td>
                 </tr>
             @endforeach
@@ -73,7 +63,7 @@
                 <p>Beberapa IPA sudah hampir melewati tenggat waktu, ingatkan pihak terkait agar dapat menyelesaikan tepat waktu.</p>
                 <table class="table table-borderless table-condensed table-hover">
                     @foreach ($ipa_list as $ipa)
-                        @if ($ipa->ipa > 3 && $ipa->status < 10)
+                        @if ($ipa->ipa > 4 && $ipa->status < 10)
                         {{-- @if ($ipa->diff > 3 && $ipa->status < 10) --}}
                         <tr class="align-middle text-center">
                             <td class="warningipa" id="warningipa">{{ $ipa->ipa_no }}</td>
@@ -88,7 +78,8 @@
                             @elseif ($ipa->status == "4")
                                 {{ __('IPA Menunggu Kembali dari Unit Finance') }}    
                             @elseif ($ipa->status == "10")
-                                {{ __('IPA Sudah Selesai, PP Belum Dibuat') }}  
+                                {{ __('IPA Sudah Selesai') }}  
+                            {{-- @else {{ __('test') }} --}}
                             @endif
                             </td>
                             <td>
@@ -133,15 +124,15 @@ $(".dayipa").each(function () {
     var hari = parseInt($(this).text());
     var el = $(this).siblings('.warningipa');
     setInterval(function () {
-      if (hari < 4) {
+      if (hari < 5) {
         var color = el.css('background-color');
         el.css('background-color', color == 'rgb(144, 238, 144)' ? 'white' : 'lightgreen');
       }
-      else if((hari>3) && (hari<6)){
+      else if((hari>4) && (hari<10)){
         var color = el.css('background-color');
         el.css('background-color', color == 'rgb(255, 165, 0)' ? 'white' : 'orange');
       }
-      else if(hari > 5){
+      else if(hari > 9){
         var color = el.css('background-color');
         el.css('background-color', color == 'rgb(255, 0, 0)' ? 'white' : 'red');
       }

@@ -1,6 +1,3 @@
-.navbar{
-    background-image: linear-gradient(to right, #000248, #0C4F89, #189ECC);
-}
 .footer{
     width: 100%;
     height: 50px;
@@ -25,23 +22,10 @@ width: 100%;
 }
 
 
-
-
 .required {
     color: red !important;
 }
 
-th{
-    text-align: center !important;
-}
-
-.btn-logout {
-    background-color: #000248 !important;
-}
-
-.btn-logout:hover {
-    background-color: #0C4F89 !important;
-}
 
 .bg-green {
     background-color: lightgreen;
@@ -50,3 +34,20 @@ th{
   .bg-red {
     background-color: red;
   }
+
+
+
+ #tablesppd thead th{
+    background-color: #000248 !important;
+    color: white !important;
+ }
+
+ #tableipa thead th{
+    background-color: #000248 !important;
+    color: white !important;
+ }
+
+ #tablepp thead th{
+    background-color: #000248 !important;
+    color: white !important;
+ }

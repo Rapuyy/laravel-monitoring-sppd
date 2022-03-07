@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('dashboard.layout.main')
 
 @section('container')
 <div class="container">  
@@ -7,10 +7,10 @@
         <div class="col-7 mt-4 table-responsive">
             <table class="table table-striped table-bordered">
                 <thead>
-                    <tr>
-                        <th class="table-success"><a href="{{ route('sppd.filter', ['filter' => "green"]) }}">< 3 hari</a></th>
-                        <th class="table-warning"><a href="{{ route('sppd.filter', ['filter' => "yellow"]) }}">3 - 10 hari</a></th>
-                        <th class="table-danger"><a href="{{ route('sppd.filter', ['filter' => "red"]) }}">Lebih dari 10 hari</a></th>
+                    <tr class="text-center">
+                        <th class="table-success"><a href="{{ route('sppd.filter', ['filter' => "green"]) }}">< 5 hari</a></th>
+                        <th class="table-warning"><a href="{{ route('sppd.filter', ['filter' => "yellow"]) }}">5 - 10 hari</a></th>
+                        <th class="table-danger"><a href="{{ route('sppd.filter', ['filter' => "red"]) }}"> > 10 hari</a></th>
                         <th><a href="{{ route('sppd.filter', ['filter' => "done"]) }}">Sudah selesai</a></th>
                     </tr>
                 </thead>
@@ -33,10 +33,10 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <div id="piechartIPA" style="width: 900px; height: 500px;"></div>
+            <div id="piechartIPA" style="width: 500px; height: 200px; border: 1px;" class="rounded"></div>
         </div>
         <div class="col-6">
-            <div id="piechartPP" style="width: 900px; height: 500px;"></div>
+            <div id="piechartPP" style="width: 500px; height: 200px; border: 1px;" class="rounded"></div>
         </div>
     </div>
 </div>
@@ -54,13 +54,13 @@
         var data = google.visualization.arrayToDataTable([
         ['Status', 'Jumlah'],
         ['Tepat Waktu', status.greenIPA],
-        ['Sedikit Telat', status.yellowIPA],
-        ['Telat', status.redIPA],
+        ['Sedikit Terlambat', status.yellowIPA],
+        ['Terlambat', status.redIPA],
         ]);
 
         var options = {
         title: 'Waktu Proses IPA', 'width':500, 'height':500,
-        colors: ['#00ff00', '#ffff00', '#ff0000'],
+        colors: ['#00ff00', '#ffae00', '#ff0000'],
         pieSliceText: 'value-and-percentage',
         pieSliceTextStyle: {
             color: 'black'
@@ -77,13 +77,13 @@
         var data = google.visualization.arrayToDataTable([
             ['Status', 'Jumlah'],
             ['Tepat Waktu', status.greenPP],
-            ['Sedikit Telat', status.yellowPP],
-            ['Telat', status.redPP],
+            ['Sedikit Terlambat', status.yellowPP],
+            ['Terlambat', status.redPP],
         ]);
 
         var options = {
             title: 'Waktu Proses PP', 'width':500, 'height':500,
-            colors: ['#00ff00', '#ffff00', '#ff0000'],
+            colors: ['#00ff00', '#ffae00', '#ff0000'],
             pieSliceText: 'value-and-percentage',
             pieSliceTextStyle: {
                 color: 'black'

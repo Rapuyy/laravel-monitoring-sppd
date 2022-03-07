@@ -2,9 +2,9 @@
   var hari = parseInt($(this).text());
   var index = $(this).index();
 
-  if ((hari >= 0) && (hari <= 4)) {
+  if ((hari >= 0) && (hari < 4)) {
     $('.table-status-ipa').eq(index).css('background-color', '#32CD32');
-  } else if ((hari > 4) && (hari <= 10)) {
+  } else if ((hari >= 4) && (hari <= 10)) {
     $('.table-status-ipa').eq(index).css('background-color', '#FFA500'); //'lightgoldenrodyellow');
   } else if (hari > 10) {
     $('.table-status-ipa').eq(index).css('background-color', '#CD5C5C');
@@ -18,9 +18,9 @@ $('.table-hari-pp').each(function () {
   var hari = parseInt($(this).text());
   var index = $(this).index();
 
-  if ((hari >= 0) && (hari <= 4)) {
+  if ((hari >= 0) && (hari < 4)) {
     $('.table-status-pp').eq(index).css('background-color', '#32CD32');
-  } else if ((hari > 4) && (hari <= 10)) {
+  } else if ((hari >= 4) && (hari <= 10)) {
     $('.table-status-pp').eq(index).css('background-color', '#FFA500'); //'lightgoldenrodyellow');
   } else if (hari > 10) {
     $('.table-status-pp').eq(index).css('background-color', '#CD5C5C');

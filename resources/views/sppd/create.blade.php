@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('dashboard.layout.main')
 
 @section('container')
 
@@ -117,7 +117,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                     </div>
-                    <div class="col-sm-4 mb-2">
+                    <div class="col-sm-4 mb-2" id="ipaDiv">
                       <label for="nomorIPA" class="form-label">Nomor IPA</label>
                       <div id="ipaipa">
                         <select class="form-select" name="ipa_no" id="ipa">
@@ -129,7 +129,7 @@
                         <button type="button" class="btn btn-outline-dark mt-3" onclick="createNewIPA();">IPA Belum Terdaftar</button>
                         <label>klik jika IPA belum terdaftar</label>
                       </div>
-                      <input type="text" name="ipa_no" class="form-control" id="nomorIPA">
+                      {{-- <input type="text" name="ipa_no" class="form-control" id="nomorIPA" placeholder="test"> --}}
                       </div>
                   </div>
 
@@ -157,7 +157,7 @@
                         </div>
                   </div>
             </div>
-            <div class="row" id="newIPA">
+            <div class="row">
                   <div class="col-sm-4 mt-2">
                           <div class="mb-3">
                             <label for="buatIPA" class="form-label">Tanggal IPA dibuat</label>
@@ -192,22 +192,22 @@
                 <h4 class=" border-bottom">Permohonan Pembayaran (PP)</h4>
                 <p class="text-muted">Kosongkan Bila Belum Memiliki PP</p>
                 <div class="col-sm-4 mt-2">
-                  <div class="mb-3">
+                  <div class="mb-3" id="ppDiv">
                     <label for="nomorPP" class="form-label">Nomor PP</label>
                     <div id="pppp">
                       <select class="form-select" name="pp_no" id="pp">
+                        <option value="0" selected>PP</option>
                         @foreach ($pp_list as $pp)
-                          <option value="0" selected>PP</option>
                           <option value="{{ $pp->pp_no }}">{{ $pp->pp_no }}</option>
                         @endforeach
                       </select>
                       <button type="button" class="btn btn-outline-dark mt-3" onclick="createNewPP();">PP Belum Terdaftar</button>
                       <label>klik jika PP belum terdaftar</label>
                     </div>
-                    <input type="text" name="pp_no" class="form-control" id="nomorPP">
+                    {{-- <input type="text" name="pp_no" class="form-control" id="nomorPP"> --}}
                   </div>
                 </div>
-                <div class="row" id="newPP">
+                <div class="row" id="newPP" style="display:none" >
                   <div class="col-sm-4 mt-2">
                           <div class="mb-3">
                             <label for="buatPP" class="form-label">Tanggal PP dibuat</label>
@@ -223,10 +223,10 @@
                             <label for="ajukanPP" class="form-label">Tanggal PP diajukan</label>
                             <input type="date" name="pp_tgl_diajukan" class="form-control" id="ajukanPP">
                           </div>
-                          <div class="mb-3">
+                          {{-- <div class="mb-3">
                             <label for="selesaiPP" class="form-label">Tanggal PP Selesai dari Finance</label>
                             <input type="date" name="pp_tgl_selesai" class="form-control" id="selesaiPP">
-                          </div>
+                          </div> --}}
                   </div>
                   <div class="col-sm-4 mt-2">
                         <div class="mb-3">
@@ -278,6 +278,14 @@
       var y = document.getElementById("nomorIPA");
       var z = document.getElementById("ipaipa");
 
+      // remove ipa selection
+      var ipaSelection = document.getElementById("ipaipa");
+      ipaSelection.remove();
+      // new ipa
+      var ipaNew = document.createElement('div'); 
+      ipaNew.innerHTML = "<input type='text' name='ipa_no' class='form-control' id='nomorIPA' placeholder='Nomor IPA'>";
+      document.getElementById("ipaDiv").appendChild(ipaNew);
+
       if (x.style.display === "none") {
       x.style.display="flex";
       y.style.display="block";
@@ -294,6 +302,14 @@
       var a = document.getElementById("newPP");
       var b = document.getElementById("nomorPP");
       var c = document.getElementById("pppp");
+
+      // remove pp selection
+      var ppSelection = document.getElementById("pppp");
+      ppSelection.remove();
+      // new pp
+      var ppNew = document.createElement('div'); 
+      ppNew.innerHTML = "<input type='text' name='pp_no' class='form-control' id='nomorPP' placeholder='Nomor PP'>";
+      document.getElementById("ppDiv").appendChild(ppNew);
 
       if (a.style.display === "none") {
       a.style.display="flex";
