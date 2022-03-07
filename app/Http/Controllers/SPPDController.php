@@ -390,10 +390,10 @@ class SppdController extends Controller
             ->orderByDesc('sppd.id')
             ->get();
         
-        $pp_list = Pp::select('pp.*', DB::raw("DATEDIFF(curdate(), pp.pp_tgl_dibuat) as pp, DATEDIFF(pp.pp_tgl_selesai, pp.pp_tgl_dibuat) as pp_selesai"))
+        $pp_list = Pp::select('pp.*', DB::raw("DATEDIFF(curdate(), pp.pp_tgl_dibuat) + 1 as pp, DATEDIFF(pp.pp_tgl_msk_finance, pp.pp_tgl_dibuat) + 1 as pp_selesai"))
             ->get();
 
-        $ipa_list = Ipa::select('ipa.*', DB::raw("DATEDIFF(curdate(), ipa.ipa_tgl_dibuat) as ipa, DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat) as ipa_selesai"))
+        $ipa_list = Ipa::select('ipa.*', DB::raw("DATEDIFF(curdate(), ipa.ipa_tgl_dibuat) + 1 as ipa, DATEDIFF(ipa.ipa_tgl_selesai, ipa.ipa_tgl_dibuat) + 1 as ipa_selesai"))
             ->get();
         
         $today = Carbon::now()->format('Y-m-d');
@@ -419,29 +419,30 @@ class SppdController extends Controller
         $diff3 = 0;
 
         foreach ($pp_list as $pp) {
-            if ($pp->pp) {
-                if ($pp->pp < 5) $status['greenPP']++;
-                else if ($pp->pp >= 5 && $pp->pp < 10) $status['yellowPP']++;
-                else if ($pp->pp >=10 && $pp->pp != 999) $status['redPP']++;
+            if ($pp->pp_selesai) {
+                if ($pp->pp_selesai < 6) $status['greenPP']++; //+1 biar query ga null
+                else if ($pp->pp_selesai >= 6 && $pp->pp_selesai < 11) $status['yellowPP']++;
+                else if ($pp->pp_selesai >= 11 && $pp->pp_selesai != 999) $status['redPP']++;
             }
             else {
-                if ($pp->pp < 5) $status['greenPP']++;
-                else if ($pp->pp >= 5 && $pp->pp < 10) $status['yellowPP']++;
-                else if ($pp->pp >=10 && $pp->pp != 999) $status['redPP']++;
+                if ($pp->pp < 6) $status['greenPP']++;
+                else if ($pp->pp >= 6 && $pp->pp < 11) $status['yellowPP']++;
+                else if ($pp->pp >= 11 && $pp->pp != 999) $status['redPP']++;
             }
         }
         foreach ($ipa_list as $ipa) {
-            if ($ipa->ipa) {
-                if ($ipa->ipa < 5) $status['greenIPA']++;
-                else if ($ipa->ipa >= 5 && $ipa->ipa < 10) $status['yellowIPA']++;
-                else if ($ipa->ipa >=10 && $ipa->ipa != 999) $status['redIPA']++;
+            if ($ipa->ipa_selesai) {
+                if ($ipa->ipa_selesai < 6) $status['greenIPA']++;
+                else if ($ipa->ipa_selesai >= 6 && $ipa->ipa_selesai < 11) $status['yellowIPA']++;
+                else if ($ipa->ipa_selesai >= 11 && $ipa->ipa_selesai != 999) $status['redIPA']++;
             }
             else {
-                if ($ipa->ipa < 5) $status['greenIPA']++;
-                else if ($ipa->ipa >= 5 && $ipa->ipa < 10) $status['yellowIPA']++;
-                else if ($ipa->ipa >=10 && $ipa->ipa != 999) $status['redIPA']++;
+                if ($ipa->ipa < 6) $status['greenIPA']++;
+                else if ($ipa->ipa >= 6 && $ipa->ipa < 11) $status['yellowIPA']++;
+                else if ($ipa->ipa >= 11 && $ipa->ipa != 999) $status['redIPA']++;
             }
         }
+        // dd($ipa_list);
 
         foreach ($sppd_list as $sppd) 
         {

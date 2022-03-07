@@ -17,7 +17,6 @@
                     <th>Aksi</th>
                 </tr>
             </thead> 
-            
             <tbody>
             @foreach ($ipa_list as $ipa)  
                 <tr>

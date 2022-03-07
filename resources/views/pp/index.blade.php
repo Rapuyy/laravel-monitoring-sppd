@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="container">
-    <h3 class="mt-3 text-center fw-bold">Data Izin Permohonan Pembayaran</h3>  
+    <h3 class="mt-3 text-center fw-bold">Data Permohonan Pembayaran</h3>  
     <!--Tabel Data-->
     <div class="tabel-list mt-3 table-responsive">
         <table class="table table-bordered tab align-middle text-center cell-border" id="tablesppd">
