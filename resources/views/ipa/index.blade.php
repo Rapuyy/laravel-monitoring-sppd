@@ -24,17 +24,17 @@
                     <td>{{ $ipa->ipa_no ? $ipa->ipa_no : "ipa Belum diisi" }}</td>
                     <td>{{ $ipa->ipa_tgl_dibuat }}</td>
                     <td>
-                        @if ($ipa->status == "0")
+                        @if ($ipa->ipa_status == "0")
                             {{ __('IPA Belum Dibuat') }}
-                        @elseif ($ipa->status == "1")
+                        @elseif ($ipa->ipa_status == "1")
                             {{ __('IPA Belum Diajukan') }}
-                        @elseif ($ipa->status == "2")
+                        @elseif ($ipa->ipa_status == "2")
                             {{ __('IPA Menunggu Tanda Tangan Approval') }}
-                        @elseif ($ipa->status == "3")
+                        @elseif ($ipa->ipa_status == "3")
                             {{ __('IPA Menunggu Dikirim ke Unit Finance') }}
-                        @elseif ($ipa->status == "4")
+                        @elseif ($ipa->ipa_status == "4")
                             {{ __('IPA Menunggu Kembali dari Unit Finance') }}    
-                        @elseif ($ipa->status == "10")
+                        @elseif ($ipa->ipa_status == "10")
                             {{ __('IPA Sudah Selesai') }}   
                         @endif
                     </td>
@@ -62,21 +62,21 @@
                 <p>Beberapa IPA sudah hampir melewati tenggat waktu, ingatkan pihak terkait agar dapat menyelesaikan tepat waktu.</p>
                 <table class="table table-borderless table-condensed table-hover">
                     @foreach ($ipa_list as $ipa)
-                        @if ($ipa->ipa > 4 && $ipa->status < 10)
-                        {{-- @if ($ipa->diff > 3 && $ipa->status < 10) --}}
+                        @if ($ipa->ipa > 4 && $ipa->ipa_status < 10)
+                        {{-- @if ($ipa->diff > 3 && $ipa->ipa_status < 10) --}}
                         <tr class="align-middle text-center">
                             <td class="warningipa" id="warningipa">{{ $ipa->ipa_no }}</td>
                             <td class="dayipa">{{ $ipa->ipa }} hari</td>
                             <td>
-                            @if ($ipa->status == "1")
+                            @if ($ipa->ipa_status == "1")
                                 {{ __('IPA Belum Diajukan') }}
-                            @elseif ($ipa->status == "2")
+                            @elseif ($ipa->ipa_status == "2")
                                 {{ __('IPA Menunggu Tanda Tangan Approval') }}
-                            @elseif ($ipa->status == "3")
+                            @elseif ($ipa->ipa_status == "3")
                                 {{ __('IPA Menunggu Dikirim ke Unit Finance') }}
-                            @elseif ($ipa->status == "4")
+                            @elseif ($ipa->ipa_status == "4")
                                 {{ __('IPA Menunggu Kembali dari Unit Finance') }}    
-                            @elseif ($ipa->status == "10")
+                            @elseif ($ipa->ipa_status == "10")
                                 {{ __('IPA Sudah Selesai') }}  
                             {{-- @else {{ __('test') }} --}}
                             @endif

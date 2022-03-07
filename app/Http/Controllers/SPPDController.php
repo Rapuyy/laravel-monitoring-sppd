@@ -442,7 +442,6 @@ class SppdController extends Controller
                 else if ($ipa->ipa >= 11 && $ipa->ipa != 999) $status['redIPA']++;
             }
         }
-        // dd($ipa_list);
 
         foreach ($sppd_list as $sppd) 
         {
